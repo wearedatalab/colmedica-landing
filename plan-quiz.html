@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encuentra tu plan ideal · Colmédica</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     TOKENS — Manual de Marca Colmédica
+     ============================================================ */
+  :root {
+    --blue-serenidad: #0058A2;
+    --blue-vital:     #009FE3;
+    --red-bienestar:  #E30613;
+    --blue-dark:      #003e73;
+    --blue-900:       #002a51;
+    --blue-soft:      #e8f3fc;
+    --ink:            #0e1a2b;
+    --ink-2:          #334256;
+    --muted:          #6a7890;
+    --line:           #dde6f1;
+    --radius:         16px;
+    --radius-lg:      22px;
+    --shadow-md:      0 12px 32px rgba(0, 60, 120, 0.14);
+    --shadow-lg:      0 24px 60px rgba(0, 30, 80, 0.25);
+    --ease:           cubic-bezier(.22, .61, .36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { min-height: 100vh; }
+  body {
+    font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-serenidad) 55%, var(--blue-vital) 120%);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:''; position: fixed; inset:0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 26px 26px; opacity: .5; z-index: 0;
+  }
+  button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+  .quiz-shell {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 2rem 1.2rem;
+  }
+
+  /* ============================================================
+     TOPBAR
+     ============================================================ */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #fff; max-width: 920px; width: 100%; margin: 0 auto 2rem;
+  }
+  .brand {
+    font-weight: 900; font-size: 1.05rem; letter-spacing: -.01em;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .brand-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-mark svg { width: 18px; height: 18px; color: #fff; }
+  .reset-btn {
+    color: rgba(255,255,255,.85); font-size: .85rem; font-weight: 600;
+    padding: .35rem .8rem; border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.22); transition: background .2s;
+  }
+  .reset-btn:hover { background: rgba(255,255,255,.15); }
+  .reset-btn[hidden] { display: none; }
+
+  /* ============================================================
+     PROGRESS BAR
+     ============================================================ */
+  .progress-wrap {
+    max-width: 920px; width: 100%; margin: 0 auto 1.6rem;
+    color: #fff;
+  }
+  .progress-wrap[hidden] { display: none; }
+  .progress-info {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .82rem; font-weight: 600; opacity: .9; margin-bottom: .45rem;
+  }
+  .progress-bar {
+    height: 6px; background: rgba(255,255,255,.18);
+    border-radius: 50px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0;
+    background: #8ed8ff;
+    border-radius: 50px;
+    transition: width .45s var(--ease);
+  }
+
+  /* ============================================================
+     SCREEN — generic container
+     ============================================================ */
+  .screen {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    max-width: 920px; width: 100%; margin: 0 auto;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    pointer-events: none;
+  }
+  .screen.is-active {
+    opacity: 1; transform: none; pointer-events: auto;
+  }
+  .screen[hidden] { display: none; }
+
+  /* ============================================================
+     INTRO SCREEN
+     ============================================================ */
+  .intro-card {
+    text-align: center; color: #fff; max-width: 620px;
+  }
+  .pill {
+    display: inline-block; background: rgba(255,255,255,.14);
+    padding: .4rem 1rem; border-radius: 50px;
+    font-size: .78rem; font-weight: 600; letter-spacing: .3px;
+    border: 1px solid rgba(255,255,255,.22);
+    margin-bottom: 1.2rem;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 900;
+    line-height: 1.1; letter-spacing: -.02em; margin-bottom: 1rem;
+  }
+  h1 em { font-style: normal; color: #8ed8ff; }
+  .intro-sub {
+    font-size: 1.05rem; line-height: 1.55;
+    color: rgba(255,255,255,.92); max-width: 520px;
+    margin: 0 auto 2rem;
+  }
+  .intro-cta {
+    background: var(--red-bienestar); color: #fff;
+    padding: 1rem 2.2rem; border-radius: 50px; font-weight: 800;
+    font-size: 1rem;
+    display: inline-flex; align-items: center; gap: .5rem;
+    box-shadow: 0 10px 28px rgba(227, 6, 19, .42);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .intro-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(227, 6, 19, .55);
+  }
+  .intro-link {
+    display: inline-block; margin-top: 1rem;
+    color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 600;
+    text-decoration: underline;
+  }
+  .intro-link:hover { color: #fff; }
+
+  /* ============================================================
+     QUIZ SCREEN — duel pair
+     ============================================================ */
+  .duel-title {
+    font-size: clamp(1.4rem, 3vw, 1.95rem); font-weight: 800;
+    color: #fff; text-align: center; margin-bottom: 2rem;
+    letter-spacing: -.01em;
+  }
+
+  .duel-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 1rem;
+    width: 100%;
+  }
+  @media (max-width: 700px) {
+    .duel-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto 1fr;
+      gap: .8rem;
+    }
+  }
+
+  .duel-card {
+    background: #fff; border-radius: var(--radius-lg);
+    padding: 2rem 1.6rem;
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    transition:
+      transform .35s var(--ease),
+      box-shadow .35s var(--ease),
+      border-color .25s,
+      opacity .35s;
+    min-height: 260px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .9rem;
+  }
+  .duel-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--blue-vital);
+    box-shadow: 0 22px 50px rgba(0, 30, 80, .28);
+  }
+  .duel-card.is-picked {
+    transform: scale(1.04);
+    border-color: var(--blue-vital);
+    box-shadow: 0 24px 60px rgba(0, 159, 227, .45);
+  }
+  .duel-card.is-loser {
+    opacity: .35; transform: scale(.95);
+  }
+  .duel-icon {
+    width: 64px; height: 64px; border-radius: 18px;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .duel-icon svg { width: 34px; height: 34px; }
+  .duel-card-title {
+    font-size: 1.2rem; font-weight: 800; color: var(--ink);
+    line-height: 1.2;
+  }
+  .duel-card-desc {
+    font-size: .9rem; color: var(--ink-2); line-height: 1.45;
+    max-width: 240px;
+  }
+
+  .vs-bubble {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--red-bienestar); color: #fff;
+    font-size: 1rem; font-weight: 900; letter-spacing: .5px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 22px rgba(227, 6, 19, .4);
+    border: 3px solid #fff;
+    justify-self: center;
+  }
+  @media (max-width: 700px) {
+    .vs-bubble { width: 48px; height: 48px; font-size: .85rem; }
+  }
+
+  .duel-skip {
+    margin-top: 2.2rem; text-align: center;
+  }
+  .duel-skip button {
+    color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 600;
+    padding: .6rem 1.4rem; border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.3);
+    transition: all .2s;
+  }
+  .duel-skip button:hover {
+    background: rgba(255,255,255,.18); color: #fff;
+    border-color: rgba(255,255,255,.5);
+  }
+
+  /* ============================================================
+     RESULT SCREEN
+     ============================================================ */
+  .result-card {
+    background: #fff; border-radius: var(--radius-lg);
+    padding: 2.2rem 2rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 540px; width: 100%;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .result-card::before {
+    content:''; position: absolute; inset: 0 0 auto 0; height: 6px;
+    background: linear-gradient(90deg, var(--plan-color, var(--blue-serenidad)), var(--plan-color-2, var(--blue-vital)));
+  }
+
+  .result-banner {
+    display: inline-block;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    padding: .35rem .9rem; border-radius: 50px;
+    font-size: .72rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .6px;
+    margin-bottom: 1rem;
+  }
+  .result-title {
+    font-size: 1.05rem; color: var(--ink-2);
+    margin-bottom: .35rem;
+  }
+  .result-plan-name {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 900; color: var(--plan-color, var(--blue-serenidad));
+    letter-spacing: -.02em; margin-bottom: .35rem;
+    line-height: 1.1;
+  }
+  .result-plan-tag {
+    font-size: .92rem; color: var(--ink-2); margin-bottom: 1.4rem;
+  }
+  .result-price {
+    background: var(--plan-color, var(--blue-serenidad));
+    color: #fff;
+    border-radius: 14px;
+    padding: .9rem 1.2rem;
+    margin-bottom: 1.4rem;
+    display: inline-flex; align-items: center; gap: .8rem;
+  }
+  .result-price-from {
+    font-size: .68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .4px;
+    opacity: .85;
+  }
+  .result-price-amount {
+    display: flex; align-items: baseline; gap: .1rem;
+  }
+  .result-price-amount .currency { font-size: 1rem; font-weight: 800; }
+  .result-price-amount .value { font-size: 1.7rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+  .result-price-amount .period { font-size: .75rem; font-weight: 600; opacity: .85; margin-left: .2rem; }
+
+  .result-section-title {
+    font-size: .72rem; font-weight: 800; color: var(--blue-serenidad);
+    text-transform: uppercase; letter-spacing: .6px;
+    text-align: left; margin-bottom: .55rem; margin-top: 1rem;
+  }
+  .result-list {
+    list-style: none; text-align: left;
+    display: flex; flex-direction: column; gap: .35rem;
+    padding: 0; margin-bottom: .8rem;
+  }
+  .result-list li {
+    display: flex; gap: .55rem; align-items: flex-start;
+    font-size: .9rem; color: var(--ink-2); line-height: 1.4;
+  }
+  .result-list li svg { width: 16px; height: 16px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px; }
+  .result-list.extras li svg { color: var(--muted); }
+  .result-list.extras li { color: var(--muted); }
+
+  .result-ctas {
+    display: flex; flex-direction: column; gap: .6rem;
+    margin-top: 1.6rem;
+  }
+  .btn-primary {
+    background: var(--red-bienestar); color: #fff;
+    padding: .9rem 1.5rem; border-radius: 50px; font-weight: 800;
+    font-size: .95rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+    box-shadow: 0 8px 22px rgba(227, 6, 19, .35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(227, 6, 19, .5); }
+  .btn-ghost {
+    background: transparent; color: var(--blue-serenidad);
+    padding: .85rem 1.5rem; border-radius: 50px; font-weight: 700;
+    font-size: .9rem;
+    border: 1.5px solid var(--line);
+    transition: background .2s, border-color .2s;
+  }
+  .btn-ghost:hover { background: var(--blue-soft); border-color: var(--blue-serenidad); }
+
+  /* Confetti dots */
+  .confetti {
+    position: fixed; inset: 0; pointer-events: none; z-index: 100;
+  }
+  .confetti span {
+    position: absolute; width: 8px; height: 8px;
+    border-radius: 2px;
+    animation: confettiFall 3.4s ease-in forwards;
+    opacity: 0;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(540deg); opacity: 0; }
+  }
+
+  /* ============================================================
+     PLAN COLORS (sólo paleta de marca + variaciones)
+     ============================================================ */
+  [data-plan="domiciliario-superior"] { --plan-color: #4fb8ea; --plan-color-2: var(--blue-vital); }
+  [data-plan="esmeralda-ambulatorio"] { --plan-color: #2856bb; --plan-color-2: #5e85e8; }
+  [data-plan="hospitalarios"]         { --plan-color: var(--blue-serenidad); --plan-color-2: var(--blue-vital); }
+  [data-plan="esmeralda-rubi"]        { --plan-color: var(--red-bienestar); --plan-color-2: #a8000a; }
+  [data-plan="zafiro-diamante"]       { --plan-color: var(--blue-serenidad); --plan-color-2: #003e73; }
+  [data-plan="diamante"]              { --plan-color: var(--blue-900); --plan-color-2: var(--blue-serenidad); }
+</style>
+</head>
+<body>
+
+<div class="quiz-shell">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/></svg>
+      </span>
+      Colmédica · Tu plan ideal
+    </div>
+    <button class="reset-btn" id="resetBtn" hidden>Volver a empezar</button>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-info">
+      <span id="progressLabel">Pregunta 1 de 6</span>
+      <span id="progressPct">17%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- SCREEN: INTRO -->
+  <section class="screen is-active" id="screenIntro">
+    <div class="intro-card">
+      <span class="pill">Quiz · 30 segundos</span>
+      <h1>Encuentra tu <em>plan ideal</em></h1>
+      <p class="intro-sub">
+        Te haremos 6 preguntas rápidas para descubrir el plan Colmédica
+        que mejor se adapta a lo que tú y tu familia necesitan.
+      </p>
+      <button class="intro-cta" id="startBtn">
+        Empezar quiz
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <a href="#" class="intro-link" id="skipBtn">Prefiero ver todos los planes</a>
+    </div>
+  </section>
+
+  <!-- SCREEN: QUIZ -->
+  <section class="screen" id="screenQuiz" hidden>
+    <h2 class="duel-title" id="duelTitle">¿Qué te importa más?</h2>
+    <div class="duel-grid">
+      <button class="duel-card" id="cardA" data-side="A"></button>
+      <div class="vs-bubble">VS</div>
+      <button class="duel-card" id="cardB" data-side="B"></button>
+    </div>
+    <div class="duel-skip">
+      <button id="quieroTodoBtn">Quiero todo · Sáltate el quiz</button>
+    </div>
+  </section>
+
+  <!-- SCREEN: RESULT -->
+  <section class="screen" id="screenResult" hidden>
+    <div class="result-card" id="resultCard">
+      <span class="result-banner">Tu match perfecto</span>
+      <p class="result-title">Tu plan ideal es</p>
+      <h2 class="result-plan-name" id="resultPlanName">Plan</h2>
+      <p class="result-plan-tag" id="resultPlanTag"></p>
+
+      <div class="result-price">
+        <span class="result-price-from">Desde</span>
+        <div class="result-price-amount">
+          <span class="currency">$</span>
+          <span class="value" id="resultPriceValue"></span>
+          <span class="period">/mes</span>
+        </div>
+      </div>
+
+      <div class="result-section-title">Lo que elegiste</div>
+      <ul class="result-list" id="resultElegidos"></ul>
+
+      <div class="result-section-title" id="extrasTitle">Y además incluye</div>
+      <ul class="result-list extras" id="resultExtras"></ul>
+
+      <div class="result-ctas">
+        <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
+          Cotizar este plan
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="btn-ghost" id="restartBtn">Volver a hacer el quiz</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+  // ============================================================
+  // DATA — extraído del Excel (matriz Plan ↔ Cobertura)
+  // ============================================================
+  const COVERAGES = {
+    'medico-dom':     { name: 'Médico domiciliario',      desc: 'Atención médica en tu casa, las 24 horas.' },
+    'orientacion':    { name: 'Orientación médica 24/7',  desc: 'Línea telefónica con un médico disponible siempre.' },
+    'ambulancia':     { name: 'Traslado en ambulancia',   desc: 'Transporte médico cuando lo necesites.' },
+    'especialistas':  { name: 'Especialistas directos',   desc: 'Acceso a +100 especialidades sin médico general.' },
+    'examenes':       { name: 'Exámenes y terapias',      desc: 'Laboratorios, imágenes y rehabilitación.' },
+    'hospital':       { name: 'Hospitalización y cirugía',desc: 'Cobertura completa para procedimientos quirúrgicos.' },
+    'vip':            { name: 'Clínicas VIP',             desc: 'Las mejores clínicas del país en habitación individual.' },
+    'maternidad':     { name: 'Maternidad',               desc: 'Atención integral durante el embarazo y parto.' },
+    'alto-costo':     { name: 'Enfermedades de alto costo', desc: 'Cubrimiento para tratamientos especializados.' },
+    'red-centros':    { name: 'Amplia red de centros médicos', desc: 'Más de 30 centros médicos Colmédica a nivel nacional.' },
+    'internacional':  { name: 'Asistencia internacional', desc: 'Cobertura médica cuando viajas al exterior.' },
+    'donde-quieras':  { name: 'Atención donde quieras',   desc: 'Libre escogencia de médicos y prestadores.' },
+  };
+
+  // SVG icons (lineales, manual de marca)
+  const ICONS = {
+    'medico-dom':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>',
+    'orientacion':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    'ambulancia':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M9 10h2M10 9v2"/></svg>',
+    'especialistas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-1.5-1.5"/></svg>',
+    'examenes':      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v6l3 3v11H6V11l3-3z"/><path d="M9 14h6M9 18h6"/></svg>',
+    'hospital':      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22V8h20v14M2 22h20"/><path d="M12 12v6M9 15h6"/></svg>',
+    'vip':           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>',
+    'maternidad':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M9 22v-6a3 3 0 0 1 6 0v6M9 14c-2 1-3 3-3 5"/></svg>',
+    'alto-costo':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><path d="M9 11h6M12 8v6"/></svg>',
+    'red-centros':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3"/></svg>',
+    'internacional': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>',
+    'donde-quieras': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  };
+
+  // Matriz exacta del Excel: planes → coberturas
+  const PLAN_COVERAGES = {
+    'domiciliario-superior': ['medico-dom','orientacion','ambulancia','especialistas'],
+    'esmeralda-ambulatorio': ['medico-dom','orientacion','ambulancia','especialistas','examenes'],
+    'hospitalarios':         ['orientacion','ambulancia','hospital','vip','maternidad','alto-costo'],
+    'esmeralda-rubi':        ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','maternidad','alto-costo','red-centros'],
+    'zafiro-diamante':       ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional'],
+    'diamante':              ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional','donde-quieras'],
+  };
+
+  // Metadatos visuales / precios (alineados con la landing v3)
+  const PLANS = {
+    'domiciliario-superior': { name: 'Plan Domiciliario Superior', tag: 'Atención médica en la comodidad de tu casa', price: '89.750' },
+    'esmeralda-ambulatorio': { name: 'Plan Esmeralda Ambulatorio', tag: 'Servicios ambulatorios complementarios', price: '148.390' },
+    'hospitalarios':         { name: 'Gama Hospitalarios',         tag: 'Cobertura para hospitalización y cirugía', price: '178.420' },
+    'esmeralda-rubi':        { name: 'Gama Esmeralda / Rubí',      tag: 'Equilibrio entre cobertura ambulatoria y hospitalaria', price: '208.563' },
+    'zafiro-diamante':       { name: 'Gama Zafiro / Diamante',     tag: 'Cobertura premium nacional', price: '304.510' },
+    'diamante':              { name: 'Gama Diamante Élite',        tag: 'Cobertura completa nacional e internacional', price: '428.782' },
+  };
+
+  // Pares de duelos (cada cobertura tiene presencia)
+  const PAIRS = [
+    ['especialistas', 'medico-dom'],
+    ['hospital',      'vip'],
+    ['maternidad',    'alto-costo'],
+    ['donde-quieras', 'internacional'],
+    ['orientacion',   'ambulancia'],
+    ['red-centros',   'examenes'],
+  ];
+  const TOTAL = PAIRS.length;
+
+  // ============================================================
+  // STATE
+  // ============================================================
+  let round = 0;            // índice del par actual
+  let chosen = [];          // coberturas elegidas (ids)
+
+  // ============================================================
+  // ELEMENTS
+  // ============================================================
+  const $ = id => document.getElementById(id);
+  const screens = {
+    intro:  $('screenIntro'),
+    quiz:   $('screenQuiz'),
+    result: $('screenResult'),
+  };
+
+  // ============================================================
+  // NAVIGATION
+  // ============================================================
+  function showScreen(name) {
+    Object.entries(screens).forEach(([key, el]) => {
+      if (key === name) {
+        el.hidden = false;
+        requestAnimationFrame(() => el.classList.add('is-active'));
+      } else {
+        el.classList.remove('is-active');
+        setTimeout(() => { el.hidden = true; }, 350);
+      }
+    });
+    // Progress bar visible solo en quiz
+    $('progressWrap').hidden = (name !== 'quiz');
+    $('resetBtn').hidden = (name === 'intro');
+  }
+
+  // ============================================================
+  // QUIZ
+  // ============================================================
+  function startQuiz() {
+    round = 0;
+    chosen = [];
+    showScreen('quiz');
+    renderRound();
+  }
+
+  function renderRound() {
+    if (round >= TOTAL) { finishQuiz(); return; }
+    const [a, b] = PAIRS[round];
+    setCard($('cardA'), a);
+    setCard($('cardB'), b);
+    // Progress
+    const pct = Math.round((round / TOTAL) * 100);
+    $('progressLabel').textContent = `Pregunta ${round + 1} de ${TOTAL}`;
+    $('progressPct').textContent = `${pct}%`;
+    $('progressFill').style.width = pct + '%';
+  }
+
+  function setCard(el, key) {
+    const cov = COVERAGES[key];
+    el.dataset.key = key;
+    el.classList.remove('is-picked', 'is-loser');
+    el.innerHTML = `
+      <div class="duel-icon">${ICONS[key] || ''}</div>
+      <div class="duel-card-title">${cov.name}</div>
+      <div class="duel-card-desc">${cov.desc}</div>
+    `;
+  }
+
+  function pick(side) {
+    const cardA = $('cardA');
+    const cardB = $('cardB');
+    const winner = side === 'A' ? cardA : cardB;
+    const loser  = side === 'A' ? cardB : cardA;
+    winner.classList.add('is-picked');
+    loser.classList.add('is-loser');
+    chosen.push(winner.dataset.key);
+    setTimeout(() => {
+      round++;
+      // Progress se actualiza al terminar la animación
+      const pct = Math.round((round / TOTAL) * 100);
+      $('progressFill').style.width = pct + '%';
+      setTimeout(renderRound, 100);
+    }, 520);
+  }
+
+  $('cardA').addEventListener('click', () => pick('A'));
+  $('cardB').addEventListener('click', () => pick('B'));
+
+  // ============================================================
+  // MATCHING ALGORITHM
+  // ============================================================
+  function findBestPlan(selected) {
+    if (!selected.length) return 'esmeralda-rubi';
+    // 1) Planes que incluyan TODAS las coberturas elegidas
+    const fullMatches = Object.keys(PLAN_COVERAGES).filter(p =>
+      selected.every(c => PLAN_COVERAGES[p].includes(c))
+    );
+    if (fullMatches.length) {
+      // El más pequeño (más barato) que las cubra todas
+      fullMatches.sort((a, b) => PLAN_COVERAGES[a].length - PLAN_COVERAGES[b].length);
+      return fullMatches[0];
+    }
+    // 2) El que tenga mayor coincidencia
+    let best = null, bestScore = -1, bestSize = Infinity;
+    for (const p in PLAN_COVERAGES) {
+      const cov = PLAN_COVERAGES[p];
+      const score = selected.filter(c => cov.includes(c)).length;
+      if (score > bestScore || (score === bestScore && cov.length < bestSize)) {
+        bestScore = score; bestSize = cov.length; best = p;
+      }
+    }
+    return best;
+  }
+
+  function finishQuiz() {
+    const planKey = findBestPlan(chosen);
+    showResult(planKey);
+  }
+
+  function quieroTodo() {
+    chosen = ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional','donde-quieras'];
+    showResult('diamante');
+  }
+
+  // ============================================================
+  // RESULT
+  // ============================================================
+  function showResult(planKey) {
+    const plan = PLANS[planKey];
+    const planCovs = PLAN_COVERAGES[planKey];
+
+    $('resultCard').dataset.plan = planKey;
+    $('resultPlanName').textContent = plan.name;
+    $('resultPlanTag').textContent = plan.tag;
+    $('resultPriceValue').textContent = plan.price;
+
+    // Coberturas elegidas que SÍ incluye el plan
+    const elegidasIncluidas = chosen.filter(c => planCovs.includes(c));
+    // Quitar duplicados
+    const uniqElegidas = [...new Set(elegidasIncluidas)];
+
+    // Coberturas adicionales del plan que el usuario NO eligió
+    const extras = planCovs.filter(c => !uniqElegidas.includes(c));
+
+    $('resultElegidos').innerHTML = uniqElegidas.map(c => liItem(c)).join('') ||
+      '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobertura completa para tu bienestar</li>';
+
+    $('resultExtras').innerHTML = extras.map(c => liItem(c)).join('');
+    $('extrasTitle').style.display = extras.length ? '' : 'none';
+
+    showScreen('result');
+    fireConfetti();
+  }
+
+  function liItem(key) {
+    const cov = COVERAGES[key];
+    return `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${cov.name}</li>`;
+  }
+
+  // ============================================================
+  // CONFETTI
+  // ============================================================
+  function fireConfetti() {
+    const box = $('confetti');
+    box.innerHTML = '';
+    const colors = ['#0058A2', '#009FE3', '#E30613', '#8ed8ff', '#ffffff'];
+    for (let i = 0; i < 60; i++) {
+      const dot = document.createElement('span');
+      dot.style.left = Math.random() * 100 + 'vw';
+      dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+      dot.style.animationDelay = (Math.random() * 0.6) + 's';
+      dot.style.animationDuration = (2.5 + Math.random() * 1.5) + 's';
+      dot.style.transform = `rotate(${Math.random() * 360}deg)`;
+      box.appendChild(dot);
+    }
+    setTimeout(() => { box.innerHTML = ''; }, 4000);
+  }
+
+  // ============================================================
+  // BIND
+  // ============================================================
+  $('startBtn').addEventListener('click', startQuiz);
+  $('skipBtn').addEventListener('click', e => { e.preventDefault(); window.open('https://www.colmedica.com', '_blank'); });
+  $('quieroTodoBtn').addEventListener('click', quieroTodo);
+  $('restartBtn').addEventListener('click', startQuiz);
+  $('resetBtn').addEventListener('click', () => {
+    round = 0; chosen = [];
+    showScreen('intro');
+  });
+
+  // Soporte teclado: ←/A elige izquierda, →/D elige derecha
+  document.addEventListener('keydown', e => {
+    if (!screens.quiz.classList.contains('is-active')) return;
+    if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') pick('A');
+    if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') pick('B');
+  });
+</script>
+</body>
+</html>

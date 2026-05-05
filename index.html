@@ -1,0 +1,3352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Planes Colmédica | Medicina Prepagada con Respaldo Nacional</title>
+<meta name="description" content="Descubre nuestros planes de medicina prepagada: atención médica integral, acceso rápido a especialistas, cobertura nacional e internacional y beneficios exclusivos." />
+
+<!-- Red Hat Display (manual de marca) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     TOKENS — Manual de Marca Colmédica 2024
+     ============================================================ */
+  :root {
+    --blue-serenidad: #0058A2;   /* Azul Serenidad — 45% uso */
+    --blue-vital:     #009FE3;   /* Azul Vital     — 45% uso */
+    --red-bienestar:  #E30613;   /* Rojo Bienestar — 10% uso */
+
+    --blue-dark:  #003e73;
+    --blue-900:   #002a51;
+    --blue-soft:  #e8f3fc;
+    --blue-bg:    #f4f9fd;
+
+    --ink:        #0e1a2b;
+    --ink-2:      #334256;
+    --muted:      #6a7890;
+    --line:       #dde6f1;
+    --white:      #ffffff;
+
+    --radius:     14px;
+    --radius-lg:  22px;
+    --shadow-sm:  0 2px 6px rgba(0, 60, 120, 0.06);
+    --shadow-md:  0 10px 28px rgba(0, 60, 120, 0.10);
+    --shadow-lg:  0 20px 50px rgba(0, 40, 90, 0.18);
+    --ease:       cubic-bezier(.22, .61, .36, 1);
+  }
+
+  /* ============================================================
+     BASE
+     ============================================================ */
+  * {
+    box-sizing: border-box; margin: 0; padding: 0;
+    -webkit-tap-highlight-color: transparent; /* quita flash negro al tocar en móvil */
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+  /* Grid container */
+  .wrap { width: min(1180px, 92vw); margin-inline: auto; }
+
+  /* ============================================================
+     PROGRESS BAR (solid, no transparency issues)
+     ============================================================ */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--blue-serenidad), var(--blue-vital));
+    z-index: 1100; transition: width .08s linear;
+    box-shadow: 0 0 8px rgba(0, 88, 162, .35);
+  }
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  header.site-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--blue-serenidad);
+    transition: background .3s var(--ease), box-shadow .3s var(--ease), padding .25s var(--ease);
+  }
+  header.site-header.scrolled { box-shadow: 0 4px 18px rgba(0, 40, 90, .18); }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0;
+  }
+  .logo-link { display: inline-flex; align-items: center; }
+  .logo-link svg,
+  .logo-link .brand-logo { height: 38px; width: auto; display: block; }
+
+  nav.main-nav { display: flex; gap: 1.8rem; align-items: center; }
+  nav.main-nav a {
+    color: #fff; font-weight: 500; font-size: .95rem;
+    padding: .35rem .1rem; position: relative; transition: opacity .2s;
+  }
+  nav.main-nav a:hover { opacity: .78; }
+  nav.main-nav a::after {
+    content:''; position: absolute; left: 0; right: 0; bottom: -4px;
+    height: 2px; background: #fff; transform: scaleX(0);
+    transform-origin: left; transition: transform .28s var(--ease);
+  }
+  nav.main-nav a:hover::after { transform: scaleX(1); }
+
+  .btn-header-cta {
+    background: var(--red-bienestar); color: #fff;
+    padding: .62rem 1.3rem; border-radius: 50px; font-weight: 700;
+    font-size: .92rem; letter-spacing: .2px;
+    box-shadow: 0 4px 14px rgba(227, 6, 19, .3);
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .btn-header-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(227, 6, 19, .4); }
+
+  /* Hamburger */
+  .hamburger { display: none; width: 30px; height: 22px; position: relative; }
+  .hamburger span {
+    display: block; position: absolute; left: 0; right: 0;
+    height: 3px; background: #fff; border-radius: 2px;
+    transition: transform .25s var(--ease), top .25s var(--ease), opacity .2s;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+  .hamburger.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed; inset: 66px 0 0 0; z-index: 999;
+    background: var(--blue-serenidad); padding: 1.6rem 6vw;
+    transform: translateY(-120%); transition: transform .32s var(--ease);
+    display: flex; flex-direction: column; gap: 1.1rem;
+  }
+  .mobile-menu.open { transform: translateY(0); }
+  .mobile-menu a {
+    color: #fff; font-size: 1.1rem; font-weight: 600;
+    padding: .7rem 0; border-bottom: 1px solid rgba(255,255,255,.14);
+  }
+  .mobile-menu .btn-header-cta { display: inline-block; text-align: center; margin-top: .8rem; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    position: relative; color: #fff; overflow: hidden;
+    padding: 140px 0 90px;
+    background:
+      radial-gradient(circle at 80% 30%, rgba(0, 159, 227, .28), transparent 55%),
+      radial-gradient(circle at 10% 80%, rgba(0, 159, 227, .18), transparent 55%),
+      linear-gradient(160deg, var(--blue-900) 0%, var(--blue-serenidad) 55%, var(--blue-vital) 120%);
+  }
+  .hero::before {
+    content:''; position: absolute; inset:0;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+    background-size: 26px 26px; opacity:.6;
+  }
+  /* Badge promocional arriba del hero */
+  .hero-promo {
+    position: relative;
+    display: inline-flex; align-items: center; gap: .55rem;
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .25);
+    backdrop-filter: blur(8px);
+    padding: .5rem 1rem; border-radius: 50px;
+    color: #fff; font-size: .82rem; line-height: 1.3;
+    margin-bottom: 1.4rem;
+    transition: background .25s, transform .25s;
+  }
+  .hero-promo:hover {
+    background: rgba(255, 255, 255, .2);
+    transform: translateY(-1px);
+  }
+  .hero-promo svg { width: 18px; height: 18px; color: #8ed8ff; flex-shrink: 0; }
+  .hero-promo strong { color: #8ed8ff; font-weight: 800; }
+
+  .hero-grid {
+    position: relative; display: grid; grid-template-columns: 1.15fr .85fr;
+    align-items: center; gap: 2.5rem;
+  }
+  .hero-copy { max-width: 560px; }
+
+  .hero h1 {
+    font-weight: 900; font-size: clamp(2rem, 4.6vw, 3.4rem);
+    line-height: 1.08; letter-spacing: -.02em; margin-bottom: 1rem;
+  }
+  .hero h1 em { font-style: normal; color: #8ed8ff; }
+  .hero-sub {
+    font-size: 1.02rem; line-height: 1.5; max-width: 500px;
+    color: rgba(255,255,255,.9); margin-bottom: 1.6rem;
+  }
+  .hero-ctas { display: flex; gap: .9rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red-bienestar); color: #fff;
+    padding: .95rem 1.9rem; border-radius: 50px; font-weight: 700;
+    font-size: 1rem; display: inline-flex; align-items: center; gap: .5rem;
+    box-shadow: 0 8px 22px rgba(227, 6, 19, .42);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(227, 6, 19, .52); }
+  .btn-ghost {
+    background: transparent; color: #fff;
+    padding: .95rem 1.6rem; border-radius: 50px; font-weight: 600;
+    border: 1.5px solid rgba(255,255,255,.45);
+    transition: background .2s, border-color .2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+
+  /* ── Stats grid (2×2 siempre) ── */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+  }
+  .hero-stat {
+    display: flex; flex-direction: column; gap: .25rem;
+    align-items: flex-start;
+  }
+  .hero-stat-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(141, 216, 255, .18);
+    color: #8ed8ff;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: .35rem;
+  }
+  .hero-stat-icon svg { width: 20px; height: 20px; }
+  .hero-stat-num {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900;
+    color: #8ed8ff;           /* Azul Vital claro — NO amarillo */
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .hero-stat-label {
+    font-size: .78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .88);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  /* ── Pill "Centros Médicos" en header ── */
+  .brand-group { display: flex; align-items: center; gap: .7rem; }
+  .header-pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: #fff; color: var(--blue-serenidad);
+    padding: .3rem .7rem; border-radius: 10px;
+    font-size: .66rem; font-weight: 700;
+    line-height: 1.1; letter-spacing: .2px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .12);
+    transition: transform .2s var(--ease);
+  }
+  .header-pill:hover { transform: translateY(-1px); }
+  .header-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .header-pill span { white-space: nowrap; }
+  @media (max-width: 380px) {
+    .header-pill span br { display: none; }
+    .header-pill span { font-size: .6rem; }
+  }
+
+  /* ============================================================
+     SECTION — generic
+     ============================================================ */
+  section.block {
+    padding: 90px 0; position: relative; scroll-margin-top: 80px;
+    min-height: 100vh; /* per PPT feedback "min-height 100vh" */
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  /* Bandas alternadas para que el cambio de sección se sienta */
+  section.block.band-soft { background: var(--blue-bg); }
+  section.block.band-blue {
+    background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-serenidad) 100%);
+    color: #fff;
+  }
+  section.block.band-blue .section-tag { background: rgba(255,255,255,.16); color: #fff; }
+  section.block.band-blue .section-title { color: #fff; }
+  section.block.band-blue .section-title em { color: #8ed8ff; }
+  section.block.band-blue .section-sub { color: rgba(255,255,255,.9); }
+
+  /* Section Header */
+  .section-header { text-align: center; max-width: 720px; margin: 0 auto 2.4rem; }
+  .section-tag {
+    display: inline-block; background: #e0f0fa; color: var(--blue-serenidad);
+    padding: .35rem 1rem; border-radius: 50px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .6px;
+    text-transform: uppercase; margin-bottom: .9rem;
+  }
+  .section-title {
+    font-size: clamp(1.7rem, 3.4vw, 2.55rem); font-weight: 900;
+    color: var(--ink); line-height: 1.15; letter-spacing: -.015em;
+  }
+  .section-title em { font-style: normal; color: var(--blue-serenidad); }
+  .section-sub {
+    font-size: 1.02rem; color: var(--ink-2);
+    margin-top: .8rem; line-height: 1.6;
+  }
+
+  /* SEO Card (reusable, per PPT feedback "Card inicial SEO 200 caracteres") */
+  .seo-card {
+    background: #fff; border: 1px solid var(--line);
+    border-left: 4px solid var(--blue-vital);
+    border-radius: var(--radius); padding: 1.4rem 1.6rem;
+    max-width: 780px; margin: 0 auto 2.8rem;
+    box-shadow: var(--shadow-sm);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .seo-card svg {
+    width: 28px; height: 28px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px;
+  }
+  .seo-card p { color: var(--ink-2); font-size: .95rem; line-height: 1.62; }
+  section.block.band-blue .seo-card {
+    background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2);
+    border-left-color: #8ed8ff; backdrop-filter: blur(8px);
+  }
+  section.block.band-blue .seo-card p { color: rgba(255,255,255,.94); }
+  section.block.band-blue .seo-card svg { color: #8ed8ff; }
+
+  /* Section CTA block — per PPT: botón en cada sección en lugar de flotante */
+  .section-cta {
+    display: flex; justify-content: center; margin-top: 2.5rem;
+  }
+
+  /* ============================================================
+     PLANES — CARRUSEL: 3 planes visibles + peek del siguiente
+     Colores sólidos por plan (tomados del HTML de producción):
+       · Diamante    → dark charcoal/navy
+       · Zafiro      → navy blue
+       · Rubí        → gold
+       · Esmeralda   → periwinkle blue (Livianos)
+       · Domiciliario→ periwinkle light (Livianos)
+       · Oncológico  → rojo bienestar (brand)
+     ============================================================ */
+
+  .planes-carousel-wrap {
+    position: relative;
+    padding: 1rem 0 .5rem;
+  }
+  .planes-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 1.5rem .5rem 2rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .planes-carousel::-webkit-scrollbar { display: none; }
+
+  /* Fade sutil en el borde derecho para reforzar "hay más a la derecha" */
+  .planes-carousel-wrap::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem; bottom: 2rem; right: 0;
+    width: 36px;
+    pointer-events: none;
+    background: linear-gradient(270deg, var(--blue-bg) 0%, transparent 100%);
+    z-index: 2;
+    opacity: .9;
+    transition: opacity .25s;
+  }
+  .planes-carousel-wrap.at-end::after { opacity: 0; }
+
+  /* Card — width calculado para que entren 3 + peek ~70px */
+  .plan-card {
+    flex: 0 0 calc((100% - 70px - 2rem) / 3);
+    min-width: 250px;
+    scroll-snap-align: start;
+    color: #fff;
+    background: var(--plan-bg, linear-gradient(135deg, #0b1222, #1a2340));
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 30, 70, .22);
+    transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+  }
+  .plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 48px rgba(0, 30, 70, .32);
+  }
+  /* Brillo decorativo en esquina */
+  .plan-card::before {
+    content:''; position: absolute;
+    top: -80px; right: -80px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    pointer-events: none;
+  }
+
+  /* ── Colores sólidos por plan (producción) ── */
+  .plan-card[data-gama="diamante"] {
+    --plan-bg: linear-gradient(135deg, #0b1222 0%, #1a2340 100%);
+    --plan-btn-text: #0b1222;
+  }
+  .plan-card[data-gama="zafiro"] {
+    --plan-bg: linear-gradient(135deg, #091d42 0%, #14316c 100%);
+    --plan-btn-text: #091d42;
+  }
+  .plan-card[data-gama="rubi"] {
+    --plan-bg: linear-gradient(135deg, #8a5712 0%, #c18d34 100%);
+    --plan-btn-text: #8a5712;
+  }
+  .plan-card[data-gama="esmeralda"] {
+    --plan-bg: linear-gradient(135deg, #1a4fa8 0%, #3b72d6 100%);
+    --plan-btn-text: #1a4fa8;
+  }
+  .plan-card[data-gama="domiciliario"] {
+    --plan-bg: linear-gradient(135deg, #2856bb 0%, #5e85e8 100%);
+    --plan-btn-text: #2856bb;
+  }
+  .plan-card[data-gama="oncologico"] {
+    --plan-bg: linear-gradient(135deg, #a1020e 0%, #d80615 100%);
+    --plan-btn-text: #a1020e;
+  }
+
+  /* Texto siempre blanco sobre el color sólido */
+  .plan-gama {
+    font-size: 1.35rem; font-weight: 900;
+    color: #fff; letter-spacing: -.01em;
+    margin-bottom: .4rem; position: relative; z-index: 1;
+  }
+  .plan-tagline {
+    font-size: .9rem; font-weight: 500;
+    color: rgba(255, 255, 255, .85);
+    margin-bottom: 1rem; position: relative; z-index: 1;
+  }
+  .plan-price {
+    position: relative; z-index: 1;
+    padding: .75rem 0 .9rem;
+    margin-bottom: .3rem;
+    border-top: 1px solid rgba(255, 255, 255, .22);
+    border-bottom: 1px solid rgba(255, 255, 255, .22);
+  }
+  .plan-price-from {
+    display: block;
+    font-size: .7rem; font-weight: 700;
+    color: rgba(255, 255, 255, .72);
+    text-transform: uppercase; letter-spacing: .6px;
+    margin-bottom: .1rem;
+  }
+  .plan-price-amount {
+    display: flex; align-items: baseline; gap: .15rem;
+    color: #fff;
+  }
+  .plan-price-currency { font-size: 1.05rem; font-weight: 800; }
+  .plan-price-value {
+    font-size: 1.9rem; font-weight: 900;
+    line-height: 1; letter-spacing: -.02em;
+  }
+  .plan-price-period {
+    font-size: .78rem; font-weight: 600;
+    color: rgba(255, 255, 255, .78);
+    margin-left: .25rem;
+  }
+  .plan-features {
+    list-style: none; display: flex; flex-direction: column;
+    gap: .65rem; margin-bottom: 1.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, .22);
+    position: relative; z-index: 1;
+  }
+  .plan-features li {
+    display: flex; gap: .6rem; align-items: flex-start;
+    font-size: .88rem; color: rgba(255, 255, 255, .92);
+    line-height: 1.4;
+  }
+  .plan-features li svg {
+    width: 18px; height: 18px;
+    color: #fff;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .plan-actions {
+    display: flex; flex-direction: column; gap: .5rem;
+    position: relative; z-index: 1;
+  }
+  .btn-plan-detail,
+  .btn-plan-cotizar {
+    width: 100%;
+    padding: .78rem 1rem; border-radius: 50px; font-weight: 800;
+    font-size: .9rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease), filter .2s, background .2s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn-plan-detail {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, .55);
+  }
+  .btn-plan-detail:hover {
+    background: rgba(255, 255, 255, .22);
+    border-color: #fff;
+    transform: translateY(-2px);
+  }
+  .btn-plan-cotizar {
+    background: var(--red-bienestar);
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 16px rgba(227, 6, 19, .35);
+  }
+  .btn-plan-cotizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(227, 6, 19, .5);
+    filter: brightness(1.06);
+  }
+
+  /* Controles de la ruleta */
+  .carousel-ctrls {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; margin-top: .5rem;
+  }
+  .carousel-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: all .22s var(--ease);
+  }
+  .carousel-btn:hover {
+    background: var(--blue-serenidad); color: #fff;
+    border-color: var(--blue-serenidad);
+    transform: translateY(-2px);
+  }
+  .carousel-btn svg { width: 22px; height: 22px; }
+
+  .carousel-dots {
+    display: flex; gap: .5rem; align-items: center;
+  }
+  .carousel-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: rgba(0, 88, 162, .2);
+    transition: all .25s var(--ease);
+    cursor: pointer;
+  }
+  .carousel-dot.active {
+    background: var(--blue-serenidad);
+    width: 28px; border-radius: 20px;
+  }
+
+  /* Flechas laterales (opcional, desktop) */
+  .carousel-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #fff; border: 1.5px solid var(--line);
+    color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-md);
+    z-index: 5;
+    transition: all .22s var(--ease);
+  }
+  .carousel-arrow:hover {
+    background: var(--blue-serenidad); color: #fff;
+    border-color: var(--blue-serenidad);
+    transform: translateY(-50%) scale(1.06);
+  }
+  .carousel-arrow.prev { left: -8px; }
+  .carousel-arrow.next { right: -8px; }
+  .carousel-arrow svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) {
+    .carousel-arrow { display: none; }
+  }
+
+  /* ============================================================
+     QUÉ PLAN ELEGIR — comparador / guía
+     ============================================================ */
+  .quiz-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .quiz-card {
+    background: #fff; border-radius: var(--radius-lg); padding: 2rem 1.6rem;
+    border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .quiz-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+  .quiz-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .quiz-icon svg { width: 28px; height: 28px; }
+  .quiz-title { font-size: 1.15rem; font-weight: 800; color: var(--ink); margin-bottom: .5rem; }
+  .quiz-desc { font-size: .93rem; color: var(--ink-2); line-height: 1.55; margin-bottom: 1rem; }
+  .quiz-reco {
+    font-size: .82rem; color: var(--blue-serenidad);
+    font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    padding-top: .7rem; border-top: 1px dashed var(--line);
+  }
+
+  /* ============================================================
+     CLÍNICAS — listado con bullets (per PPT feedback)
+     ============================================================ */
+  /* Estadísticas */
+  .clinicas-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .clinicas-stat {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1rem; text-align: center;
+  }
+  .clinicas-stat .num {
+    font-size: 1.7rem; font-weight: 900; color: var(--blue-serenidad); line-height: 1;
+  }
+  .clinicas-stat .lbl { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
+
+  /* Tabs de ciudad */
+  .clinicas-city-tabs {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: .4rem; margin-bottom: 1.4rem;
+  }
+  /* En móvil se vuelven scroll horizontal */
+  @media (max-width: 768px) {
+    .clinicas-city-tabs {
+      flex-wrap: nowrap; overflow-x: auto;
+      justify-content: flex-start;
+      margin-inline: -1rem; padding-inline: 1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .clinicas-city-tabs::-webkit-scrollbar { display: none; }
+  }
+  .clinicas-tab {
+    padding: .5rem 1.1rem; border-radius: 50px;
+    font-size: .88rem; font-weight: 600;
+    background: #fff; color: var(--ink-2);
+    border: 1.5px solid var(--line);
+    transition: all .2s var(--ease);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .clinicas-tab:hover { border-color: var(--blue-vital); color: var(--blue-serenidad); }
+  .clinicas-tab.active {
+    background: var(--blue-serenidad); color: #fff; border-color: var(--blue-serenidad);
+    box-shadow: 0 4px 12px rgba(0, 88, 162, .25);
+  }
+
+  /* Dots bajo los tabs (indican "hay más ciudades a la derecha") */
+  .clinicas-tabs-dots {
+    display: flex; justify-content: center; align-items: center;
+    gap: .4rem; margin: -.2rem 0 1.2rem;
+  }
+  .clinicas-tab-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(0, 88, 162, .25);
+    border: none; padding: 0; cursor: pointer;
+    transition: all .22s var(--ease);
+  }
+  .clinicas-tab-dot.active {
+    background: var(--blue-serenidad);
+    width: 22px; border-radius: 20px;
+  }
+  .clinicas-tab-dot:hover { background: rgba(0, 88, 162, .55); }
+
+  /* Card con listado */
+  .clinicas-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem 1.8rem;
+    box-shadow: var(--shadow-sm);
+    max-width: 620px; margin: 0 auto;
+  }
+  .clinicas-card h4 {
+    font-size: .8rem; font-weight: 700; color: var(--blue-serenidad);
+    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 1rem;
+  }
+  .clinicas-list-items { list-style: none; }
+  .clinicas-list-items li {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .7rem 0; border-bottom: 1px dashed var(--line);
+    font-size: .95rem; color: var(--ink); font-weight: 500;
+  }
+  .clinicas-list-items li:last-child { border-bottom: none; }
+  .clinicas-list-items li::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--blue-vital); flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    .clinicas-stats { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
+    .clinicas-card { padding: 1.2rem 1.4rem; }
+  }
+
+  /* ============================================================
+     CENTROS MÉDICOS — foto ciudad + 3 cuadros (per PPT)
+     ============================================================ */
+  .centros-city-tabs {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: .5rem; margin-bottom: 1rem;
+  }
+  /* En móvil se vuelven scroll horizontal (mismo patrón que Clínicas) */
+  @media (max-width: 768px) {
+    .centros-city-tabs {
+      flex-wrap: nowrap; overflow-x: auto;
+      justify-content: flex-start;
+      margin-inline: -1rem; padding-inline: 1rem;
+      margin-bottom: .4rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .centros-city-tabs::-webkit-scrollbar { display: none; }
+  }
+  .centros-tab {
+    padding: .5rem 1.1rem; border-radius: 50px; font-size: .88rem; font-weight: 600;
+    background: #fff; color: var(--ink-2); border: 1.5px solid var(--line);
+    transition: all .2s var(--ease);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .centros-tab:hover { border-color: var(--blue-vital); color: var(--blue-serenidad); }
+  .centros-tab.active {
+    background: var(--blue-serenidad); color: #fff; border-color: var(--blue-serenidad);
+    box-shadow: 0 4px 12px rgba(0,88,162,.25);
+  }
+
+  /* Dots paginadores debajo (reutilizamos estilo de clinicas-tab-dot) */
+  .centros-tabs-dots {
+    display: flex; justify-content: center; align-items: center;
+    gap: .4rem; margin-bottom: 1.4rem;
+  }
+  .centros-tab-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(0, 88, 162, .25);
+    border: none; padding: 0; cursor: pointer;
+    transition: all .22s var(--ease);
+  }
+  .centros-tab-dot.active {
+    background: var(--blue-serenidad);
+    width: 22px; border-radius: 20px;
+  }
+  .centros-tab-dot:hover { background: rgba(0, 88, 162, .55); }
+
+  .centros-main {
+    display: grid; grid-template-columns: .85fr 1.15fr; gap: 2rem; align-items: start;
+  }
+  .centros-photo {
+    position: relative; border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-md); background: var(--blue-soft);
+    aspect-ratio: 4 / 3; /* tamaño fijo y consistente para todas las ciudades */
+  }
+  .centros-photo img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    transition: opacity .25s ease;
+  }
+  .centros-photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 42, 81, .92));
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.2rem 1.4rem; color: #fff;
+  }
+  .centros-photo-line {
+    font-size: 1.05rem; font-weight: 800;
+    line-height: 1.3; letter-spacing: -.01em;
+    color: #fff;
+  }
+
+  .centros-boxes {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .centros-box {
+    background: #fff; border-radius: var(--radius); padding: 1.2rem 1.4rem;
+    border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  }
+  .centros-box-head {
+    display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem;
+    padding-bottom: .8rem; border-bottom: 1px solid var(--line);
+  }
+  .centros-box-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .centros-box-icon svg { width: 18px; height: 18px; }
+  .centros-box-title {
+    flex: 1;
+    font-size: 1rem; font-weight: 800; color: var(--ink);
+  }
+  .centros-box-count {
+    font-size: .82rem; color: var(--muted); font-weight: 600;
+  }
+  .centros-box-list {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+  }
+  .centros-chip {
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    padding: .3rem .8rem; border-radius: 50px;
+    font-size: .82rem; font-weight: 600;
+  }
+  .centros-empty { font-size: .85rem; color: var(--muted); font-style: italic; }
+
+  .centros-disclaimer {
+    text-align: center; margin-top: 1.5rem; color: var(--muted);
+    font-size: .82rem; max-width: 700px; margin-inline: auto;
+  }
+
+  /* ============================================================
+     ESPECIALIDADES — lista completa sin emojis
+     ============================================================ */
+  .esp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem;
+  }
+  .esp-item {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: .85rem 1rem; font-size: .92rem; font-weight: 600; color: var(--ink);
+    display: flex; align-items: center; gap: .55rem;
+    transition: all .22s var(--ease);
+  }
+  .esp-item:hover {
+    border-color: var(--blue-vital); color: var(--blue-serenidad);
+    transform: translateY(-2px); box-shadow: var(--shadow-sm);
+  }
+  .esp-item::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue-vital); flex-shrink: 0;
+  }
+
+  /* ============================================================
+     DIFERENCIALES (Elige Colmédica + Ventajas)
+     ============================================================ */
+  /* Beneficios como ruleta siempre activa */
+  .dif-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: .6rem .25rem 1.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .dif-grid::-webkit-scrollbar { display: none; }
+  .dif-card {
+    flex: 0 0 calc((100% - 80px - 3rem) / 4);  /* 4 visibles + peek */
+    min-width: 220px;
+    scroll-snap-align: start;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(6px); border-radius: var(--radius-lg);
+    padding: 1.6rem 1.3rem; transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .dif-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.13); }
+  .dif-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(141, 216, 255, .2); color: #8ed8ff;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .dif-icon svg { width: 26px; height: 26px; }
+  .dif-title { font-size: 1.05rem; font-weight: 800; margin-bottom: .45rem; color: #fff; }
+  .dif-desc { font-size: .88rem; line-height: 1.55; color: rgba(255,255,255,.84); }
+
+  /* ============================================================
+     TESTIMONIOS — con videos antes de las estrellas
+     ============================================================ */
+  .test-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .test-card {
+    background: #fff; border-radius: var(--radius-lg);
+    border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .test-video {
+    position: relative; background: #000; aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    cursor: pointer;
+  }
+  .test-video img {
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: .88; transition: opacity .25s, transform .35s var(--ease);
+  }
+  .test-video:hover img { opacity: 1; transform: scale(1.04); }
+  .test-video-play {
+    position: absolute; width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,.95); color: var(--red-bienestar);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(0,0,0,.3);
+    transition: transform .2s;
+  }
+  .test-video:hover .test-video-play { transform: scale(1.1); }
+  .test-video-play svg { width: 24px; height: 24px; margin-left: 3px; }
+  .test-video-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--red-bienestar); color: #fff;
+    font-size: .72rem; font-weight: 700; letter-spacing: .5px;
+    padding: .22rem .6rem; border-radius: 50px; text-transform: uppercase;
+  }
+  .test-body { padding: 1.3rem 1.4rem 1.5rem; }
+  .test-stars { color: var(--red-bienestar); font-size: 1rem; letter-spacing: 1px; margin-bottom: .7rem; }
+  .test-quote {
+    font-size: .95rem; line-height: 1.62; color: var(--ink-2); margin-bottom: 1rem;
+  }
+  .test-author { font-size: .95rem; font-weight: 800; color: var(--ink); }
+  .test-author-sub { font-size: .82rem; color: var(--muted); }
+
+  /* (CSS de .aliados-block / .aliado-card retirado: ahora aliados vive como card en Beneficios) */
+  .aliados-list {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+  }
+  .aliado-chip {
+    background: #fff; color: var(--blue-serenidad);
+    padding: .45rem 1.1rem; border-radius: 50px;
+    font-weight: 700; font-size: .9rem; border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ============================================================
+     PQR / FAQ
+     ============================================================ */
+  .faq-list { max-width: 820px; margin: 0 auto; }
+  .faq-item {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    margin-bottom: .8rem; overflow: hidden; transition: box-shadow .2s;
+  }
+  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--blue-vital); }
+  .faq-item summary {
+    padding: 1.1rem 1.3rem; cursor: pointer; font-weight: 700; color: var(--ink);
+    font-size: 1rem; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    /* Evita el "cuadro negro" al tocar/click en móvil y el outline default */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+    border-radius: var(--radius);   /* que si aparece focus-visible siga el border */
+  }
+  .faq-item summary::-webkit-details-marker,
+  .faq-item summary::marker { display: none; content: none; }
+  /* Outline accesible sólo por teclado */
+  .faq-item summary:focus { outline: none; }
+  .faq-item summary:focus-visible {
+    outline: 2px solid var(--blue-vital);
+    outline-offset: 2px;
+  }
+  .faq-item summary::after {
+    content:'+'; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 700; transition: transform .25s var(--ease);
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after {
+    content:'−'; background: var(--blue-serenidad); color: #fff;
+  }
+  .faq-body {
+    padding: 0 1.3rem 1.2rem; color: var(--ink-2);
+    font-size: .95rem; line-height: 1.62;
+  }
+
+  /* ============================================================
+     CTA FINAL
+     ============================================================ */
+  .cta-final {
+    background: linear-gradient(135deg, var(--blue-serenidad) 0%, var(--blue-vital) 100%);
+    color: #fff; text-align: center; padding: 80px 0;
+  }
+  .cta-final h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+    margin-bottom: .7rem; letter-spacing: -.01em;
+  }
+  .cta-final p { font-size: 1.05rem; opacity: .94; margin-bottom: 1.8rem; }
+
+  /* ============================================================
+     FOOTER (replica de la info de producción)
+     ============================================================ */
+  footer.site-footer {
+    background: var(--blue-900); color: #cfe3f4; padding: 50px 0 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.1fr 2fr; gap: 3rem; align-items: start;
+    padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .footer-logos {
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .footer-logo-main svg,
+  .footer-logo-main .brand-logo-footer { height: 50px; width: auto; display: block; }
+  .footer-supersalud {
+    display: inline-flex; align-items: center; justify-content: flex-start;
+    transition: opacity .2s;
+  }
+  .footer-supersalud:hover { opacity: .85; }
+  .footer-supersalud img {
+    max-width: 220px; width: 100%; height: auto; display: block;
+  }
+  /* legacy (sin uso cuando hay img, pero queda por si acaso) */
+  .footer-supersalud.__legacy {
+    width: 150px; height: 54px; padding: 6px 10px; background: #fff; border-radius: 8px;
+    font-size: .72rem; color: #003e73; font-weight: 800; text-align: center; line-height: 1.1;
+    letter-spacing: .3px;
+  }
+  .footer-text { font-size: .82rem; line-height: 1.65; color: rgba(255,255,255,.74); }
+  .footer-text a { color: #8ed8ff; text-decoration: underline; }
+  .footer-bottom {
+    padding-top: 1.3rem; display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 1rem; font-size: .78rem; color: rgba(255,255,255,.55);
+  }
+  .footer-bottom a:hover { color: #fff; }
+
+  /* ============================================================
+     PLAN MODAL
+     ============================================================ */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(6, 18, 35, .76);
+    backdrop-filter: blur(4px); z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+    padding: 1.5rem;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal-box {
+    background: #fff; border-radius: var(--radius-lg);
+    width: min(520px, 100%);
+    max-height: min(92vh, 720px);
+    display: flex; flex-direction: column;
+    overflow: hidden;                 /* scroll sólo dentro del body */
+    transform: translateY(20px) scale(.96); transition: transform .3s var(--ease);
+    position: relative;
+  }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+  .modal-head {
+    padding: 1.3rem 1.5rem 1.1rem;
+    position: relative;
+    color: #fff; background: var(--blue-serenidad);
+    flex-shrink: 0;
+  }
+  /* Modal head con colores oficiales del manual (Azul Serenidad / Azul Vital / Rojo Bienestar) */
+  .modal-head[data-gama="diamante"]    { background: linear-gradient(135deg, #002a51, #0058A2); }
+  .modal-head[data-gama="zafiro"]      { background: linear-gradient(135deg, #0058A2, #003e73); }
+  .modal-head[data-gama="rubi"]        { background: linear-gradient(135deg, #E30613, #a8000a); }
+  .modal-head[data-gama="esmeralda"]   { background: linear-gradient(135deg, #009FE3, #0079b3); }
+  .modal-head[data-gama="domiciliario"]{ background: linear-gradient(135deg, #4fb8ea, #009FE3); }
+  .modal-head[data-gama="oncologico"]  { background: linear-gradient(135deg, #b0020f, #E30613); }
+
+  .modal-close {
+    position: absolute; top: 14px; right: 14px; width: 36px; height: 36px;
+    background: rgba(255,255,255,.22); color: #fff;
+    border-radius: 50%; font-size: 1.1rem; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,.4); }
+  .modal-gama { font-size: 1.4rem; font-weight: 900; letter-spacing: -.01em; }
+  .modal-tagline { font-size: .88rem; opacity: .92; margin-top: .25rem; }
+  .modal-price {
+    margin-top: .7rem; padding: .55rem .9rem;
+    background: rgba(255, 255, 255, .16);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    display: inline-flex; align-items: center; gap: .8rem;
+  }
+  .modal-price-from {
+    font-size: .65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: rgba(255, 255, 255, .85);
+  }
+  .modal-price-amount {
+    display: flex; align-items: baseline; gap: .1rem; color: #fff;
+  }
+  .modal-price-currency { font-size: .95rem; font-weight: 800; }
+  .modal-price-value { font-size: 1.65rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; color: #fff; }
+  .modal-price-period { font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .9); margin-left: .2rem; }
+  .modal-body {
+    padding: 1rem 1.5rem 1.2rem;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    /* Scrollbar sutil (WebKit) */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 88, 162, .25) transparent;
+  }
+  .modal-body::-webkit-scrollbar { width: 6px; }
+  .modal-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 88, 162, .25); border-radius: 3px;
+  }
+  .modal-body::-webkit-scrollbar-thumb:hover { background: rgba(0, 88, 162, .45); }
+
+  .modal-section-title {
+    font-size: .72rem; font-weight: 700; color: var(--blue-serenidad);
+    text-transform: uppercase; letter-spacing: .6px;
+    margin: 0 0 .55rem;
+  }
+  .modal-body ul { list-style: none; display: flex; flex-direction: column; gap: .42rem; }
+  .modal-body ul li {
+    display: flex; gap: .5rem; align-items: flex-start;
+    font-size: .86rem; line-height: 1.35; color: var(--ink-2);
+  }
+  .modal-body ul li svg { width: 16px; height: 16px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px; }
+  .modal-centros-box {
+    background: var(--blue-soft); border-radius: var(--radius);
+    padding: .65rem .9rem; margin-top: .8rem;
+    display: flex; gap: .55rem; align-items: flex-start;
+    font-size: .8rem; line-height: 1.4; color: var(--ink-2);
+  }
+  .modal-centros-box svg { width: 18px; height: 18px; color: var(--blue-serenidad); flex-shrink: 0; margin-top: 1px; }
+
+  /* Footer sticky con CTA siempre visible */
+  .modal-footer {
+    flex-shrink: 0;
+    padding: 1rem 1.5rem 1.2rem;
+    border-top: 1px solid var(--line);
+    background: #fff;
+    box-shadow: 0 -6px 14px rgba(0, 30, 70, .06);
+  }
+  .modal-footer .btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: .95rem 1.5rem;
+  }
+
+  /* ============================================================
+     COMPACTAR: override de paddings/gaps para reducir espacio en blanco
+     ============================================================ */
+  .hero { padding: 96px 0 48px; }
+  .hero h1 { margin-bottom: .8rem; }
+  .hero-sub { margin-bottom: 1.3rem; }
+  .hero-promo { margin-bottom: 1.2rem; }
+  .hero-grid { gap: 2rem; }
+
+  section.block { padding: 48px 0; min-height: 0; }
+  .section-header { margin-bottom: 1.4rem; }
+  .section-tag { margin-bottom: .5rem; }
+  .section-sub { margin-top: .5rem; }
+  .seo-card { margin-bottom: 1.5rem; padding: 1rem 1.2rem; }
+
+  .section-cta { margin-top: 1.6rem; }
+  .planes-carousel-wrap { padding: .4rem 0 0; }
+  .planes-carousel { padding: 1rem .5rem 1.2rem; }
+
+  .quiz-grid { gap: 1rem; }
+  .quiz-card { padding: 1.4rem 1.2rem; }
+  .quiz-icon { margin-bottom: .7rem; }
+  .quiz-desc { margin-bottom: .7rem; }
+
+  .clinicas-stats { gap: .7rem; margin-bottom: 1.2rem; }
+  .clinicas-stat { padding: .7rem; }
+  .clinicas-card { padding: 1.3rem; }
+  .clinicas-card h4 { margin-bottom: .6rem; }
+  .clinicas-list-items li { padding: .55rem 0; }
+
+  .centros-city-tabs { margin-bottom: 1.2rem; gap: .35rem; }
+  .centros-tab { padding: .4rem .9rem; }
+  .centros-main { gap: 1.4rem; }
+  .centros-boxes { gap: .7rem; }
+  .centros-box { padding: 1rem 1.1rem; }
+  .centros-box-head { margin-bottom: .7rem; padding-bottom: .6rem; }
+  .centros-disclaimer { margin-top: 1rem; }
+
+  .esp-grid { gap: .5rem; }
+  .esp-item { padding: .65rem .9rem; font-size: .88rem; }
+
+  .dif-grid { gap: 1rem; }
+  .dif-card { padding: 1.3rem 1.1rem; }
+  .dif-icon { margin-bottom: .7rem; }
+  .dif-title { margin-bottom: .3rem; }
+
+  .test-grid { gap: 1.1rem; }
+  .test-body { padding: 1rem 1.2rem 1.2rem; }
+  .test-quote { margin-bottom: .7rem; }
+  .test-stars { margin-bottom: .5rem; }
+  /* aliados-block removido — ahora vive como card dentro de Beneficios */
+
+  .faq-item { margin-bottom: .5rem; }
+  .faq-item summary { padding: .85rem 1.1rem; }
+  .faq-body { padding: 0 1.1rem 1rem; }
+
+  .cta-final { padding: 56px 0; }
+  .cta-final h2 { margin-bottom: .5rem; }
+  .cta-final p { margin-bottom: 1.3rem; }
+
+  footer.site-footer { padding: 34px 0 22px; }
+  .footer-grid { padding-bottom: 1.3rem; gap: 2rem; }
+  .footer-bottom { padding-top: 1rem; }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 960px) {
+    nav.main-nav, .btn-header-cta.desktop-only { display: none; }
+    .hamburger { display: block; }
+
+    .hero { padding: 94px 0 44px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+    /* Full width: rompe los 4vw del .wrap para llegar a los bordes */
+    .hero-stats {
+      order: 2;
+      margin-inline: calc(50% - 50vw);
+      width: 100vw;
+      border-radius: 0;
+      border-left: none; border-right: none;
+      padding: 1.4rem 6vw;
+      gap: 1.1rem 1.4rem;
+    }
+    .hero-stat-icon { width: 32px; height: 32px; border-radius: 9px; margin-bottom: .25rem; }
+    .hero-stat-icon svg { width: 18px; height: 18px; }
+    .hero-stat-num { font-size: 1.7rem; }
+    .hero-stat-label { font-size: .7rem; }
+    .hero-promo { font-size: .76rem; padding: .45rem .8rem; }
+    .hero-ctas { flex-direction: column; align-items: stretch; gap: .7rem; }
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-ghost {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    .header-pill { padding: .25rem .55rem; font-size: .6rem; }
+
+    .quiz-grid,
+    .test-grid { grid-template-columns: 1fr; }
+    /* Tablet: 2 cards + peek */
+    .plan-card { flex: 0 0 calc((100% - 50px - 1rem) / 2); min-width: 240px; }
+
+    /* Beneficios: 2 visibles + peek en tablet */
+    .dif-card { flex: 0 0 calc((100% - 40px - 1rem) / 2); min-width: 220px; }
+    .esp-grid { grid-template-columns: repeat(2, 1fr); }
+    .clinicas-stats { grid-template-columns: repeat(2, 1fr); }
+    .centros-main { grid-template-columns: 1fr; gap: 1rem; }
+    section.block { padding: 44px 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
+    .footer-logos { align-items: center; }
+  }
+  @media (max-width: 600px) {
+    /* Móvil: 1 card + peek del siguiente */
+    .plan-card { flex: 0 0 calc(100% - 40px); }
+    .planes-carousel { padding: .8rem .5rem 1.2rem; gap: .6rem; }
+    section.block { padding: 36px 0; }
+    .hero h1 { font-size: 2rem; }
+    .hero { padding: 84px 0 36px; }
+    .cta-final { padding: 40px 0; }
+  }
+
+  /* ============================================================
+     CARRUSELES MÓVIL — Especialidades (grupos de 4),
+                        Diferenciales y Experiencias
+     ============================================================ */
+  @media (max-width: 768px) {
+    .esp-grid.is-mobile-carousel,
+    .dif-grid,
+    .test-grid {
+      display: flex !important;
+      grid-template-columns: none !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      gap: 0.75rem;
+      padding: .3rem 1rem 1.2rem;
+      margin-inline: -1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .esp-grid.is-mobile-carousel::-webkit-scrollbar,
+    .dif-grid::-webkit-scrollbar,
+    .test-grid::-webkit-scrollbar { display: none; }
+
+    /* Diferenciales — 2 cards por vista + peek */
+    .dif-card {
+      flex: 0 0 calc((100% - 30px - .75rem) / 2);
+      min-width: 0;
+      max-width: none;
+      scroll-snap-align: start;
+      padding: 1.1rem .9rem;
+    }
+    .dif-card .dif-icon { margin-bottom: .6rem; }
+    .dif-card .dif-title { font-size: .92rem; line-height: 1.2; }
+    .dif-card .dif-desc { font-size: .76rem; line-height: 1.4; }
+    /* La card especial de aliados ocupa una vista completa */
+    .dif-card--allies {
+      flex: 0 0 80vw;
+      max-width: 340px;
+      padding: 1.4rem 1.2rem;
+    }
+    .dif-card--allies .dif-title { font-size: 1.05rem; }
+
+    /* Experiencias — una card por vista + peek */
+    .test-card {
+      flex: 0 0 85vw;
+      min-width: 250px;
+      max-width: 360px;
+      scroll-snap-align: center;
+    }
+
+    /* Especialidades — cada slide es un grupo de 8 en 2 cols × 4 hileras */
+    .esp-slide {
+      flex: 0 0 82vw;
+      min-width: 260px;
+      max-width: 340px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, auto);
+      gap: .5rem;
+      scroll-snap-align: center;
+    }
+    .esp-slide .esp-item { width: auto; font-size: .82rem; padding: .55rem .7rem; }
+
+    /* Hint visual: borde derecho con fade sutil para indicar scroll */
+    .esp-grid.is-mobile-carousel,
+    .dif-grid,
+    .test-grid {
+      /* Usamos scroll-padding para mejor snap */
+      scroll-padding-inline: 1rem;
+    }
+  }
+
+  /* Hide on small screens */
+  .hide-mobile { }
+  @media (max-width: 960px) { .hide-mobile { display: none; } }
+  .desktop-only { }
+  @media (max-width: 960px) { .desktop-only { display: none; } }
+
+  /* No-scroll when modal/menu open */
+  body.no-scroll { overflow: hidden; }
+
+  /* SEO card variante sin icono */
+  .seo-card--no-icon { padding-left: 1.6rem; }
+  .seo-card--no-icon svg { display: none; }
+
+  /* Card especial de aliados dentro del carrusel de Beneficios */
+  .dif-card--allies {
+    background: rgba(255, 255, 255, .14);
+    border-color: rgba(255, 255, 255, .28);
+  }
+  .dif-allies {
+    display: flex; flex-wrap: wrap; gap: .35rem;
+    margin-top: .8rem;
+  }
+  .dif-allies span {
+    background: rgba(255, 255, 255, .22);
+    color: #fff;
+    font-size: .72rem; font-weight: 700;
+    padding: .3rem .7rem; border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, .25);
+  }
+
+  /* ============================================================
+     QUIZ DE PLAN IDEAL (sustituye "¿Qué plan elegir?")
+     ============================================================ */
+  .qz-shell {
+    position: relative;
+    max-width: 880px; margin: 0 auto;
+  }
+
+  /* Progress bar */
+  .qz-progress { color: #fff; margin-bottom: 1.4rem; }
+  .qz-progress-info {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .82rem; font-weight: 600; opacity: .9; margin-bottom: .45rem;
+  }
+  .qz-progress-bar {
+    height: 6px; background: rgba(255,255,255,.18);
+    border-radius: 50px; overflow: hidden;
+  }
+  .qz-progress-fill {
+    height: 100%; width: 0;
+    background: #8ed8ff;
+    border-radius: 50px;
+    transition: width .45s var(--ease);
+  }
+
+  /* Screens */
+  .qz-screen {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    pointer-events: none;
+  }
+  .qz-screen.is-active {
+    opacity: 1; transform: none; pointer-events: auto;
+  }
+  .qz-screen[hidden] { display: none; }
+
+  /* INTRO */
+  .qz-intro-sub {
+    color: rgba(255,255,255,.92);
+    font-size: 1rem; line-height: 1.55;
+    max-width: 520px; margin: 0 auto 1.6rem;
+    text-align: center;
+  }
+  #qzScreenIntro { text-align: center; }
+
+  /* QUIZ DUEL */
+  .qz-duel-title {
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 800;
+    color: #fff; text-align: center; margin-bottom: 1.6rem;
+    letter-spacing: -.01em;
+  }
+  .qz-duel-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 1rem;
+    width: 100%;
+  }
+  @media (max-width: 700px) {
+    .qz-duel-grid { grid-template-columns: 1fr; gap: .7rem; }
+  }
+  .qz-duel-card {
+    background: #fff; border-radius: var(--radius-lg);
+    padding: 1.6rem 1.3rem;
+    box-shadow: 0 12px 32px rgba(0, 30, 80, .22);
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    transition: transform .35s var(--ease), border-color .25s, opacity .35s, box-shadow .35s;
+    min-height: 220px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .7rem;
+  }
+  .qz-duel-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--blue-vital);
+    box-shadow: 0 18px 40px rgba(0, 30, 80, .3);
+  }
+  .qz-duel-card.is-picked {
+    transform: scale(1.04);
+    border-color: var(--blue-vital);
+    box-shadow: 0 22px 48px rgba(0, 159, 227, .45);
+  }
+  .qz-duel-card.is-loser { opacity: .35; transform: scale(.95); }
+  .qz-duel-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qz-duel-icon svg { width: 30px; height: 30px; }
+  .qz-duel-card-title {
+    font-size: 1.1rem; font-weight: 800; color: var(--ink);
+    line-height: 1.2;
+  }
+  .qz-duel-card-desc {
+    font-size: .85rem; color: var(--ink-2); line-height: 1.45;
+    max-width: 240px;
+  }
+  .qz-vs {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--red-bienestar); color: #fff;
+    font-size: .95rem; font-weight: 900; letter-spacing: .5px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 18px rgba(227, 6, 19, .4);
+    border: 3px solid #fff;
+    justify-self: center;
+  }
+  @media (max-width: 700px) {
+    .qz-vs { width: 44px; height: 44px; font-size: .82rem; }
+  }
+  .qz-skip { margin-top: 1.6rem; text-align: center; }
+  .qz-skip button {
+    color: rgba(255,255,255,.85); font-size: .88rem; font-weight: 600;
+    padding: .55rem 1.3rem; border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.3);
+    transition: all .2s;
+  }
+  .qz-skip button:hover {
+    background: rgba(255,255,255,.18); color: #fff;
+    border-color: rgba(255,255,255,.5);
+  }
+
+  /* RESULT */
+  .qz-result-card {
+    background: #fff; border-radius: var(--radius-lg);
+    padding: 1.8rem 1.7rem;
+    box-shadow: 0 24px 60px rgba(0, 30, 80, .35);
+    max-width: 520px; width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .qz-result-card::before {
+    content:''; position: absolute; inset: 0 0 auto 0; height: 6px;
+    background: linear-gradient(90deg, var(--qz-color, var(--blue-serenidad)), var(--qz-color-2, var(--blue-vital)));
+  }
+  .qz-result-banner {
+    display: inline-block;
+    background: var(--blue-soft); color: var(--blue-serenidad);
+    padding: .35rem .9rem; border-radius: 50px;
+    font-size: .7rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .6px;
+    margin-bottom: .8rem;
+  }
+  .qz-result-title { font-size: .98rem; color: var(--ink-2); margin-bottom: .3rem; }
+  .qz-result-name {
+    font-size: clamp(1.4rem, 3.6vw, 1.95rem); font-weight: 900;
+    color: var(--qz-color, var(--blue-serenidad));
+    letter-spacing: -.02em; margin-bottom: .25rem; line-height: 1.1;
+  }
+  .qz-result-tag { font-size: .88rem; color: var(--ink-2); margin-bottom: 1.1rem; }
+  .qz-result-price {
+    background: var(--qz-color, var(--blue-serenidad)); color: #fff;
+    border-radius: 12px;
+    padding: .75rem 1.1rem;
+    margin-bottom: 1.2rem;
+    display: inline-flex; align-items: center; gap: .8rem;
+  }
+  .qz-result-price-from {
+    font-size: .65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .4px; opacity: .85;
+  }
+  .qz-result-price-amount {
+    display: flex; align-items: baseline; gap: .1rem;
+  }
+  .qz-cur { font-size: .95rem; font-weight: 800; }
+  .qz-val { font-size: 1.65rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+  .qz-per { font-size: .7rem; font-weight: 600; opacity: .85; margin-left: .2rem; }
+  .qz-result-section-title {
+    font-size: .68rem; font-weight: 800; color: var(--blue-serenidad);
+    text-transform: uppercase; letter-spacing: .6px;
+    text-align: left; margin: 1rem 0 .45rem;
+  }
+  .qz-result-list {
+    list-style: none; text-align: left;
+    display: flex; flex-direction: column; gap: .3rem;
+    padding: 0; margin-bottom: .4rem;
+  }
+  .qz-result-list li {
+    display: flex; gap: .5rem; align-items: flex-start;
+    font-size: .87rem; color: var(--ink-2); line-height: 1.4;
+  }
+  .qz-result-list li svg { width: 16px; height: 16px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px; }
+  .qz-result-list--extras li svg { color: var(--muted); }
+  .qz-result-list--extras li { color: var(--muted); }
+  .qz-result-ctas {
+    display: flex; flex-direction: column; gap: .55rem;
+    margin-top: 1.4rem;
+  }
+  .qz-restart {
+    background: transparent; color: var(--blue-serenidad);
+    padding: .8rem 1.5rem; border-radius: 50px; font-weight: 700;
+    font-size: .88rem;
+    border: 1.5px solid var(--line);
+    transition: background .2s, border-color .2s;
+  }
+  .qz-restart:hover { background: var(--blue-soft); border-color: var(--blue-serenidad); }
+
+  /* Color por plan en el resultado (paleta de marca) */
+  .qz-result-card[data-plan="diamante"]    { --qz-color: #002a51; --qz-color-2: var(--blue-serenidad); }
+  .qz-result-card[data-plan="zafiro"]      { --qz-color: var(--blue-serenidad); --qz-color-2: var(--blue-vital); }
+  .qz-result-card[data-plan="rubi"]        { --qz-color: var(--red-bienestar); --qz-color-2: #a8000a; }
+  .qz-result-card[data-plan="esmeralda"]   { --qz-color: var(--blue-vital); --qz-color-2: #0079b3; }
+  .qz-result-card[data-plan="domiciliario"]{ --qz-color: #4fb8ea; --qz-color-2: var(--blue-vital); }
+
+  /* Confetti */
+  .qz-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .qz-confetti span {
+    position: absolute; width: 7px; height: 7px;
+    border-radius: 2px;
+    animation: qzConfetti 2.6s ease-in forwards;
+    opacity: 0;
+  }
+  @keyframes qzConfetti {
+    0% { transform: translateY(-20px) rotate(0); opacity: 1; }
+    100% { transform: translateY(60vh) rotate(540deg); opacity: 0; }
+  }
+
+  /* Mobile: quiz más compacto */
+  @media (max-width: 600px) {
+    .qz-progress { margin-bottom: 1rem; }
+    .qz-progress-info { font-size: .74rem; }
+
+    .qz-intro-sub { font-size: .9rem; margin-bottom: 1.2rem; }
+
+    .qz-duel-title { font-size: 1.05rem; margin-bottom: 1rem; }
+    .qz-duel-grid { gap: .5rem; }
+    .qz-duel-card {
+      padding: 1rem .9rem;
+      min-height: 0;
+      gap: .45rem;
+      border-radius: 14px;
+    }
+    .qz-duel-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+    }
+    .qz-duel-icon svg { width: 22px; height: 22px; }
+    .qz-duel-card-title { font-size: .95rem; }
+    .qz-duel-card-desc {
+      font-size: .76rem; line-height: 1.35;
+      max-width: none;
+    }
+    .qz-vs {
+      width: 36px; height: 36px;
+      font-size: .72rem;
+      border-width: 2px;
+    }
+    .qz-skip { margin-top: 1.1rem; }
+    .qz-skip button { font-size: .78rem; padding: .45rem 1rem; }
+
+    /* Resultado más compacto */
+    .qz-result-card {
+      padding: 1.4rem 1.2rem;
+      border-radius: 16px;
+    }
+    .qz-result-banner {
+      font-size: .62rem; padding: .25rem .7rem;
+      margin-bottom: .55rem;
+    }
+    .qz-result-title { font-size: .85rem; margin-bottom: .15rem; }
+    .qz-result-name { font-size: 1.3rem; margin-bottom: .2rem; }
+    .qz-result-tag { font-size: .8rem; margin-bottom: .85rem; }
+    .qz-result-price {
+      padding: .55rem .85rem;
+      gap: .55rem;
+      margin-bottom: .9rem;
+      border-radius: 10px;
+    }
+    .qz-result-price-from { font-size: .58rem; }
+    .qz-cur { font-size: .82rem; }
+    .qz-val { font-size: 1.3rem; }
+    .qz-per { font-size: .62rem; }
+
+    .qz-result-section-title {
+      font-size: .62rem; margin: .8rem 0 .35rem;
+    }
+    .qz-result-list { gap: .25rem; }
+    .qz-result-list li { font-size: .8rem; line-height: 1.35; }
+    .qz-result-list li svg { width: 14px; height: 14px; }
+    .qz-result-ctas { gap: .45rem; margin-top: 1.1rem; }
+    .qz-result-ctas .btn-primary { padding: .8rem 1.3rem; font-size: .9rem; }
+    .qz-restart { padding: .65rem 1.2rem; font-size: .82rem; }
+  }
+
+  /* ============================================================
+     Controles genéricos de carrusel móvil (prev/dots/next)
+     ============================================================ */
+  .mcarousel-wrap { position: relative; }
+  .mcarousel-ctrls {
+    display: none;                     /* oculto por defecto (desktop) */
+    align-items: center; justify-content: center;
+    gap: 1rem; margin-top: .7rem;
+  }
+  @media (max-width: 768px) {
+    .mcarousel-ctrls { display: flex; }
+  }
+  /* Beneficios: controles SIEMPRE visibles (ruleta en todos los viewports) */
+  .mcarousel-ctrls[data-mcarousel-for="difGrid"] { display: flex; }
+  .mc-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    color: var(--blue-serenidad);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: all .2s var(--ease);
+    flex-shrink: 0;
+  }
+  .mc-btn:hover:not(:disabled) {
+    background: var(--blue-serenidad); color: #fff;
+    border-color: var(--blue-serenidad);
+  }
+  .mc-btn:disabled { opacity: .4; cursor: default; }
+  .mc-btn svg { width: 18px; height: 18px; }
+
+  .mc-dots { display: flex; gap: .4rem; align-items: center; }
+  .mc-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(0, 88, 162, .25);
+    border: none; cursor: pointer; padding: 0;
+    transition: all .2s var(--ease);
+  }
+  .mc-dot.active {
+    background: var(--blue-serenidad);
+    width: 24px; border-radius: 20px;
+  }
+  /* Sobre fondo azul oscuro (panel diferenciales), inviertir colores */
+  section.block.band-blue .mc-btn {
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .3);
+    color: #fff;
+  }
+  section.block.band-blue .mc-btn:hover:not(:disabled) {
+    background: #fff; color: var(--blue-serenidad);
+  }
+  section.block.band-blue .mc-dot { background: rgba(255, 255, 255, .3); }
+  section.block.band-blue .mc-dot.active { background: #fff; }
+
+  /* (Reglas .aliados-grid / .aliado-card retiradas — aliados ahora es card en Beneficios) */
+
+  /* ============================================================
+     Términos y condiciones (toggle)
+     ============================================================ */
+  .terms-toggle {
+    max-width: 1040px;
+    margin: 2rem auto 0;
+    border-top: 1px solid var(--line);
+    padding-top: 1.2rem;
+  }
+  .terms-toggle summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--blue-serenidad);
+    font-weight: 700;
+    font-size: .95rem;
+    text-decoration: underline;
+    display: inline-flex; align-items: center; gap: .4rem;
+    transition: color .2s;
+  }
+  .terms-toggle summary::-webkit-details-marker { display: none; }
+  .terms-toggle summary::after {
+    content: '▾';
+    font-size: .9em;
+    transition: transform .25s var(--ease);
+    display: inline-block;
+  }
+  .terms-toggle[open] summary::after { transform: rotate(180deg); }
+  .terms-toggle summary:hover { color: var(--blue-dark); }
+
+  .terms-content {
+    margin-top: 1.1rem;
+    color: var(--ink-2);
+    font-size: .82rem;
+    line-height: 1.55;
+    animation: terms-fade .25s ease;
+  }
+  @keyframes terms-fade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  .terms-list {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: term;
+    margin-bottom: 1rem;
+  }
+  .terms-list li {
+    counter-increment: term;
+    padding: .35rem 0 .35rem 2rem;
+    position: relative;
+  }
+  .terms-list li::before {
+    content: '(' counter(term) ')';
+    position: absolute; left: 0; top: .35rem;
+    color: var(--blue-serenidad);
+    font-weight: 700;
+    font-size: .78rem;
+  }
+  .terms-content p { margin: .4rem 0; }
+  .terms-content a { color: var(--blue-serenidad); text-decoration: underline; }
+  .terms-content strong { color: var(--ink); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .terms-content { font-size: .78rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- =========== HEADER =========== -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="#" class="logo-link" aria-label="Colmédica inicio">
+      <img src="colmedica-logo-white.png" alt="Colmédica" class="brand-logo">
+    </a>
+
+    <nav class="main-nav">
+      <a href="#planes">Planes</a>
+      <a href="#que-plan">Qué plan elegir</a>
+      <a href="#clinicas">Clínicas</a>
+      <a href="#centros">Centros</a>
+      <a href="#especialidades">Especialidades</a>
+      <a href="#diferenciales">Diferenciales</a>
+      <a href="#pqr">PQR</a>
+    </nav>
+
+    <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta desktop-only">Cotizar</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="#planes" onclick="closeMobile()">Planes</a>
+  <a href="#que-plan" onclick="closeMobile()">Qué plan elegir</a>
+  <a href="#clinicas" onclick="closeMobile()">Clínicas</a>
+  <a href="#centros" onclick="closeMobile()">Centros Médicos</a>
+  <a href="#especialidades" onclick="closeMobile()">Especialidades</a>
+  <a href="#diferenciales" onclick="closeMobile()">Diferenciales</a>
+  <a href="#testimonios" onclick="closeMobile()">Testimonios</a>
+  <a href="#pqr" onclick="closeMobile()">PQR</a>
+  <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Cotizar mi plan</a>
+</div>
+
+<main>
+
+<!-- =========== HERO =========== -->
+<section class="hero">
+  <div class="wrap">
+
+    <!-- Badge promocional superior -->
+    <a href="#planes" class="hero-promo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg>
+      <span>Pago anual y <strong>6 cuotas gratis</strong> del plan Odontológico Básico Integral</span>
+    </a>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>En Colmédica te <em>queremos bien</em></h1>
+        <p class="hero-sub">Más de 15 planes de medicina prepagada en 5 gamas</p>
+
+        <div class="hero-ctas">
+          <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
+            Cotízalo aquí
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#planes" class="btn-ghost">Ver planes</a>
+        </div>
+      </div>
+
+      <!-- Stats 2×2 -->
+      <div class="hero-stats" role="list">
+        <div class="hero-stat" role="listitem">
+          <span class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </span>
+          <div class="hero-stat-num">+100</div>
+          <div class="hero-stat-label">Especialidades</div>
+        </div>
+        <div class="hero-stat" role="listitem">
+          <span class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          </span>
+          <div class="hero-stat-num">+30</div>
+          <div class="hero-stat-label">Centros Médicos</div>
+        </div>
+        <div class="hero-stat" role="listitem">
+          <span class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          <div class="hero-stat-num">24/7</div>
+          <div class="hero-stat-label">Orientación</div>
+        </div>
+        <div class="hero-stat" role="listitem">
+          <span class="hero-stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <div class="hero-stat-num">+4.200</div>
+          <div class="hero-stat-label">Profesionales</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 1. PLANES =========== -->
+<section class="block band-soft" id="planes">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Nuestros Planes</span>
+      <h2 class="section-title">Elige el plan <em>ideal para ti</em></h2>
+    </div>
+
+    <div class="seo-card seo-card--no-icon">
+      <p>Descubre nuestros planes de medicina prepagada Colmédica: atención médica integral, acceso rápido a especialistas, cobertura nacional e internacional y beneficios exclusivos diseñados para cuidar tu salud con respaldo permanente.</p>
+    </div>
+
+    <div class="planes-carousel-wrap">
+      <button class="carousel-arrow prev" id="planPrev" aria-label="Plan anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow next" id="planNext" aria-label="Plan siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+    <div class="planes-carousel" id="planesCarousel">
+      <!-- Plan 1 -->
+      <article class="plan-card" data-gama="diamante">
+        <h3 class="plan-gama">Gama Diamante</h3>
+        <p class="plan-tagline">Cobertura premium nacional e internacional</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">428.782</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red médica nacional completa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobertura internacional</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Centro exclusivo en Bogotá</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Atención domiciliaria 24/7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización VIP</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('diamante')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+
+      <!-- Plan 2 -->
+      <article class="plan-card" data-gama="zafiro">
+        <h3 class="plan-gama">Gama Zafiro</h3>
+        <p class="plan-tagline">El equilibrio perfecto entre cobertura y precio</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">304.510</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Amplia red de clínicas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso a especialistas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cirugías y hospitalización</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Odontología preventiva</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Maternidad y pediatría</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('zafiro')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+
+      <!-- Plan 3 -->
+      <article class="plan-card" data-gama="rubi">
+        <h3 class="plan-gama">Gama Rubí</h3>
+        <p class="plan-tagline">Protección esencial a un costo accesible</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">208.563</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red preferente de clínicas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultas y especialistas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Exámenes y procedimientos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Telemedicina incluida</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Orientación médica 24/7</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('rubi')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+
+      <!-- Plan 4 -->
+      <article class="plan-card" data-gama="esmeralda">
+        <h3 class="plan-gama">Gama Esmeralda</h3>
+        <p class="plan-tagline">Complementa tu EPS con servicios ágiles</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">148.390</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultas sin copagos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red complementaria</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Citas prioritarias</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Salud mental</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Beneficios en aliados</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('esmeralda')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+
+      <!-- Plan 5 -->
+      <article class="plan-card" data-gama="domiciliario">
+        <h3 class="plan-gama">Plan Domiciliario</h3>
+        <p class="plan-tagline">Atención médica en la comodidad de tu casa</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">89.750</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consulta médica domiciliaria</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Disponibilidad 24/7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico general y enfermería</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Toma de muestras en casa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>App para agendar citas</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('domiciliario')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+
+      <!-- Plan 6 -->
+      <article class="plan-card" data-gama="oncologico">
+        <h3 class="plan-gama">Plan Oncológico</h3>
+        <p class="plan-tagline">Acompañamiento integral en el tratamiento</p>
+                <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">67.420</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Diagnóstico temprano</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tratamiento especializado</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Equipo multidisciplinario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Apoyo psicológico</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sin carencias de entrada</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('oncologico')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+        </div>
+      </article>
+    </div><!-- /.planes-carousel -->
+
+      <!-- Indicadores -->
+      <div class="carousel-ctrls">
+        <div class="carousel-dots" id="planDots"></div>
+      </div>
+    </div><!-- /.planes-carousel-wrap -->
+
+    <!-- Términos y condiciones (toggle) -->
+    <details class="terms-toggle">
+      <summary>Ver términos y condiciones</summary>
+      <div class="terms-content">
+        <ol class="terms-list">
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Diamante Élite</strong>. Venta a nivel nacional. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Zafiro Exclusivo</strong>. Venta para personas con residencia en Bogotá y Chía. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Rubí Integral</strong>. Venta para personas con residencia en Bogotá y Chía. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Hospitalario Vital</strong>. Venta a nivel nacional. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 15 a 18 años en contrato familiar, plan <strong>Oncológico Vida Plus</strong>. Venta a nivel nacional. Aplican condiciones.</li>
+        </ol>
+
+        <p>A los servicios aquí contemplados y según la gama relacionada, les aplican condiciones contractuales de acuerdo con el plan contratado. Para más información, contacta a uno de nuestros asesores en <a href="https://www.colmedica.com/planes" target="_blank" rel="noopener">www.colmedica.com/planes</a>, opción ‘Cotizar’.</p>
+        <p>Los Centros Médicos, de Diagnóstico y Odontológicos Colmédica son operados por UMD.</p>
+        <p>La asistencia en viajes es un beneficio no contractual que es otorgado por Colmédica de manera discrecional y sin costo para algunos de sus planes de medicina prepagada, de acuerdo con las condiciones establecidas por esta compañía. Puede ser modificado o retirado unilateralmente en cualquier momento sin aviso previo.</p>
+        <p>* Servicio válido para los planes Diamante Élite Superior y Zafiro Élite Superior, siempre que la oferta de la IPS lo permita y pagando 4 Unidades de Pago Directo (UPD) por concepto de habitación hospitalaria.</p>
+        <p>** Servicio sujeto a la disponibilidad del prestador al momento de la solicitud, únicamente para Bogotá aplica la atención 24/7.</p>
+        <p>*** Servicio válido para los planes Diamante Élite Superior y Zafiro Élite Superior.</p>
+        <p>**** Válido para los planes Diamante Élite Superior y Diamante Élite.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- =========== 2. QUÉ PLAN ELEGIR — QUIZ INTERACTIVO =========== -->
+<section class="block band-blue" id="que-plan">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Tu plan ideal</span>
+      <h2 class="section-title">Encuéntralo en <em>30 segundos</em></h2>
+    </div>
+
+    <div class="qz-shell">
+
+      <!-- Progress bar -->
+      <div class="qz-progress" id="qzProgress" hidden>
+        <div class="qz-progress-info">
+          <span id="qzProgressLabel">Pregunta 1 de 6</span>
+          <span id="qzProgressPct">17%</span>
+        </div>
+        <div class="qz-progress-bar"><div class="qz-progress-fill" id="qzProgressFill"></div></div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="qz-screen is-active" id="qzScreenIntro">
+        <p class="qz-intro-sub">
+          Te haremos 6 preguntas rápidas para descubrir el plan Colmédica
+          que mejor se adapta a lo que tú y tu familia necesitan.
+        </p>
+        <button class="btn-primary" id="qzStart">
+          Empezar quiz
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="qz-screen" id="qzScreenQuiz" hidden>
+        <h3 class="qz-duel-title">¿Qué te importa más?</h3>
+        <div class="qz-duel-grid">
+          <button class="qz-duel-card" id="qzCardA" data-side="A"></button>
+          <div class="qz-vs">VS</div>
+          <button class="qz-duel-card" id="qzCardB" data-side="B"></button>
+        </div>
+        <div class="qz-skip">
+          <button id="qzAllBtn">Quiero todo · Sáltate el quiz</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="qz-screen" id="qzScreenResult" hidden>
+        <div class="qz-result-card" id="qzResultCard" data-plan="diamante">
+          <span class="qz-result-banner">Tu match perfecto</span>
+          <p class="qz-result-title">Tu plan ideal es</p>
+          <h3 class="qz-result-name" id="qzResultName">Plan</h3>
+          <p class="qz-result-tag" id="qzResultTag"></p>
+
+          <div class="qz-result-price">
+            <span class="qz-result-price-from">Desde</span>
+            <div class="qz-result-price-amount">
+              <span class="qz-cur">$</span>
+              <span class="qz-val" id="qzResultPrice"></span>
+              <span class="qz-per">/mes</span>
+            </div>
+          </div>
+
+          <div class="qz-result-section-title">Lo que elegiste</div>
+          <ul class="qz-result-list" id="qzResultPicks"></ul>
+
+          <div class="qz-result-section-title" id="qzExtrasTitle">Y además incluye</div>
+          <ul class="qz-result-list qz-result-list--extras" id="qzResultExtras"></ul>
+
+          <div class="qz-result-ctas">
+            <button class="btn-primary" id="qzResultDetail">
+              Ver plan completo
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button class="qz-restart" id="qzRestart">Volver a hacer el quiz</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="qz-confetti" id="qzConfetti"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 3. CLÍNICAS (listado con bullets) =========== -->
+<section class="block band-soft" id="clinicas">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Red Preferente</span>
+      <h2 class="section-title">Red de <em>Mejores Clínicas</em></h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9h-4V5H9v4H5v6h4v4h6v-4h4z"/></svg>
+      <p>Accede a las mejores clínicas del país a través de nuestra red preferencial: centros de alta complejidad, tecnología de punta y equipos médicos especializados en las principales ciudades de Colombia, con hospitalización, cirugía y atención especializada.</p>
+    </div>
+
+    <!-- Tabs de ciudad (mismo patrón que Centros) -->
+    <div class="clinicas-city-tabs" id="clinicasTabs">
+      <button class="clinicas-tab active" data-city="bogota">Bogotá</button>
+      <button class="clinicas-tab" data-city="barranquilla">Barranquilla</button>
+      <button class="clinicas-tab" data-city="cali">Cali</button>
+      <button class="clinicas-tab" data-city="medellin">Medellín</button>
+      <button class="clinicas-tab" data-city="bucaramanga">Bucaramanga</button>
+      <button class="clinicas-tab" data-city="cartagena">Cartagena</button>
+      <button class="clinicas-tab" data-city="chia">Chía</button>
+      <button class="clinicas-tab" data-city="ibague">Ibagué</button>
+      <button class="clinicas-tab" data-city="manizales">Manizales</button>
+      <button class="clinicas-tab" data-city="neiva">Neiva</button>
+      <button class="clinicas-tab" data-city="pereira">Pereira</button>
+      <button class="clinicas-tab" data-city="villavicencio">Villavicencio</button>
+    </div>
+
+    <!-- Dots: indican que hay más ciudades a la derecha -->
+    <div class="clinicas-tabs-dots" id="clinicasTabsDots" aria-hidden="true"></div>
+
+    <!-- Card con listado de clínicas de la ciudad activa -->
+    <div class="clinicas-card">
+      <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
+      <ul class="clinicas-list-items" id="clinicasList"></ul>
+    </div>
+
+    <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver toda la red médica</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 4. CENTROS MÉDICOS (foto ciudad + 3 cuadros) =========== -->
+<section class="block" id="centros">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Red Propia</span>
+      <h2 class="section-title">Centros Médicos <em>Colmédica</em></h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      <p>Disfruta del confort de nuestros Centros Médicos, Odontológicos y de Diagnóstico Colmédica propios a nivel nacional. Atención ágil, sin filas y con la mejor tecnología para ti y tu familia en las principales ciudades del país.</p>
+    </div>
+
+    <div class="centros-city-tabs" id="centrosTabs">
+      <button class="centros-tab active" data-city="bogota">Bogotá</button>
+      <button class="centros-tab" data-city="medellin">Medellín</button>
+      <button class="centros-tab" data-city="cali">Cali</button>
+      <button class="centros-tab" data-city="barranquilla">Barranquilla</button>
+      <button class="centros-tab" data-city="bucaramanga">Bucaramanga</button>
+      <button class="centros-tab" data-city="cartagena">Cartagena</button>
+      <button class="centros-tab" data-city="chia">Chía</button>
+      <button class="centros-tab" data-city="ibague">Ibagué</button>
+      <button class="centros-tab" data-city="manizales">Manizales</button>
+      <button class="centros-tab" data-city="neiva">Neiva</button>
+      <button class="centros-tab" data-city="pereira">Pereira</button>
+      <button class="centros-tab" data-city="villavicencio">Villavicencio</button>
+    </div>
+
+    <!-- Dots: indican que hay más ciudades a la derecha -->
+    <div class="centros-tabs-dots" id="centrosTabsDots" aria-hidden="true"></div>
+
+    <div class="centros-main">
+      <div class="centros-photo" id="centrosPhoto">
+        <img id="centrosImg" src="https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=900&q=80" alt="Bogotá">
+        <div class="centros-photo-overlay">
+          <h3 class="centros-photo-line">
+            <span id="centrosCity">Bogotá</span>: <span id="centrosCount">14</span> Centros Colmédica
+          </h3>
+        </div>
+      </div>
+
+      <div class="centros-boxes" id="centrosBoxes">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <p class="centros-disclaimer">
+      Los Centros Médicos, de Diagnóstico y Odontológicos Colmédica son operados por UMD.
+    </p>
+
+    <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver todos los centros</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 5. ESPECIALIDADES (lista completa sin emojis) =========== -->
+<section class="block band-soft" id="especialidades">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Cobertura Médica</span>
+      <h2 class="section-title">Más de <em>100 especialidades</em> médicas</h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <p>Accede directamente a más de 100 especialidades y subespecialidades médicas sin necesidad de pasar primero por un médico general. Atención oportuna con los mejores profesionales del país en todas las áreas de la medicina.</p>
+    </div>
+
+    <div class="mcarousel-wrap">
+      <div class="esp-grid" id="espGrid" data-mcarousel>
+        <!-- Injected by JS -->
+      </div>
+      <div class="mcarousel-ctrls" data-mcarousel-for="espGrid">
+        <button class="mc-btn prev" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="mc-dots"></div>
+        <button class="mc-btn next" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver todas las especialidades</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 6. DIFERENCIALES (merge elige + ventajas) =========== -->
+<section class="block band-blue" id="diferenciales">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">¿Por qué Colmédica?</span>
+      <h2 class="section-title">Beneficios <em>exclusivos</em></h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+      <p>Más de 30 años cuidando la salud de los colombianos con respaldo, tecnología y calidez humana. Conoce los beneficios exclusivos que solo Colmédica te ofrece.</p>
+    </div>
+
+    <div class="mcarousel-wrap">
+    <div class="dif-grid" id="difGrid" data-mcarousel>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3 class="dif-title">Acceso desde el primer día</h3>
+        <p class="dif-desc">Sin carencias para tus consultas y servicios esenciales.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 10h20M8 3v18"/></svg></div>
+        <h3 class="dif-title">Sin cuota de inscripción</h3>
+        <p class="dif-desc">Afíliate sin pagos adicionales. Tu bienestar es la prioridad.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <h3 class="dif-title">Sin examen médico</h3>
+        <p class="dif-desc">Ingresa a cualquier plan sin exámenes previos de admisión.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
+        <h3 class="dif-title">Domiciliaria 24/7</h3>
+        <p class="dif-desc">Atención médica en casa las 24 horas, los 7 días.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3 class="dif-title">Cobertura nacional</h3>
+        <p class="dif-desc">Red médica en las principales ciudades del país.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20"/></svg></div>
+        <h3 class="dif-title">+100 especialidades</h3>
+        <p class="dif-desc">Acceso directo sin pasar por médico general.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+        <h3 class="dif-title">App y telemedicina</h3>
+        <p class="dif-desc">100% de tus trámites desde tu celular.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3 class="dif-title">Salud mental</h3>
+        <p class="dif-desc">Acompañamiento psicológico ilimitado SOM.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
+        <h3 class="dif-title">Odontología preventiva</h3>
+        <p class="dif-desc">Incluida en planes seleccionados, con urgencias 24/7.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></div>
+        <h3 class="dif-title">Citas prioritarias</h3>
+        <p class="dif-desc">Tiempos de espera reducidos con tecnología de agendamiento.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v12"/><path d="M9 12h6M9 16h6"/></svg></div>
+        <h3 class="dif-title">+30 años de experiencia</h3>
+        <p class="dif-desc">Trayectoria que respalda la confianza de miles de familias.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <h3 class="dif-title">+4.200 profesionales</h3>
+        <p class="dif-desc">Red adscrita de médicos de alta especialidad.</p>
+      </div>
+
+      <!-- Card especial de aliados (cierra el carrusel) -->
+      <div class="dif-card dif-card--allies">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+        <h3 class="dif-title">¿Por qué elegirnos?</h3>
+        <p class="dif-desc">También por nuestros aliados con beneficios exclusivos.</p>
+        <div class="dif-allies">
+          <span>Chevignon</span>
+          <span>Bodytech</span>
+          <span>Pat Primo</span>
+          <span>Cruz Verde</span>
+          <span>Teatro Nacional</span>
+          <span>Clínica del Country</span>
+          <span>Farmatodo</span>
+          <span>Open English</span>
+        </div>
+      </div>
+    </div><!-- /.dif-grid -->
+    <div class="mcarousel-ctrls" data-mcarousel-for="difGrid">
+      <button class="mc-btn prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="mc-dots"></div>
+      <button class="mc-btn next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    </div><!-- /.mcarousel-wrap -->
+
+    <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Descubre todos los beneficios</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 7. TESTIMONIOS + ALIADOS =========== -->
+<section class="block" id="testimonios">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">Experiencias reales</span>
+      <h2 class="section-title">Lo que dicen <em>nuestros usuarios</em></h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <p>Miles de familias confían en Colmédica para cuidar su bienestar. Conoce las experiencias reales de nuestros usuarios y descubre por qué somos líderes en medicina prepagada en Colombia, con respaldo de más de 30 años en el sector salud.</p>
+    </div>
+
+    <div class="mcarousel-wrap">
+    <div class="test-grid" id="testGrid" data-mcarousel>
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo('andrea')">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Andrea, Bogotá">
+          <span class="test-video-badge">Video</span>
+          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Llevo 8 años con Colmédica y han atendido a mi familia con un servicio excelente. La atención en el Centro Médico es rápida y los especialistas, de primera."</p>
+          <div class="test-author">Andrea Martínez</div>
+          <div class="test-author-sub">Bogotá — Gama Zafiro</div>
+        </div>
+      </article>
+
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo('lina')">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Lina, Medellín">
+          <span class="test-video-badge">Video</span>
+          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Durante el embarazo de mi hija el acompañamiento fue impecable. Colmédica siempre está cuando lo necesito, con calidez y profesionalismo."</p>
+          <div class="test-author">Lina Gómez</div>
+          <div class="test-author-sub">Medellín — Gama Diamante</div>
+        </div>
+      </article>
+
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo('mario')">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Mario, Cali">
+          <span class="test-video-badge">Video</span>
+          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Tuve una cirugía compleja y todo el equipo fue excepcional. La red de clínicas Colmédica es la mejor, te sientes en las mejores manos."</p>
+          <div class="test-author">Mario Alvarino</div>
+          <div class="test-author-sub">Cali — Gama Rubí</div>
+        </div>
+      </article>
+    </div><!-- /.test-grid -->
+    <div class="mcarousel-ctrls" data-mcarousel-for="testGrid">
+      <button class="mc-btn prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="mc-dots"></div>
+      <button class="mc-btn next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    </div><!-- /.mcarousel-wrap -->
+  </div>
+</section>
+
+<!-- =========== 8. PQR (FAQ) =========== -->
+<section class="block band-soft" id="pqr">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-tag">PQR / Preguntas</span>
+      <h2 class="section-title">Resolvemos tus <em>dudas</em></h2>
+    </div>
+
+    <div class="seo-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+      <p>Resolvemos todas tus dudas sobre medicina prepagada, coberturas, afiliación y trámites. Encuentra respuestas rápidas y claras sobre cómo funcionan nuestros planes de salud y los beneficios que Colmédica tiene para ti y tu familia.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>¿Qué es un plan de medicina prepagada?</summary>
+        <div class="faq-body">Es un servicio de salud privado que te ofrece atención médica de alta calidad en clínicas y centros médicos de primer nivel, con acceso a especialistas, cirugías, hospitalización y más, con tarifas preestablecidas.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Para qué sirve la medicina prepagada?</summary>
+        <div class="faq-body">Te permite acceder a servicios médicos de manera ágil, sin largas filas ni esperas, con médicos especializados, tecnología de punta y atención personalizada cuando más lo necesitas.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuál es el costo de un plan?</summary>
+        <div class="faq-body">Los planes Colmédica arrancan desde tarifas accesibles por persona o familiares. Contáctanos para una cotización personalizada según tu perfil y necesidades.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Me puedo afiliar estando embarazada?</summary>
+        <div class="faq-body">Sí, puedes afiliarte durante el embarazo. Algunos planes tienen períodos de carencia para servicios relacionados con la maternidad. Te asesoramos sobre las opciones disponibles.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Se pierde la antigüedad al cambiar de plan?</summary>
+        <div class="faq-body">No. Colmédica tiene política de convalidación de antigüedad, por lo que tu historial previo con otros operadores puede ser reconocido. Consulta con nuestros asesores los detalles.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Necesito tener EPS para afiliarme?</summary>
+        <div class="faq-body">Sí, la medicina prepagada complementa tu EPS. Para afiliarte a Colmédica debes tener afiliación vigente a una EPS del régimen contributivo.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿A quiénes puedo afiliar a mi plan?</summary>
+        <div class="faq-body">Puedes afiliar a tu cónyuge o compañero permanente, hijos menores de 25 años y tus padres. El afiliado principal debe ser mayor de 18 años.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuál es la diferencia entre prepagada y plan complementario?</summary>
+        <div class="faq-body">La medicina prepagada ofrece una red de clínicas VIP con servicio integral. El plan complementario se articula con los servicios de la EPS para cubrir copagos y cuotas moderadoras. Colmédica ofrece ambas opciones.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CTA FINAL =========== -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>¿Listo para cuidar tu salud?</h2>
+    <p>Cotiza tu plan ideal en minutos. Nuestros asesores te ayudan a encontrar la opción perfecta.</p>
+    <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
+      Cotizar mi plan
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- =========== FOOTER =========== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logos">
+        <span class="footer-logo-main" aria-label="Colmédica">
+          <img src="colmedica-logo-white.png" alt="Colmédica" class="brand-logo-footer">
+        </span>
+        <a href="https://www.supersalud.gov.co/es-co" target="_blank" class="footer-supersalud" aria-label="Vigilado Supersalud">
+          <img src="supersalud.png" alt="Vigilado Supersalud">
+        </a>
+      </div>
+
+      <div class="footer-text">
+        Aplican términos y condiciones contractuales.
+        Todos los derechos reservados. Colmédica Medicina Prepagada está vigilada por la Superintendencia Nacional de Salud.
+        <br><br>
+        <a href="https://www.colmedica.com/proteccion-de-datos" target="_blank">Política de tratamiento de Datos Personales de Colmédica</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.colmedica.com" target="_blank">Colmedica.com</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Colmédica Medicina Prepagada. Todos los derechos reservados.</span>
+      <span>NIT 800.116.398-5</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =========== MODAL =========== -->
+<div class="modal-overlay" id="planModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-head" id="modalHead">
+      <button class="modal-close" onclick="closePlan()" aria-label="Cerrar">✕</button>
+      <div class="modal-gama" id="modalGama"></div>
+      <div class="modal-tagline" id="modalTagline"></div>
+      <div class="modal-price" id="modalPrice">
+        <span class="modal-price-from">Desde</span>
+        <div class="modal-price-amount">
+          <span class="modal-price-currency">$</span>
+          <span class="modal-price-value" id="modalPriceValue"></span>
+          <span class="modal-price-period">/mes</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">¿Qué incluye?</div>
+      <ul id="modalFeatures"></ul>
+      <div class="modal-centros-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span id="modalCentros"></span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
+        Cotizar este plan
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ===== Scroll progress + header
+  const progress = document.getElementById('scroll-progress');
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    const st = document.documentElement.scrollTop || document.body.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progress.style.width = ((st / sh) * 100) + '%';
+    header.classList.toggle('scrolled', st > 20);
+  });
+
+  // ===== Mobile menu
+  const hb = document.getElementById('hamburgerBtn');
+  const mm = document.getElementById('mobileMenu');
+  hb.addEventListener('click', () => {
+    hb.classList.toggle('open');
+    mm.classList.toggle('open');
+    document.body.classList.toggle('no-scroll', mm.classList.contains('open'));
+  });
+  function closeMobile() {
+    hb.classList.remove('open');
+    mm.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  }
+
+  // ===== Clínicas por ciudad
+  const CLINICAS = {
+    bogota:        ['Fundación Santa Fe', 'Clínica del Country', 'Fundación Cardioinfantil', 'Hospital Universitario San Ignacio', 'Clínica Reina Sofía', 'Clínica de Marly'],
+    barranquilla:  ['Clínica Portoazul', 'Clínica General del Norte', 'Hospital Universidad del Norte'],
+    cali:          ['Fundación Valle del Lili', 'Clínica Imbanaco', 'Centro Médico Imbanaco'],
+    medellin:      ['Hospital Pablo Tobón Uribe', 'Clínica Las Américas', 'Clínica Medellín', 'Clínica El Rosario'],
+    bucaramanga:   ['Fundación Cardiovascular de Colombia', 'Clínica Foscal'],
+    cartagena:     ['Hospital Bocagrande', 'Clínica Blas de Lezo'],
+    chia:          ['Clínica Chía', 'Fundación Clínica Universitaria de la Sabana'],
+    ibague:        ['Clínica Tolima', 'Clínica Medicadiz'],
+    manizales:     ['Clínica San Marcel', 'Hospital Departamental Santa Sofía'],
+    neiva:         ['Clínica Medilaser', 'Clínica Emcosalud'],
+    pereira:       ['Clínica Los Rosales', 'Comfamiliar Risaralda'],
+    villavicencio: ['Clínica Meta', 'Clínica Martha'],
+  };
+  const CITY_LABELS = {
+    bogota: 'Bogotá', barranquilla: 'Barranquilla', cali: 'Cali', medellin: 'Medellín',
+    bucaramanga: 'Bucaramanga', cartagena: 'Cartagena', chia: 'Chía', ibague: 'Ibagué',
+    manizales: 'Manizales', neiva: 'Neiva', pereira: 'Pereira', villavicencio: 'Villavicencio',
+  };
+  function renderClinicas(city) {
+    const items = CLINICAS[city] || [];
+    const list = document.getElementById('clinicasList');
+    const title = document.getElementById('clinicasCityTitle');
+    if (!list || !title) return;
+    title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
+    list.innerHTML = items.map(c => `<li>${c}</li>`).join('');
+  }
+  const clinicasTabs = document.getElementById('clinicasTabs');
+  const clinicasTabsDots = document.getElementById('clinicasTabsDots');
+  if (clinicasTabs && clinicasTabsDots) {
+    const tabsArr = Array.from(clinicasTabs.querySelectorAll('.clinicas-tab'));
+
+    // Construir 1 dot por ciudad
+    tabsArr.forEach((tab, i) => {
+      const d = document.createElement('button');
+      d.className = 'clinicas-tab-dot' + (tab.classList.contains('active') ? ' active' : '');
+      d.setAttribute('aria-label', 'Ver ' + tab.textContent);
+      d.addEventListener('click', () => {
+        // Activa el tab correspondiente y dispara su acción
+        activateClinicasTab(tab);
+      });
+      clinicasTabsDots.appendChild(d);
+    });
+    const dotsArr = Array.from(clinicasTabsDots.children);
+
+    function activateClinicasTab(btn) {
+      tabsArr.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      dotsArr.forEach((d, i) => d.classList.toggle('active', tabsArr[i] === btn));
+      renderClinicas(btn.dataset.city);
+      // Hace scroll para que el tab activo se vea (especialmente en móvil)
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    clinicasTabs.addEventListener('click', e => {
+      const btn = e.target.closest('.clinicas-tab');
+      if (!btn) return;
+      activateClinicasTab(btn);
+    });
+
+    renderClinicas('bogota');
+  }
+
+  // ===== Especialidades (complete list, no emojis)
+  const ESPECIALIDADES = [
+    'Cardiología','Dermatología','Endocrinología','Gastroenterología','Geriatría',
+    'Ginecología','Hematología','Infectología','Medicina Interna','Nefrología',
+    'Neumología','Neurología','Neurocirugía','Oftalmología','Oncología',
+    'Ortopedia','Otorrinolaringología','Pediatría','Psiquiatría','Reumatología',
+    'Urología','Cirugía General','Cirugía Cardiovascular','Cirugía Plástica','Cirugía Pediátrica',
+    'Cirugía Vascular','Cirugía Maxilofacial','Anestesiología','Medicina Familiar','Medicina del Deporte',
+    'Medicina Laboral','Medicina del Dolor','Medicina Física y Rehabilitación','Radiología','Radioterapia',
+    'Patología','Psicología','Nutrición y Dietética','Odontología General','Ortodoncia',
+    'Periodoncia','Endodoncia','Rehabilitación Oral','Odontopediatría','Fisioterapia',
+    'Fonoaudiología','Terapia Ocupacional','Optometría','Alergología','Cardiología Pediátrica',
+    'Hepatología','Mastología','Inmunología','Cuidados Paliativos','Medicina Crítica',
+    'Cirugía de Tórax','Ginecología Oncológica','Urología Oncológica','Neurología Pediátrica','Pediatría Especializada'
+  ];
+  const espGrid = document.getElementById('espGrid');
+  const espMQ = window.matchMedia('(max-width: 768px)');
+  function renderEsp() {
+    if (espMQ.matches) {
+      // Móvil → carrusel horizontal en grupos de 4 (2x2)
+      const slides = [];
+      for (let i = 0; i < ESPECIALIDADES.length; i += 8) {
+        const group = ESPECIALIDADES.slice(i, i + 8);
+        slides.push(
+          '<div class="esp-slide">' +
+          group.map(e => `<div class="esp-item">${e}</div>`).join('') +
+          '</div>'
+        );
+      }
+      espGrid.innerHTML = slides.join('');
+      espGrid.classList.add('is-mobile-carousel');
+    } else {
+      espGrid.innerHTML = ESPECIALIDADES.map(e => `<div class="esp-item">${e}</div>`).join('');
+      espGrid.classList.remove('is-mobile-carousel');
+    }
+    if (typeof window.__mcRebuildAll === 'function') window.__mcRebuildAll();
+  }
+  renderEsp();
+  // Re-render cuando cambia el viewport entre móvil/desktop
+  if (espMQ.addEventListener) {
+    espMQ.addEventListener('change', renderEsp);
+  } else {
+    // Safari < 14
+    espMQ.addListener(renderEsp);
+  }
+
+  // ===== Centros Médicos
+  // ── Imágenes demo de centros médicos — mismo tamaño (800x500) y temática coherente
+  const DEMO_IMG = (seed) =>
+    `https://images.unsplash.com/${seed}?w=800&h=500&fit=crop&crop=entropy&q=80&auto=format`;
+
+  const CENTROS = {
+    bogota: {
+      nombre: 'Bogotá', cantidad: 14,
+      desc: 'Red completa: médicos, odontológicos y diagnóstico',
+      img: DEMO_IMG('photo-1519494026892-80bbd2d6fd0d'),
+      medicos: ['Calle 94','Calle 127','Gran Estación','Batán','Cedritos','Colina','Salitre','Kennedy'],
+      odontologicos: ['Calle 94','Gran Estación','Colina'],
+      diagnostico: ['Calle 94','Gran Estación','Salitre']
+    },
+    medellin: {
+      nombre: 'Medellín', cantidad: 4, desc: 'Atención integral en el Valle de Aburrá',
+      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
+      medicos: ['El Poblado','Laureles'], odontologicos: ['El Poblado'], diagnostico: ['El Poblado']
+    },
+    cali: {
+      nombre: 'Cali', cantidad: 4, desc: 'Servicios médicos en el Valle del Cauca',
+      img: DEMO_IMG('photo-1504813184591-01572f98c85f'),
+      medicos: ['Chipichape','Santa Mónica'], odontologicos: ['Chipichape'], diagnostico: ['Chipichape']
+    },
+    barranquilla: {
+      nombre: 'Barranquilla', cantidad: 2, desc: 'Atención en la costa atlántica',
+      img: DEMO_IMG('photo-1516549655169-df83a0774514'),
+      medicos: ['Alto Prado'], odontologicos: ['Alto Prado'], diagnostico: []
+    },
+    bucaramanga: {
+      nombre: 'Bucaramanga', cantidad: 2, desc: 'Servicios en Santander',
+      img: DEMO_IMG('photo-1587351021355-a479a299d2f9'),
+      medicos: ['Cabecera del Llano'], odontologicos: ['Cabecera'], diagnostico: []
+    },
+    cartagena: {
+      nombre: 'Cartagena', cantidad: 2, desc: 'Atención en la ciudad heroica',
+      img: DEMO_IMG('photo-1586773860418-d37222d8fce3'),
+      medicos: ['Bocagrande'], odontologicos: ['Bocagrande'], diagnostico: []
+    },
+    chia: {
+      nombre: 'Chía', cantidad: 1, desc: 'Centro médico en Cundinamarca',
+      img: DEMO_IMG('photo-1579684385127-1ef15d508118'),
+      medicos: ['Chía Centro'], odontologicos: [], diagnostico: []
+    },
+    ibague: {
+      nombre: 'Ibagué', cantidad: 1, desc: 'Capital musical con atención Colmédica',
+      img: DEMO_IMG('photo-1551076805-e1869033e561'),
+      medicos: ['Ibagué Centro'], odontologicos: [], diagnostico: []
+    },
+    manizales: {
+      nombre: 'Manizales', cantidad: 1, desc: 'Atención en el eje cafetero',
+      img: DEMO_IMG('photo-1504439468489-c8920d796a29'),
+      medicos: ['Manizales Centro'], odontologicos: [], diagnostico: []
+    },
+    neiva: {
+      nombre: 'Neiva', cantidad: 1, desc: 'Servicios en el Huila',
+      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
+      medicos: ['Neiva Centro'], odontologicos: [], diagnostico: []
+    },
+    pereira: {
+      nombre: 'Pereira', cantidad: 1, desc: 'Atención en el eje cafetero',
+      img: DEMO_IMG('photo-1519494080410-f9aa76cb4283'),
+      medicos: ['Pereira Centro'], odontologicos: [], diagnostico: []
+    },
+    villavicencio: {
+      nombre: 'Villavicencio', cantidad: 1, desc: 'Servicios médicos en los Llanos',
+      img: DEMO_IMG('photo-1504439904031-93ded9f93e4e'),
+      medicos: ['Villavicencio Centro'], odontologicos: [], diagnostico: []
+    }
+  };
+
+  function renderCentros(city) {
+    const d = CENTROS[city];
+    if (!d) return;
+    document.getElementById('centrosImg').src = d.img;
+    document.getElementById('centrosImg').alt = d.nombre;
+    document.getElementById('centrosCity').textContent = d.nombre;
+    document.getElementById('centrosCount').textContent = d.cantidad;
+
+    const box = (title, count, icon, items) => {
+      const content = items.length
+        ? `<div class="centros-box-list">${items.map(i=>`<span class="centros-chip">${i}</span>`).join('')}</div>`
+        : `<p class="centros-empty">No disponible en esta ciudad</p>`;
+      return `
+        <div class="centros-box">
+          <div class="centros-box-head">
+            <span class="centros-box-icon">${icon}</span>
+            <div class="centros-box-title">${title}</div>
+            <div class="centros-box-count">${count} ${items.length === 1 ? 'sede' : 'sedes'}</div>
+          </div>
+          ${content}
+        </div>`;
+    };
+
+    const iconMed = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M12 14v4M10 16h4"/></svg>';
+    const iconOdo = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5c-2-2-4-3-6-2s-2 4-1 7 1 5 2 7 3 3 4 2 1-3 1-5 2-3 3 0 2 5 3 5 2-3 2-6-1-5-2-7-4-2-6 0z"/></svg>';
+    const iconDia = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><circle cx="12" cy="15" r="2"/></svg>';
+
+    document.getElementById('centrosBoxes').innerHTML =
+      box('Centros Médicos', d.medicos.length, iconMed, d.medicos) +
+      box('Odontológicos', d.odontologicos.length, iconOdo, d.odontologicos) +
+      box('Diagnóstico', d.diagnostico.length, iconDia, d.diagnostico);
+  }
+  // Tabs de ciudad de Centros (con dots paginadores y scroll al activar)
+  (function() {
+    const tabsEl = document.getElementById('centrosTabs');
+    const dotsEl = document.getElementById('centrosTabsDots');
+    if (!tabsEl || !dotsEl) return;
+    const tabsArr = Array.from(tabsEl.querySelectorAll('.centros-tab'));
+
+    tabsArr.forEach((tab, i) => {
+      const d = document.createElement('button');
+      d.className = 'centros-tab-dot' + (tab.classList.contains('active') ? ' active' : '');
+      d.setAttribute('aria-label', 'Ver ' + tab.textContent);
+      d.addEventListener('click', () => activateCentros(tab));
+      dotsEl.appendChild(d);
+    });
+    const dotsArr = Array.from(dotsEl.children);
+
+    function activateCentros(btn) {
+      tabsArr.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      dotsArr.forEach((d, i) => d.classList.toggle('active', tabsArr[i] === btn));
+      renderCentros(btn.dataset.city);
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    tabsEl.addEventListener('click', e => {
+      const btn = e.target.closest('.centros-tab');
+      if (!btn) return;
+      activateCentros(btn);
+    });
+  })();
+  renderCentros('bogota');
+
+  // ===== Carrusel de planes (3 visibles + peek)
+  (function() {
+    const track = document.getElementById('planesCarousel');
+    const wrap  = track.parentElement;
+    const cards = Array.from(track.querySelectorAll('.plan-card'));
+    const dotsBox = document.getElementById('planDots');
+    const prevBtn = document.getElementById('planPrev');
+    const nextBtn = document.getElementById('planNext');
+
+    cards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Ir al plan ' + (i + 1));
+      d.addEventListener('click', () => scrollToCard(i));
+      dotsBox.appendChild(d);
+    });
+    const dots = Array.from(dotsBox.children);
+
+    function scrollToCard(i) {
+      const card = cards[i];
+      if (!card) return;
+      track.scrollTo({
+        left: card.offsetLeft - track.offsetLeft,
+        behavior: 'smooth'
+      });
+    }
+
+    function getActiveIndex() {
+      const left = track.scrollLeft;
+      let best = 0, bestDist = Infinity;
+      cards.forEach((c, i) => {
+        const dist = Math.abs((c.offsetLeft - track.offsetLeft) - left);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      return best;
+    }
+
+    function update() {
+      const active = getActiveIndex();
+      dots.forEach((d, i) => d.classList.toggle('active', i === active));
+
+      // Detectar si ya está al final (para ocultar fade derecho)
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const atEnd = Math.abs(track.scrollLeft - maxScroll) < 4;
+      wrap.classList.toggle('at-end', atEnd);
+
+      prevBtn.style.opacity = active === 0 ? '.45' : '1';
+      prevBtn.style.pointerEvents = active === 0 ? 'none' : 'auto';
+      nextBtn.style.opacity = atEnd ? '.45' : '1';
+      nextBtn.style.pointerEvents = atEnd ? 'none' : 'auto';
+    }
+
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+
+    prevBtn.addEventListener('click', () => {
+      const i = getActiveIndex();
+      scrollToCard(Math.max(0, i - 1));
+    });
+    nextBtn.addEventListener('click', () => {
+      const i = getActiveIndex();
+      scrollToCard(Math.min(cards.length - 1, i + 1));
+    });
+
+    window.addEventListener('load', update);
+    let rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = setTimeout(update, 180);
+    });
+    update();
+  })();
+
+  // ===== Plan modal
+  const PLANS = {
+    diamante: {
+      gama: 'Gama Diamante', tagline: 'Cobertura premium nacional e internacional',
+      price: '428.782',
+      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
+      features: [
+        'Red médica nacional completa con clínicas VIP',
+        'Cobertura internacional para viajes',
+        'Centro Médico exclusivo en Bogotá',
+        'Atención domiciliaria 24/7 con médico general',
+        'Hospitalización con habitación individual',
+        'Acceso directo a +100 especialidades',
+        'Cirugías sin copagos en red preferente',
+        'Maternidad premium y pediatría especializada',
+        'Salud mental ilimitada (SOM)',
+        'Asistencia en viajes nacional e internacional'
+      ]
+    },
+    zafiro: {
+      gama: 'Gama Zafiro', tagline: 'El equilibrio perfecto entre cobertura y precio',
+      price: '304.510',
+      centros: 'Acceso a los 33 Centros Médicos Colmédica a nivel nacional',
+      features: [
+        'Amplia red de clínicas y centros médicos',
+        'Acceso directo a especialistas',
+        'Cirugías y hospitalización cubiertas',
+        'Odontología preventiva incluida',
+        'Maternidad y pediatría',
+        'Telemedicina ilimitada',
+        'App móvil para trámites',
+        'Descuentos en farmacias aliadas',
+        'Orientación médica 24/7',
+        'Acompañamiento psicológico'
+      ]
+    },
+    rubi: {
+      gama: 'Gama Rubí', tagline: 'Protección esencial a un costo accesible',
+      price: '208.563',
+      centros: 'Acceso a Centros Médicos Colmédica en principales ciudades',
+      features: [
+        'Red preferente de clínicas',
+        'Consultas con especialistas',
+        'Exámenes de laboratorio y diagnóstico',
+        'Telemedicina incluida',
+        'Orientación médica 24/7',
+        'App móvil para agendar citas',
+        'Medicamentos con descuento',
+        'Urgencias cubiertas',
+        'Sin examen médico de ingreso',
+        'Sin cuota de inscripción'
+      ]
+    },
+    esmeralda: {
+      gama: 'Gama Esmeralda', tagline: 'Complementa tu EPS con servicios ágiles',
+      price: '148.390',
+      centros: 'Acceso a servicios complementarios en Centros Médicos',
+      features: [
+        'Consultas sin copagos',
+        'Red complementaria a tu EPS',
+        'Citas prioritarias (menor tiempo de espera)',
+        'Salud mental (SOM)',
+        'Beneficios en aliados comerciales',
+        'Telemedicina básica',
+        'Orientación médica',
+        'Descuentos en farmacias',
+        'App móvil',
+        'Afiliación sin examen médico'
+      ]
+    },
+    domiciliario: {
+      gama: 'Plan Domiciliario', tagline: 'Atención médica en la comodidad de tu casa',
+      price: '89.750',
+      centros: 'Servicio a domicilio en ciudades principales',
+      features: [
+        'Consulta médica domiciliaria 24/7',
+        'Médico general y enfermería',
+        'Toma de muestras en casa',
+        'Aplicación de inyecciones',
+        'Curaciones y terapias',
+        'Telemedicina ilimitada',
+        'Orientación médica telefónica',
+        'App para solicitar servicios',
+        'Sin carencias de entrada',
+        'Cobertura nacional'
+      ]
+    },
+    oncologico: {
+      gama: 'Plan Oncológico', tagline: 'Acompañamiento integral en el tratamiento',
+      price: '67.420',
+      centros: 'Red especializada en oncología',
+      features: [
+        'Diagnóstico temprano cubierto',
+        'Tratamiento especializado',
+        'Equipo multidisciplinario',
+        'Apoyo psicológico incluido',
+        'Quimioterapia y radioterapia',
+        'Segunda opinión internacional',
+        'Medicamentos oncológicos',
+        'Hospitalización especializada',
+        'Cuidados paliativos',
+        'Sin carencias de entrada'
+      ]
+    }
+  };
+
+  const modal = document.getElementById('planModal');
+  function openPlan(key) {
+    const p = PLANS[key]; if (!p) return;
+    document.getElementById('modalHead').dataset.gama = key;
+    document.getElementById('modalGama').textContent = p.gama;
+    document.getElementById('modalTagline').textContent = p.tagline;
+    document.getElementById('modalPriceValue').textContent = p.price || '';
+    document.getElementById('modalCentros').textContent = p.centros;
+    document.getElementById('modalFeatures').innerHTML = p.features.map(f =>
+      `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${f}</li>`
+    ).join('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  }
+  function closePlan() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+  }
+  modal.addEventListener('click', e => { if (e.target === modal) closePlan(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePlan(); } });
+
+  // ===== Carruseles móviles genéricos (Especialidades / Diferenciales / Testimonios)
+  (function() {
+    const mqMobile = window.matchMedia('(max-width: 768px)');
+    const instances = [];
+
+    function setup(trackId) {
+      const track = document.getElementById(trackId);
+      if (!track) return null;
+      const ctrls = document.querySelector('[data-mcarousel-for="' + trackId + '"]');
+      if (!ctrls) return null;
+      const prevBtn = ctrls.querySelector('.mc-btn.prev');
+      const nextBtn = ctrls.querySelector('.mc-btn.next');
+      const dotsBox = ctrls.querySelector('.mc-dots');
+
+      function items() {
+        return Array.from(track.children);
+      }
+
+      function buildDots() {
+        dotsBox.innerHTML = '';
+        items().forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'mc-dot' + (i === 0 ? ' active' : '');
+          d.setAttribute('aria-label', 'Ir al grupo ' + (i + 1));
+          d.addEventListener('click', () => scrollToIndex(i));
+          dotsBox.appendChild(d);
+        });
+      }
+
+      function scrollToIndex(i) {
+        const els = items();
+        const el = els[i];
+        if (!el) return;
+        track.scrollTo({ left: el.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      }
+
+      function activeIndex() {
+        const els = items();
+        const left = track.scrollLeft;
+        let best = 0, bestDist = Infinity;
+        els.forEach((el, i) => {
+          const dist = Math.abs((el.offsetLeft - track.offsetLeft) - left);
+          if (dist < bestDist) { bestDist = dist; best = i; }
+        });
+        return best;
+      }
+
+      function update() {
+        const els = items();
+        const idx = activeIndex();
+        Array.from(dotsBox.children).forEach((d, i) => d.classList.toggle('active', i === idx));
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        const atEnd = Math.abs(track.scrollLeft - maxScroll) < 4;
+        prevBtn.disabled = idx === 0;
+        nextBtn.disabled = atEnd || idx >= els.length - 1;
+      }
+
+      prevBtn.addEventListener('click', () => {
+        scrollToIndex(Math.max(0, activeIndex() - 1));
+      });
+      nextBtn.addEventListener('click', () => {
+        scrollToIndex(Math.min(items().length - 1, activeIndex() + 1));
+      });
+      track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+
+      return { track, buildDots, update, ctrls };
+    }
+
+    function rebuildAll() {
+      instances.forEach(inst => {
+        if (!inst) return;
+        inst.buildDots();
+        inst.update();
+      });
+    }
+
+    ['espGrid', 'difGrid', 'testGrid'].forEach(id => {
+      const inst = setup(id);
+      if (inst) { instances.push(inst); inst.buildDots(); inst.update(); }
+    });
+
+    // Al cambiar viewport o re-render de especialidades, reconstruir dots
+    const onResize = () => {
+      clearTimeout(window.__mcRT);
+      window.__mcRT = setTimeout(rebuildAll, 200);
+    };
+    window.addEventListener('resize', onResize);
+    // Exponer para que renderEsp pueda llamar rebuild cuando re-renderiza
+    window.__mcRebuildAll = rebuildAll;
+  })();
+
+  // ===== Quiz "Encuentra tu plan ideal" (matriz del Excel)
+  (function(){
+    const COVS = {
+      'medico-dom':     { name: 'Médico domiciliario',         desc: 'Atención médica en tu casa, las 24 horas.' },
+      'orientacion':    { name: 'Orientación médica 24/7',     desc: 'Línea telefónica con un médico siempre disponible.' },
+      'ambulancia':     { name: 'Traslado en ambulancia',      desc: 'Transporte médico cuando lo necesites.' },
+      'especialistas':  { name: 'Especialistas directos',      desc: 'Acceso a +100 especialidades sin médico general.' },
+      'examenes':       { name: 'Exámenes y terapias',         desc: 'Laboratorios, imágenes y rehabilitación.' },
+      'hospital':       { name: 'Hospitalización y cirugía',   desc: 'Cobertura completa para procedimientos quirúrgicos.' },
+      'vip':            { name: 'Clínicas VIP',                desc: 'Las mejores clínicas con habitación individual.' },
+      'maternidad':     { name: 'Maternidad',                  desc: 'Atención integral durante el embarazo y parto.' },
+      'alto-costo':     { name: 'Enfermedades de alto costo',  desc: 'Cubrimiento para tratamientos especializados.' },
+      'red-centros':    { name: 'Amplia red de centros médicos', desc: '+30 centros médicos Colmédica a nivel nacional.' },
+      'internacional':  { name: 'Asistencia internacional',    desc: 'Cobertura médica cuando viajas al exterior.' },
+      'donde-quieras':  { name: 'Atención donde quieras',      desc: 'Libre escogencia de médicos y prestadores.' },
+    };
+    const ICONS = {
+      'medico-dom':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>',
+      'orientacion':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+      'ambulancia':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M9 10h2M10 9v2"/></svg>',
+      'especialistas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-1.5-1.5"/></svg>',
+      'examenes':      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v6l3 3v11H6V11l3-3z"/><path d="M9 14h6M9 18h6"/></svg>',
+      'hospital':      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22V8h20v14M2 22h20"/><path d="M12 12v6M9 15h6"/></svg>',
+      'vip':           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>',
+      'maternidad':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M9 22v-6a3 3 0 0 1 6 0v6M9 14c-2 1-3 3-3 5"/></svg>',
+      'alto-costo':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><path d="M9 11h6M12 8v6"/></svg>',
+      'red-centros':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3"/></svg>',
+      'internacional': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>',
+      'donde-quieras': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    };
+
+    // Matriz Plan → Coberturas (5 niveles que mapean a los planes del landing)
+    const PLAN_COV = {
+      'domiciliario': ['medico-dom','orientacion','ambulancia','especialistas'],
+      'esmeralda':    ['medico-dom','orientacion','ambulancia','especialistas','examenes'],
+      'rubi':         ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','maternidad','alto-costo','red-centros'],
+      'zafiro':       ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional'],
+      'diamante':     ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional','donde-quieras'],
+    };
+    // Pares de duelos
+    const PAIRS = [
+      ['especialistas', 'medico-dom'],
+      ['hospital',      'vip'],
+      ['maternidad',    'alto-costo'],
+      ['donde-quieras', 'internacional'],
+      ['orientacion',   'ambulancia'],
+      ['red-centros',   'examenes'],
+    ];
+    const TOTAL = PAIRS.length;
+
+    // Estado
+    let round = 0;
+    let chosen = [];
+
+    const $ = id => document.getElementById(id);
+    const screens = {
+      intro:  $('qzScreenIntro'),
+      quiz:   $('qzScreenQuiz'),
+      result: $('qzScreenResult'),
+    };
+
+    function show(name) {
+      Object.entries(screens).forEach(([k, el]) => {
+        if (k === name) {
+          el.hidden = false;
+          requestAnimationFrame(() => el.classList.add('is-active'));
+        } else {
+          el.classList.remove('is-active');
+          setTimeout(() => { el.hidden = true; }, 350);
+        }
+      });
+      $('qzProgress').hidden = (name !== 'quiz');
+    }
+
+    function start() {
+      round = 0; chosen = [];
+      show('quiz');
+      renderRound();
+    }
+
+    function renderRound() {
+      if (round >= TOTAL) { finish(); return; }
+      const [a, b] = PAIRS[round];
+      setCard($('qzCardA'), a);
+      setCard($('qzCardB'), b);
+      const pct = Math.round((round / TOTAL) * 100);
+      $('qzProgressLabel').textContent = `Pregunta ${round + 1} de ${TOTAL}`;
+      $('qzProgressPct').textContent = `${pct}%`;
+      $('qzProgressFill').style.width = pct + '%';
+    }
+
+    function setCard(el, key) {
+      const c = COVS[key];
+      el.dataset.key = key;
+      el.classList.remove('is-picked', 'is-loser');
+      el.innerHTML = `
+        <div class="qz-duel-icon">${ICONS[key] || ''}</div>
+        <div class="qz-duel-card-title">${c.name}</div>
+        <div class="qz-duel-card-desc">${c.desc}</div>
+      `;
+    }
+
+    function pick(side) {
+      const a = $('qzCardA'), b = $('qzCardB');
+      const winner = side === 'A' ? a : b;
+      const loser  = side === 'A' ? b : a;
+      winner.classList.add('is-picked');
+      loser.classList.add('is-loser');
+      chosen.push(winner.dataset.key);
+      setTimeout(() => {
+        round++;
+        const pct = Math.round((round / TOTAL) * 100);
+        $('qzProgressFill').style.width = pct + '%';
+        setTimeout(renderRound, 80);
+      }, 480);
+    }
+
+    function findBestPlan(sel) {
+      if (!sel.length) return 'rubi';
+      const full = Object.keys(PLAN_COV).filter(p => sel.every(c => PLAN_COV[p].includes(c)));
+      if (full.length) {
+        full.sort((a, b) => PLAN_COV[a].length - PLAN_COV[b].length);
+        return full[0];
+      }
+      let best = null, bestScore = -1, bestSize = Infinity;
+      for (const p in PLAN_COV) {
+        const cov = PLAN_COV[p];
+        const score = sel.filter(c => cov.includes(c)).length;
+        if (score > bestScore || (score === bestScore && cov.length < bestSize)) {
+          bestScore = score; bestSize = cov.length; best = p;
+        }
+      }
+      return best;
+    }
+
+    function finish() { showResult(findBestPlan(chosen)); }
+
+    function quieroTodo() {
+      chosen = Object.keys(COVS);
+      showResult('diamante');
+    }
+
+    function showResult(planKey) {
+      // Datos vienen del PLANS global del modal de la landing
+      const plan = (typeof PLANS !== 'undefined' && PLANS[planKey]) || { gama: 'Plan', tagline: '', price: '' };
+      const planCovs = PLAN_COV[planKey] || [];
+
+      $('qzResultCard').dataset.plan = planKey;
+      $('qzResultName').textContent = plan.gama || plan.name || 'Plan';
+      $('qzResultTag').textContent  = plan.tagline || '';
+      $('qzResultPrice').textContent = plan.price || '';
+
+      const uniq = [...new Set(chosen.filter(c => planCovs.includes(c)))];
+      const extras = planCovs.filter(c => !uniq.includes(c));
+
+      $('qzResultPicks').innerHTML = uniq.map(li).join('') ||
+        `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobertura para tu bienestar</li>`;
+      $('qzResultExtras').innerHTML = extras.map(li).join('');
+      $('qzExtrasTitle').style.display = extras.length ? '' : 'none';
+
+      // Conectar el botón "Ver plan completo" al modal existente
+      $('qzResultDetail').onclick = () => {
+        if (typeof openPlan === 'function') openPlan(planKey);
+      };
+
+      show('result');
+      fireConfetti();
+    }
+
+    function li(key) {
+      return `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${COVS[key].name}</li>`;
+    }
+
+    function fireConfetti() {
+      const box = $('qzConfetti'); if (!box) return;
+      box.innerHTML = '';
+      const colors = ['#0058A2', '#009FE3', '#E30613', '#8ed8ff', '#ffffff'];
+      for (let i = 0; i < 40; i++) {
+        const s = document.createElement('span');
+        s.style.left = Math.random() * 100 + '%';
+        s.style.background = colors[Math.floor(Math.random() * colors.length)];
+        s.style.animationDelay = (Math.random() * 0.5) + 's';
+        s.style.animationDuration = (2 + Math.random() * 1.2) + 's';
+        s.style.transform = `rotate(${Math.random() * 360}deg)`;
+        box.appendChild(s);
+      }
+      setTimeout(() => { box.innerHTML = ''; }, 3500);
+    }
+
+    // Bind
+    $('qzStart').addEventListener('click', start);
+    $('qzAllBtn').addEventListener('click', quieroTodo);
+    $('qzRestart').addEventListener('click', start);
+    $('qzCardA').addEventListener('click', () => pick('A'));
+    $('qzCardB').addEventListener('click', () => pick('B'));
+    document.addEventListener('keydown', e => {
+      if (!screens.quiz.classList.contains('is-active')) return;
+      if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') pick('A');
+      if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') pick('B');
+    });
+  })();
+
+  // ===== Video placeholder (hook para reemplazar con videos reales)
+  function playVideo(id) {
+    alert('Video de testimonio: ' + id + '\n\n(Conecta aquí la URL del video real — YouTube/Vimeo/mp4.)');
+  }
+</script>
+
+</body>
+</html>

@@ -46,7 +46,7 @@
     box-sizing: border-box; margin: 0; padding: 0;
     -webkit-tap-highlight-color: transparent; /* quita flash negro al tocar en móvil */
   }
-  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 56px; }
   body {
     font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
     color: var(--ink);
@@ -60,7 +60,7 @@
   button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
 
   /* Grid container */
-  .wrap { width: min(1180px, 92vw); margin-inline: auto; }
+  .wrap { width: min(1600px, 95vw); margin-inline: auto; }
 
   /* ============================================================
      PROGRESS BAR (solid, no transparency issues)
@@ -84,16 +84,16 @@
   header.site-header.scrolled { box-shadow: 0 4px 18px rgba(0, 40, 90, .18); }
   .header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 0;
+    padding: 6px 0;
   }
   .logo-link { display: inline-flex; align-items: center; }
   .logo-link svg,
-  .logo-link .brand-logo { height: 38px; width: auto; display: block; }
+  .logo-link .brand-logo { height: 26px; width: auto; display: block; }
 
-  nav.main-nav { display: flex; gap: 1.8rem; align-items: center; }
+  nav.main-nav { display: flex; gap: 1.4rem; align-items: center; }
   nav.main-nav a {
-    color: #fff; font-weight: 500; font-size: .95rem;
-    padding: .35rem .1rem; position: relative; transition: opacity .2s;
+    color: #fff; font-weight: 500; font-size: .85rem;
+    padding: .25rem .1rem; position: relative; transition: opacity .2s;
   }
   nav.main-nav a:hover { opacity: .78; }
   nav.main-nav a::after {
@@ -105,8 +105,8 @@
 
   .btn-header-cta {
     background: var(--red-bienestar); color: #fff;
-    padding: .62rem 1.3rem; border-radius: 50px; font-weight: 700;
-    font-size: .92rem; letter-spacing: .2px;
+    padding: .45rem 1.1rem; border-radius: 50px; font-weight: 700;
+    font-size: .82rem; letter-spacing: .2px;
     box-shadow: 0 4px 14px rgba(227, 6, 19, .3);
     transition: transform .2s var(--ease), box-shadow .2s var(--ease);
   }
@@ -142,9 +142,19 @@
   /* ============================================================
      HERO
      ============================================================ */
+  /* Hero a width 100% en desktop (full bleed) */
+  .hero .wrap.hero-wrap {
+    width: 100%;
+    max-width: none;
+    padding-inline: 4vw;
+  }
   .hero {
     position: relative; color: #fff; overflow: hidden;
-    padding: 140px 0 90px;
+    /* Splash a 100% del viewport en altura */
+    min-height: 100vh;
+    min-height: 100svh;          /* mejor en móviles modernos (sin barras del browser) */
+    display: flex; align-items: center;
+    padding: 110px 0 50px;
     background:
       radial-gradient(circle at 80% 30%, rgba(0, 159, 227, .28), transparent 55%),
       radial-gradient(circle at 10% 80%, rgba(0, 159, 227, .18), transparent 55%),
@@ -219,17 +229,18 @@
     backdrop-filter: blur(10px);
   }
   .hero-stat {
-    display: flex; flex-direction: column; gap: .25rem;
-    align-items: flex-start;
+    display: flex; flex-direction: row; align-items: center;
+    gap: .8rem;
   }
   .hero-stat-icon {
-    width: 36px; height: 36px; border-radius: 10px;
+    width: 44px; height: 44px; border-radius: 12px;
     background: rgba(141, 216, 255, .18);
     color: #8ed8ff;
     display: inline-flex; align-items: center; justify-content: center;
-    margin-bottom: .35rem;
+    flex-shrink: 0;
   }
-  .hero-stat-icon svg { width: 20px; height: 20px; }
+  .hero-stat-icon svg { width: 24px; height: 24px; }
+  .hero-stat-text { display: flex; flex-direction: column; gap: .1rem; }
   .hero-stat-num {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 900;
@@ -273,12 +284,13 @@
     min-height: 100vh; /* per PPT feedback "min-height 100vh" */
     display: flex; flex-direction: column; justify-content: center;
   }
-  /* Bandas alternadas para que el cambio de sección se sienta */
-  section.block.band-soft { background: var(--blue-bg); }
+  /* Bandas alternadas: blanco vs azul oscuro */
+  section.block.band-soft { background: #ffffff; }
   section.block.band-blue {
     background: linear-gradient(160deg, var(--blue-900) 0%, var(--blue-serenidad) 100%);
     color: #fff;
   }
+  section.block:not(.band-soft):not(.band-blue) { background: var(--blue-bg); }
   section.block.band-blue .section-tag { background: rgba(255,255,255,.16); color: #fff; }
   section.block.band-blue .section-title { color: #fff; }
   section.block.band-blue .section-title em { color: #8ed8ff; }
@@ -295,26 +307,37 @@
   .section-title {
     font-size: clamp(1.7rem, 3.4vw, 2.55rem); font-weight: 900;
     color: var(--ink); line-height: 1.15; letter-spacing: -.015em;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: .55rem; flex-wrap: wrap;
   }
+  /* Icono dentro del .section-tag (al inicio, lado izquierdo) */
+  .section-tag {
+    display: inline-flex; align-items: center;
+    gap: .4rem;
+  }
+  .section-tag-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px;
+    color: currentColor;
+    flex-shrink: 0;
+  }
+  .section-tag-icon svg { width: 14px; height: 14px; }
   .section-title em { font-style: normal; color: var(--blue-serenidad); }
   .section-sub {
     font-size: 1.02rem; color: var(--ink-2);
     margin-top: .8rem; line-height: 1.6;
   }
 
-  /* SEO Card (reusable, per PPT feedback "Card inicial SEO 200 caracteres") */
+  /* SEO Card — texto corto (sin icono) */
   .seo-card {
     background: #fff; border: 1px solid var(--line);
     border-left: 4px solid var(--blue-vital);
-    border-radius: var(--radius); padding: 1.4rem 1.6rem;
-    max-width: 780px; margin: 0 auto 2.8rem;
+    border-radius: var(--radius); padding: 1.1rem 1.3rem;
+    max-width: 780px; margin: 0 auto 2rem;
     box-shadow: var(--shadow-sm);
-    display: flex; gap: 1rem; align-items: flex-start;
   }
-  .seo-card svg {
-    width: 28px; height: 28px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px;
-  }
-  .seo-card p { color: var(--ink-2); font-size: .95rem; line-height: 1.62; }
+  .seo-card svg { display: none; }
+  .seo-card p { color: var(--ink-2); font-size: .95rem; line-height: 1.55; }
   section.block.band-blue .seo-card {
     background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2);
     border-left-color: #8ed8ff; backdrop-filter: blur(8px);
@@ -355,29 +378,17 @@
   }
   .planes-carousel::-webkit-scrollbar { display: none; }
 
-  /* Fade sutil en el borde derecho para reforzar "hay más a la derecha" */
-  .planes-carousel-wrap::after {
-    content: '';
-    position: absolute;
-    top: 1.5rem; bottom: 2rem; right: 0;
-    width: 36px;
-    pointer-events: none;
-    background: linear-gradient(270deg, var(--blue-bg) 0%, transparent 100%);
-    z-index: 2;
-    opacity: .9;
-    transition: opacity .25s;
-  }
-  .planes-carousel-wrap.at-end::after { opacity: 0; }
+  /* (fade derecho removido — las flechas y dots cumplen la función) */
 
   /* Card — width calculado para que entren 3 + peek ~70px */
   .plan-card {
     flex: 0 0 calc((100% - 70px - 2rem) / 3);
-    min-width: 250px;
+    min-width: 0;
     scroll-snap-align: start;
     color: #fff;
     background: var(--plan-bg, linear-gradient(135deg, #0b1222, #1a2340));
     border-radius: var(--radius-lg);
-    padding: 2rem 1.6rem;
+    padding: 1.6rem 1.2rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 14px 36px rgba(0, 30, 70, .22);
@@ -419,9 +430,23 @@
     --plan-btn-text: #2856bb;
   }
   .plan-card[data-gama="oncologico"] {
-    --plan-bg: linear-gradient(135deg, #a1020e 0%, #d80615 100%);
-    --plan-btn-text: #a1020e;
+    --plan-bg: linear-gradient(135deg, #1f4a9e 0%, #4570c5 100%);
+    --plan-btn-text: #1f4a9e;
   }
+  /* Planes Medios — gradientes azules medios */
+  .plan-card[data-gama="hospitalarios"] {
+    --plan-bg: linear-gradient(135deg, #5a8bd0 0%, #84a6e0 100%);
+    --plan-btn-text: #2856bb;
+  }
+  .plan-card[data-gama="caobo"] {
+    --plan-bg: linear-gradient(135deg, #4a7bc8 0%, #6a96d8 100%);
+    --plan-btn-text: #1f4a9e;
+  }
+  .plan-card[data-gama="ambar"] {
+    --plan-bg: linear-gradient(135deg, #6c8be0 0%, #8ca6e8 100%);
+    --plan-btn-text: #2856bb;
+  }
+
 
   /* Texto siempre blanco sobre el color sólido */
   .plan-gama {
@@ -745,7 +770,10 @@
   .centros-photo {
     position: relative; border-radius: var(--radius-lg); overflow: hidden;
     box-shadow: var(--shadow-md); background: var(--blue-soft);
-    aspect-ratio: 4 / 3; /* tamaño fijo y consistente para todas las ciudades */
+    aspect-ratio: 16 / 9;
+  }
+  @media (max-width: 768px) {
+    .centros-photo { aspect-ratio: 21 / 9; }
   }
   .centros-photo img {
     position: absolute; inset: 0;
@@ -1000,6 +1028,8 @@
     letter-spacing: .3px;
   }
   .footer-text { font-size: .82rem; line-height: 1.65; color: rgba(255,255,255,.74); }
+  .footer-text p { margin-bottom: .9rem; }
+  .footer-text p:last-child { margin-bottom: 0; }
   .footer-text a { color: #8ed8ff; text-decoration: underline; }
   .footer-bottom {
     padding-top: 1.3rem; display: flex; justify-content: space-between; flex-wrap: wrap;
@@ -1040,7 +1070,10 @@
   .modal-head[data-gama="rubi"]        { background: linear-gradient(135deg, #E30613, #a8000a); }
   .modal-head[data-gama="esmeralda"]   { background: linear-gradient(135deg, #009FE3, #0079b3); }
   .modal-head[data-gama="domiciliario"]{ background: linear-gradient(135deg, #4fb8ea, #009FE3); }
-  .modal-head[data-gama="oncologico"]  { background: linear-gradient(135deg, #b0020f, #E30613); }
+  .modal-head[data-gama="oncologico"]  { background: linear-gradient(135deg, #1f4a9e, #4570c5); }
+  .modal-head[data-gama="hospitalarios"]{ background: linear-gradient(135deg, #5a8bd0, #84a6e0); }
+  .modal-head[data-gama="caobo"]       { background: linear-gradient(135deg, #4a7bc8, #6a96d8); }
+  .modal-head[data-gama="ambar"]       { background: linear-gradient(135deg, #6c8be0, #8ca6e8); }
 
   .modal-close {
     position: absolute; top: 14px; right: 14px; width: 36px; height: 36px;
@@ -1109,7 +1142,6 @@
     padding: 1rem 1.5rem 1.2rem;
     border-top: 1px solid var(--line);
     background: #fff;
-    box-shadow: 0 -6px 14px rgba(0, 30, 70, .06);
   }
   .modal-footer .btn-primary {
     width: 100%;
@@ -1120,7 +1152,7 @@
   /* ============================================================
      COMPACTAR: override de paddings/gaps para reducir espacio en blanco
      ============================================================ */
-  .hero { padding: 96px 0 48px; }
+  .hero { padding: 96px 0 48px; min-height: 100vh; min-height: 100svh; }
   .hero h1 { margin-bottom: .8rem; }
   .hero-sub { margin-bottom: 1.3rem; }
   .hero-promo { margin-bottom: 1.2rem; }
@@ -1188,7 +1220,7 @@
     nav.main-nav, .btn-header-cta.desktop-only { display: none; }
     .hamburger { display: block; }
 
-    .hero { padding: 94px 0 44px; }
+    .hero { padding: 94px 0 44px; min-height: 100vh; min-height: 100svh; }
     .hero-grid { grid-template-columns: 1fr; gap: 1.4rem; }
     /* Full width: rompe los 4vw del .wrap para llegar a los bordes */
     .hero-stats {
@@ -1200,10 +1232,11 @@
       padding: 1.4rem 6vw;
       gap: 1.1rem 1.4rem;
     }
-    .hero-stat-icon { width: 32px; height: 32px; border-radius: 9px; margin-bottom: .25rem; }
-    .hero-stat-icon svg { width: 18px; height: 18px; }
-    .hero-stat-num { font-size: 1.7rem; }
-    .hero-stat-label { font-size: .7rem; }
+    .hero-stat { gap: .6rem; }
+    .hero-stat-icon { width: 36px; height: 36px; border-radius: 10px; }
+    .hero-stat-icon svg { width: 20px; height: 20px; }
+    .hero-stat-num { font-size: 1.55rem; }
+    .hero-stat-label { font-size: .65rem; }
     .hero-promo { font-size: .76rem; padding: .45rem .8rem; }
     .hero-ctas { flex-direction: column; align-items: stretch; gap: .7rem; }
     .hero-ctas .btn-primary,
@@ -1236,7 +1269,7 @@
     .planes-carousel { padding: .8rem .5rem 1.2rem; gap: .6rem; }
     section.block { padding: 36px 0; }
     .hero h1 { font-size: 2rem; }
-    .hero { padding: 84px 0 36px; }
+    .hero { padding: 84px 0 36px; min-height: 100vh; min-height: 100svh; }
     .cta-final { padding: 40px 0; }
   }
 
@@ -1321,6 +1354,52 @@
   /* No-scroll when modal/menu open */
   body.no-scroll { overflow: hidden; }
 
+  /* ============================================================
+     LAYOUT 2 COLUMNAS DESKTOP — col-aside (título) + col-body (contenido)
+     ============================================================ */
+  .col-aside, .col-body { width: 100%; }
+  @media (min-width: 1024px) {
+    section.block > .wrap {
+      display: grid;
+      grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+      column-gap: 4rem;
+      align-items: stretch;       /* misma altura las 2 columnas */
+    }
+    .col-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;     /* contenido centrado verticalmente */
+      gap: 1.2rem;
+    }
+    .col-aside .section-header {
+      text-align: left;
+      margin: 0;
+      max-width: none;
+    }
+    .col-aside .section-title {
+      justify-content: flex-start;
+    }
+    .col-aside .section-tag {
+      margin-bottom: .8rem;
+    }
+    .col-aside .section-sub {
+      text-align: left;
+      max-width: none;
+    }
+    .col-aside .seo-card {
+      max-width: none;
+      margin: 0;
+    }
+    /* CTA queda pegado debajo del SEO card */
+    .col-aside .section-cta {
+      justify-content: flex-start;
+      margin: 0;
+    }
+    .col-body .section-cta {
+      justify-content: flex-start;
+    }
+  }
+
   /* SEO card variante sin icono */
   .seo-card--no-icon { padding-left: 1.6rem; }
   .seo-card--no-icon svg { display: none; }
@@ -1385,83 +1464,121 @@
     max-width: 520px; margin: 0 auto 1.6rem;
     text-align: center;
   }
-  #qzScreenIntro { text-align: center; }
+  /* (qzScreenIntro removido — quiz visible desde el inicio) */
 
-  /* QUIZ DUEL */
-  .qz-duel-title {
+  /* MULTI-SELECT */
+  .qz-multi-title {
     font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 800;
-    color: #fff; text-align: center; margin-bottom: 1.6rem;
+    color: #fff; text-align: center; margin-bottom: .35rem;
     letter-spacing: -.01em;
   }
-  .qz-duel-grid {
+  .qz-multi-sub {
+    color: rgba(255,255,255,.85);
+    font-size: .92rem; text-align: center;
+    margin-bottom: 1.4rem;
+  }
+  .qz-multi-grid {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center; gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .7rem;
     width: 100%;
+    margin-bottom: 1.4rem;
   }
-  @media (max-width: 700px) {
-    .qz-duel-grid { grid-template-columns: 1fr; gap: .7rem; }
+  @media (max-width: 920px) {
+    .qz-multi-grid { grid-template-columns: repeat(3, 1fr); }
   }
-  .qz-duel-card {
-    background: #fff; border-radius: var(--radius-lg);
-    padding: 1.6rem 1.3rem;
-    box-shadow: 0 12px 32px rgba(0, 30, 80, .22);
+  @media (max-width: 600px) {
+    .qz-multi-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  }
+  .qz-multi-card {
+    position: relative;
+    background: #fff;
     border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 1rem .8rem .9rem;
     cursor: pointer;
     text-align: center;
-    transition: transform .35s var(--ease), border-color .25s, opacity .35s, box-shadow .35s;
-    min-height: 220px;
+    transition: transform .2s var(--ease), border-color .2s, box-shadow .2s, background .2s;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: .7rem;
+    align-items: center; justify-content: flex-start;
+    gap: .55rem;
+    box-shadow: 0 6px 18px rgba(0, 30, 80, .12);
   }
-  .qz-duel-card:hover {
-    transform: translateY(-4px);
+  .qz-multi-card:hover {
+    transform: translateY(-3px);
     border-color: var(--blue-vital);
-    box-shadow: 0 18px 40px rgba(0, 30, 80, .3);
+    box-shadow: 0 10px 24px rgba(0, 30, 80, .2);
   }
-  .qz-duel-card.is-picked {
-    transform: scale(1.04);
-    border-color: var(--blue-vital);
-    box-shadow: 0 22px 48px rgba(0, 159, 227, .45);
+  .qz-multi-card.is-selected {
+    background: var(--blue-soft);
+    border-color: var(--blue-serenidad);
+    box-shadow: 0 12px 28px rgba(0, 88, 162, .28);
   }
-  .qz-duel-card.is-loser { opacity: .35; transform: scale(.95); }
-  .qz-duel-icon {
-    width: 56px; height: 56px; border-radius: 16px;
+  .qz-multi-check {
+    position: absolute; top: 8px; right: 8px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(0, 88, 162, .14);
+    border: 1.5px solid rgba(0, 88, 162, .28);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all .2s;
+    color: transparent;
+  }
+  .qz-multi-card.is-selected .qz-multi-check {
+    background: var(--blue-serenidad);
+    border-color: var(--blue-serenidad);
+    color: #fff;
+  }
+  .qz-multi-check svg { width: 13px; height: 13px; }
+  .qz-multi-icon {
+    width: 44px; height: 44px; border-radius: 12px;
     background: var(--blue-soft); color: var(--blue-serenidad);
     display: flex; align-items: center; justify-content: center;
+    margin-top: .15rem;
   }
-  .qz-duel-icon svg { width: 30px; height: 30px; }
-  .qz-duel-card-title {
-    font-size: 1.1rem; font-weight: 800; color: var(--ink);
-    line-height: 1.2;
+  .qz-multi-card.is-selected .qz-multi-icon {
+    background: var(--blue-serenidad);
+    color: #fff;
   }
-  .qz-duel-card-desc {
-    font-size: .85rem; color: var(--ink-2); line-height: 1.45;
-    max-width: 240px;
+  .qz-multi-icon svg { width: 24px; height: 24px; }
+  .qz-multi-name {
+    font-size: .85rem; font-weight: 700;
+    color: var(--ink); line-height: 1.25;
   }
-  .qz-vs {
-    width: 54px; height: 54px; border-radius: 50%;
-    background: var(--red-bienestar); color: #fff;
-    font-size: .95rem; font-weight: 900; letter-spacing: .5px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 18px rgba(227, 6, 19, .4);
-    border: 3px solid #fff;
-    justify-self: center;
+
+  /* Acciones (counter + select-all + submit) */
+  .qz-multi-actions {
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    gap: 1rem; margin-top: .6rem;
   }
-  @media (max-width: 700px) {
-    .qz-vs { width: 44px; height: 44px; font-size: .82rem; }
+  .qz-multi-all {
+    color: rgba(255,255,255,.9); font-size: .85rem; font-weight: 600;
+    padding: .5rem 1rem; border-radius: 50px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.35);
+    transition: background .2s, border-color .2s;
   }
-  .qz-skip { margin-top: 1.6rem; text-align: center; }
-  .qz-skip button {
-    color: rgba(255,255,255,.85); font-size: .88rem; font-weight: 600;
-    padding: .55rem 1.3rem; border-radius: 50px;
-    border: 1px solid rgba(255,255,255,.3);
-    transition: all .2s;
+  .qz-multi-all:hover {
+    background: rgba(255,255,255,.16);
+    border-color: rgba(255,255,255,.6);
   }
-  .qz-skip button:hover {
-    background: rgba(255,255,255,.18); color: #fff;
-    border-color: rgba(255,255,255,.5);
+  .qz-multi-all.is-active {
+    background: rgba(255,255,255,.2);
+    border-color: #fff;
+  }
+  .qz-multi-counter {
+    color: rgba(255,255,255,.85); font-size: .85rem; font-weight: 600;
+    padding: .35rem .8rem;
+    background: rgba(255,255,255,.12);
+    border-radius: 50px;
+  }
+  .qz-multi-submit:disabled {
+    opacity: .42; cursor: not-allowed;
+    box-shadow: none;
+  }
+  .qz-multi-submit:disabled:hover {
+    transform: none;
+    filter: none;
   }
 
   /* RESULT */
@@ -1562,35 +1679,28 @@
 
   /* Mobile: quiz más compacto */
   @media (max-width: 600px) {
-    .qz-progress { margin-bottom: 1rem; }
-    .qz-progress-info { font-size: .74rem; }
-
     .qz-intro-sub { font-size: .9rem; margin-bottom: 1.2rem; }
 
-    .qz-duel-title { font-size: 1.05rem; margin-bottom: 1rem; }
-    .qz-duel-grid { gap: .5rem; }
-    .qz-duel-card {
-      padding: 1rem .9rem;
-      min-height: 0;
-      gap: .45rem;
-      border-radius: 14px;
+    .qz-multi-title { font-size: 1.05rem; }
+    .qz-multi-sub { font-size: .82rem; margin-bottom: 1rem; }
+    .qz-multi-card {
+      padding: .7rem .55rem .65rem;
+      gap: .4rem;
+      border-radius: 11px;
     }
-    .qz-duel-icon {
-      width: 40px; height: 40px; border-radius: 11px;
+    .qz-multi-icon {
+      width: 36px; height: 36px; border-radius: 9px;
     }
-    .qz-duel-icon svg { width: 22px; height: 22px; }
-    .qz-duel-card-title { font-size: .95rem; }
-    .qz-duel-card-desc {
-      font-size: .76rem; line-height: 1.35;
-      max-width: none;
+    .qz-multi-icon svg { width: 20px; height: 20px; }
+    .qz-multi-name { font-size: .76rem; line-height: 1.2; }
+    .qz-multi-check {
+      width: 18px; height: 18px;
+      top: 6px; right: 6px;
     }
-    .qz-vs {
-      width: 36px; height: 36px;
-      font-size: .72rem;
-      border-width: 2px;
-    }
-    .qz-skip { margin-top: 1.1rem; }
-    .qz-skip button { font-size: .78rem; padding: .45rem 1rem; }
+    .qz-multi-check svg { width: 11px; height: 11px; }
+    .qz-multi-actions { gap: .6rem; flex-direction: column; }
+    .qz-multi-all { font-size: .78rem; padding: .4rem .9rem; }
+    .qz-multi-counter { font-size: .78rem; }
 
     /* Resultado más compacto */
     .qz-result-card {
@@ -1769,7 +1879,7 @@
       <a href="#pqr">PQR</a>
     </nav>
 
-    <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta desktop-only">Cotizar</a>
+    <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta desktop-only">Afiliarme</a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
@@ -1786,14 +1896,14 @@
   <a href="#diferenciales" onclick="closeMobile()">Diferenciales</a>
   <a href="#testimonios" onclick="closeMobile()">Testimonios</a>
   <a href="#pqr" onclick="closeMobile()">PQR</a>
-  <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Cotizar mi plan</a>
+  <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Afiliarme</a>
 </div>
 
 <main>
 
 <!-- =========== HERO =========== -->
 <section class="hero">
-  <div class="wrap">
+  <div class="wrap hero-wrap">
 
     <!-- Badge promocional superior -->
     <a href="#planes" class="hero-promo">
@@ -1808,7 +1918,7 @@
 
         <div class="hero-ctas">
           <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
-            Cotízalo aquí
+            Afiliarme ahora
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a href="#planes" class="btn-ghost">Ver planes</a>
@@ -1821,29 +1931,37 @@
           <span class="hero-stat-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           </span>
-          <div class="hero-stat-num">+100</div>
-          <div class="hero-stat-label">Especialidades</div>
+          <div class="hero-stat-text">
+            <div class="hero-stat-num">+100</div>
+            <div class="hero-stat-label">Especialidades</div>
+          </div>
         </div>
         <div class="hero-stat" role="listitem">
           <span class="hero-stat-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
           </span>
-          <div class="hero-stat-num">+30</div>
-          <div class="hero-stat-label">Centros Médicos</div>
+          <div class="hero-stat-text">
+            <div class="hero-stat-num">+30</div>
+            <div class="hero-stat-label">Centros Médicos</div>
+          </div>
         </div>
         <div class="hero-stat" role="listitem">
           <span class="hero-stat-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </span>
-          <div class="hero-stat-num">24/7</div>
-          <div class="hero-stat-label">Orientación</div>
+          <div class="hero-stat-text">
+            <div class="hero-stat-num">24/7</div>
+            <div class="hero-stat-label">Orientación</div>
+          </div>
         </div>
         <div class="hero-stat" role="listitem">
           <span class="hero-stat-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </span>
-          <div class="hero-stat-num">+4.200</div>
-          <div class="hero-stat-label">Profesionales</div>
+          <div class="hero-stat-text">
+            <div class="hero-stat-num">+4.200</div>
+            <div class="hero-stat-label">Profesionales</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1852,15 +1970,18 @@
 
 <!-- =========== 1. PLANES =========== -->
 <section class="block band-soft" id="planes">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Nuestros Planes</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>Nuestros Planes</span>
       <h2 class="section-title">Elige el plan <em>ideal para ti</em></h2>
     </div>
 
     <div class="seo-card seo-card--no-icon">
-      <p>Descubre nuestros planes de medicina prepagada Colmédica: atención médica integral, acceso rápido a especialistas, cobertura nacional e internacional y beneficios exclusivos diseñados para cuidar tu salud con respaldo permanente.</p>
+      <p>Planes de medicina prepagada con cobertura nacional e internacional. Acceso ágil a especialistas y respaldo permanente.</p>
     </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="planes-carousel-wrap">
       <button class="carousel-arrow prev" id="planPrev" aria-label="Plan anterior">
@@ -1873,7 +1994,7 @@
     <div class="planes-carousel" id="planesCarousel">
       <!-- Plan 1 -->
       <article class="plan-card" data-gama="diamante">
-        <h3 class="plan-gama">Gama Diamante</h3>
+        <h3 class="plan-gama">Plan Diamante</h3>
         <p class="plan-tagline">Cobertura premium nacional e internacional</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
@@ -1884,140 +2005,216 @@
           </div>
         </div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red médica nacional completa</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobertura internacional</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Centro exclusivo en Bogotá</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Atención domiciliaria 24/7</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización VIP</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red hospitalaria VIP</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización en habitación tipo suite</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico domiciliario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+100 especialidades de acceso directo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Centro Médico Exclusivo en Bogotá</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('diamante')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
 
       <!-- Plan 2 -->
       <article class="plan-card" data-gama="zafiro">
-        <h3 class="plan-gama">Gama Zafiro</h3>
+        <h3 class="plan-gama">Plan Zafiro</h3>
         <p class="plan-tagline">El equilibrio perfecto entre cobertura y precio</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">304.510</span>
+            <span class="plan-price-value">301.786</span>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Amplia red de clínicas</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso a especialistas</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cirugías y hospitalización</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Odontología preventiva</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Maternidad y pediatría</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red hospitalaria VIP</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización en habitación tipo suite</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico domiciliario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+100 especialidades de acceso directo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>33 Centros Médicos propios</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('zafiro')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
 
       <!-- Plan 3 -->
       <article class="plan-card" data-gama="rubi">
-        <h3 class="plan-gama">Gama Rubí</h3>
+        <h3 class="plan-gama">Plan Rubí</h3>
         <p class="plan-tagline">Protección esencial a un costo accesible</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">208.563</span>
+            <span class="plan-price-value">257.664</span>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red preferente de clínicas</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultas y especialistas</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Exámenes y procedimientos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Telemedicina incluida</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Orientación médica 24/7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red hospitalaria preferente</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización en habitación individual</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico domiciliario</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+100 especialidades de acceso directo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>32 Centros Médicos propios</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('rubi')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
 
+      <!-- Plan Hospitalarios -->
+      <article class="plan-card" data-gama="hospitalarios">
+        <h3 class="plan-gama">Plan Hospitalarios</h3>
+        <p class="plan-tagline">Cobertura para urgencias y hospitalización</p>
+        <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">53.122</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Atención de urgencias con hospitalización o cirugía</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultas médicas pre y post-hospitalarias</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cirugías programadas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicio de orientación médica 24/7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>App Colmédica</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('hospitalarios')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
+        </div>
+      </article>
+
+      <!-- Caobo Integral -->
+      <article class="plan-card" data-gama="caobo">
+        <h3 class="plan-gama">Caobo Integral</h3>
+        <p class="plan-tagline">Cobertura integral con maternidad y alto costo</p>
+        <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">129.687</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso directo a 8 especialidades</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Psicología y medicina general</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobertura de maternidad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Enfermedades de alto costo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hospitalización</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('caobo')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
+        </div>
+      </article>
+
+      <!-- Ámbar Vital -->
+      <article class="plan-card" data-gama="ambar">
+        <h3 class="plan-gama">Ámbar Vital</h3>
+        <p class="plan-tagline">Acceso directo a médicos VIP en las principales ciudades</p>
+        <div class="plan-price">
+          <span class="plan-price-from">Desde</span>
+          <div class="plan-price-amount">
+            <span class="plan-price-currency">$</span>
+            <span class="plan-price-value">154.219</span>
+            <span class="plan-price-period">/mes</span>
+          </div>
+        </div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso directo a médicos del país</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Clínicas VIP en Bogotá, Cali, Medellín y Barranquilla</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso a instituciones de alta complejidad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+100 especialidades</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicio de orientación médica 24/7</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-plan-detail" onclick="openPlan('ambar')">Ver plan completo</button>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
+        </div>
+      </article>
+
+
       <!-- Plan 4 -->
       <article class="plan-card" data-gama="esmeralda">
-        <h3 class="plan-gama">Gama Esmeralda</h3>
+        <h3 class="plan-gama">Plan Esmeralda Ambulatorio</h3>
         <p class="plan-tagline">Complementa tu EPS con servicios ágiles</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">148.390</span>
+            <span class="plan-price-value">62.432</span>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultas sin copagos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Red complementaria</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso directo a más de 100 especialidades</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Odontología preventiva</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicios ambulatorios completos</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Citas prioritarias</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Salud mental</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Beneficios en aliados</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>App Colmédica</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('esmeralda')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
 
       <!-- Plan 5 -->
       <article class="plan-card" data-gama="domiciliario">
-        <h3 class="plan-gama">Plan Domiciliario</h3>
+        <h3 class="plan-gama">Plan Domiciliario Superior</h3>
         <p class="plan-tagline">Atención médica en la comodidad de tu casa</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">89.750</span>
+            <span class="plan-price-value">51.255</span>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consulta médica domiciliaria</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Disponibilidad 24/7</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico general y enfermería</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Toma de muestras en casa</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>App para agendar citas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso ilimitado a consulta domiciliaria</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Médico general en tu hogar</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acceso a 13 especialidades</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Atención presencial o por videollamada</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Apoyo psicológico</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('domiciliario')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
 
       <!-- Plan 6 -->
       <article class="plan-card" data-gama="oncologico">
-        <h3 class="plan-gama">Plan Oncológico</h3>
+        <h3 class="plan-gama">Plan Oncológico Vida Plus</h3>
         <p class="plan-tagline">Acompañamiento integral en el tratamiento</p>
                 <div class="plan-price">
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">67.420</span>
+            <span class="plan-price-value">46.989</span>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicios ambulatorios oncológicos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicios hospitalarios oncológicos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Valoración preventiva oncológica</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Diagnóstico temprano</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tratamiento especializado</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Equipo multidisciplinario</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Apoyo psicológico</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sin carencias de entrada</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acompañamiento integral</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('oncologico')">Ver plan completo</button>
-          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Cotizar este plan</a>
+          <a href="https://www.colmedica.com" target="_blank" class="btn-plan-cotizar">Afiliarme a este plan</a>
         </div>
       </article>
     </div><!-- /.planes-carousel -->
@@ -2050,49 +2247,34 @@
       </div>
     </details>
   </div>
+    </div>
 </section>
 
 <!-- =========== 2. QUÉ PLAN ELEGIR — QUIZ INTERACTIVO =========== -->
 <section class="block band-blue" id="que-plan">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Tu plan ideal</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>Tu plan ideal</span>
       <h2 class="section-title">Encuéntralo en <em>30 segundos</em></h2>
     </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="qz-shell">
 
-      <!-- Progress bar -->
-      <div class="qz-progress" id="qzProgress" hidden>
-        <div class="qz-progress-info">
-          <span id="qzProgressLabel">Pregunta 1 de 6</span>
-          <span id="qzProgressPct">17%</span>
-        </div>
-        <div class="qz-progress-bar"><div class="qz-progress-fill" id="qzProgressFill"></div></div>
-      </div>
-
-      <!-- INTRO -->
-      <div class="qz-screen is-active" id="qzScreenIntro">
-        <p class="qz-intro-sub">
-          Te haremos 6 preguntas rápidas para descubrir el plan Colmédica
-          que mejor se adapta a lo que tú y tu familia necesitan.
-        </p>
-        <button class="btn-primary" id="qzStart">
-          Empezar quiz
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-
-      <!-- QUIZ -->
-      <div class="qz-screen" id="qzScreenQuiz" hidden>
-        <h3 class="qz-duel-title">¿Qué te importa más?</h3>
-        <div class="qz-duel-grid">
-          <button class="qz-duel-card" id="qzCardA" data-side="A"></button>
-          <div class="qz-vs">VS</div>
-          <button class="qz-duel-card" id="qzCardB" data-side="B"></button>
-        </div>
-        <div class="qz-skip">
-          <button id="qzAllBtn">Quiero todo · Sáltate el quiz</button>
+      <!-- SELECCIÓN MÚLTIPLE -->
+      <div class="qz-screen is-active" id="qzScreenQuiz">
+        <h3 class="qz-multi-title">¿Qué coberturas te interesan?</h3>
+        <p class="qz-multi-sub">Marca todas las que quieras. No hay un orden correcto.</p>
+        <div class="qz-multi-grid" id="qzMultiGrid"><!-- inyectado por JS --></div>
+        <div class="qz-multi-actions">
+          <button class="qz-multi-all" id="qzMultiAll">Seleccionar todas</button>
+          <span class="qz-multi-counter" id="qzMultiCounter">0 seleccionadas</span>
+          <button class="btn-primary qz-multi-submit" id="qzMultiSubmit" disabled>
+            Ver mi plan ideal
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
         </div>
       </div>
 
@@ -2132,20 +2314,26 @@
       <div class="qz-confetti" id="qzConfetti"></div>
     </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== 3. CLÍNICAS (listado con bullets) =========== -->
 <section class="block band-soft" id="clinicas">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Red Preferente</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9h-4V5H9v4H5v6h4v4h6v-4h4z"/></svg></span>Red Preferente</span>
       <h2 class="section-title">Red de <em>Mejores Clínicas</em></h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9h-4V5H9v4H5v6h4v4h6v-4h4z"/></svg>
-      <p>Accede a las mejores clínicas del país a través de nuestra red preferencial: centros de alta complejidad, tecnología de punta y equipos médicos especializados en las principales ciudades de Colombia, con hospitalización, cirugía y atención especializada.</p>
+      <p>Las mejores clínicas del país: alta complejidad, tecnología de punta y equipos especializados a nivel nacional.</p>
     </div>
+          <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+    </div>
+        </div>
+
+        <div class="col-body">
 
     <!-- Tabs de ciudad (mismo patrón que Centros) -->
     <div class="clinicas-city-tabs" id="clinicasTabs">
@@ -2171,25 +2359,27 @@
       <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
       <ul class="clinicas-list-items" id="clinicasList"></ul>
     </div>
-
-    <div class="section-cta">
-      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver toda la red médica</a>
-    </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== 4. CENTROS MÉDICOS (foto ciudad + 3 cuadros) =========== -->
 <section class="block" id="centros">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Red Propia</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>Red Propia</span>
       <h2 class="section-title">Centros Médicos <em>Colmédica</em></h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-      <p>Disfruta del confort de nuestros Centros Médicos, Odontológicos y de Diagnóstico Colmédica propios a nivel nacional. Atención ágil, sin filas y con la mejor tecnología para ti y tu familia en las principales ciudades del país.</p>
+      <p>Centros Médicos, Odontológicos y de Diagnóstico propios. Atención ágil, sin filas y con la mejor tecnología.</p>
     </div>
+          <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+    </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="centros-city-tabs" id="centrosTabs">
       <button class="centros-tab active" data-city="bogota">Bogotá</button>
@@ -2227,25 +2417,27 @@
     <p class="centros-disclaimer">
       Los Centros Médicos, de Diagnóstico y Odontológicos Colmédica son operados por UMD.
     </p>
-
-    <div class="section-cta">
-      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver todos los centros</a>
-    </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== 5. ESPECIALIDADES (lista completa sin emojis) =========== -->
 <section class="block band-soft" id="especialidades">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Cobertura Médica</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Cobertura Médica</span>
       <h2 class="section-title">Más de <em>100 especialidades</em> médicas</h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-      <p>Accede directamente a más de 100 especialidades y subespecialidades médicas sin necesidad de pasar primero por un médico general. Atención oportuna con los mejores profesionales del país en todas las áreas de la medicina.</p>
+      <p>Más de 100 especialidades y subespecialidades de acceso directo, sin pasar por médico general.</p>
     </div>
+          <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+    </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="mcarousel-wrap">
       <div class="esp-grid" id="espGrid" data-mcarousel>
@@ -2261,25 +2453,27 @@
         </button>
       </div>
     </div>
-
-    <div class="section-cta">
-      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Ver todas las especialidades</a>
-    </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== 6. DIFERENCIALES (merge elige + ventajas) =========== -->
 <section class="block band-blue" id="diferenciales">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">¿Por qué Colmédica?</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>¿Por qué Colmédica?</span>
       <h2 class="section-title">Beneficios <em>exclusivos</em></h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
-      <p>Más de 30 años cuidando la salud de los colombianos con respaldo, tecnología y calidez humana. Conoce los beneficios exclusivos que solo Colmédica te ofrece.</p>
+      <p>+30 años cuidando la salud con respaldo, tecnología y calidez. Beneficios exclusivos solo Colmédica.</p>
     </div>
+          <div class="section-cta">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+    </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="mcarousel-wrap">
     <div class="dif-grid" id="difGrid" data-mcarousel>
@@ -2371,25 +2565,27 @@
       </button>
     </div>
     </div><!-- /.mcarousel-wrap -->
-
-    <div class="section-cta">
-      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Descubre todos los beneficios</a>
-    </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== 7. TESTIMONIOS + ALIADOS =========== -->
-<section class="block" id="testimonios">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">Experiencias reales</span>
+<section class="block band-soft" id="testimonios">
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Experiencias reales</span>
       <h2 class="section-title">Lo que dicen <em>nuestros usuarios</em></h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <p>Miles de familias confían en Colmédica para cuidar su bienestar. Conoce las experiencias reales de nuestros usuarios y descubre por qué somos líderes en medicina prepagada en Colombia, con respaldo de más de 30 años en el sector salud.</p>
+      <p>Miles de familias confían en Colmédica. Conoce las experiencias reales de nuestros usuarios.</p>
     </div>
+          <div class="section-cta">
+            <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+          </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="mcarousel-wrap">
     <div class="test-grid" id="testGrid" data-mcarousel>
@@ -2446,20 +2642,26 @@
     </div>
     </div><!-- /.mcarousel-wrap -->
   </div>
+    </div>
 </section>
 
 <!-- =========== 8. PQR (FAQ) =========== -->
 <section class="block band-soft" id="pqr">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="section-tag">PQR / Preguntas</span>
+  <div class="wrap"><div class="col-aside">
+          <div class="section-header">
+      <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-6 0v4"/><rect x="3" y="9" width="18" height="12" rx="2"/></svg></span>PQR / Preguntas</span>
       <h2 class="section-title">Resolvemos tus <em>dudas</em></h2>
     </div>
 
     <div class="seo-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
-      <p>Resolvemos todas tus dudas sobre medicina prepagada, coberturas, afiliación y trámites. Encuentra respuestas rápidas y claras sobre cómo funcionan nuestros planes de salud y los beneficios que Colmédica tiene para ti y tu familia.</p>
+      <p>Resolvemos tus dudas sobre coberturas, afiliación y trámites de medicina prepagada.</p>
     </div>
+          <div class="section-cta">
+            <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Afiliarme</a>
+          </div>
+        </div>
+
+        <div class="col-body">
 
     <div class="faq-list">
       <details class="faq-item">
@@ -2496,6 +2698,7 @@
       </details>
     </div>
   </div>
+    </div>
 </section>
 
 <!-- =========== CTA FINAL =========== -->
@@ -2526,12 +2729,9 @@
       </div>
 
       <div class="footer-text">
-        Aplican términos y condiciones contractuales.
-        Todos los derechos reservados. Colmédica Medicina Prepagada está vigilada por la Superintendencia Nacional de Salud.
-        <br><br>
-        <a href="https://www.colmedica.com/proteccion-de-datos" target="_blank">Política de tratamiento de Datos Personales de Colmédica</a>
-        &nbsp;·&nbsp;
-        <a href="https://www.colmedica.com" target="_blank">Colmedica.com</a>
+        <p>Aplican términos y condiciones contractuales.</p>
+        <p>Todos los derechos reservados. Colmédica Medicina Prepagada es una empresa de prestación de servicios de salud en Colombia que cuenta con amplia trayectoría y respaldo, ofreciendo a sus usuarios una amplia variedad de planes de salud, con alta calidad y servicio. Todos los precios en pesos colombianos.</p>
+        <p><a href="https://www.colmedica.com/proteccion-de-datos" target="_blank">Política de tratamiento de Datos Personales de Colmédica</a></p>
       </div>
     </div>
 
@@ -2568,7 +2768,7 @@
     </div>
     <div class="modal-footer">
       <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
-        Cotizar este plan
+        Afiliarme a este plan
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -2605,18 +2805,60 @@
 
   // ===== Clínicas por ciudad
   const CLINICAS = {
-    bogota:        ['Fundación Santa Fe', 'Clínica del Country', 'Fundación Cardioinfantil', 'Hospital Universitario San Ignacio', 'Clínica Reina Sofía', 'Clínica de Marly'],
-    barranquilla:  ['Clínica Portoazul', 'Clínica General del Norte', 'Hospital Universidad del Norte'],
-    cali:          ['Fundación Valle del Lili', 'Clínica Imbanaco', 'Centro Médico Imbanaco'],
-    medellin:      ['Hospital Pablo Tobón Uribe', 'Clínica Las Américas', 'Clínica Medellín', 'Clínica El Rosario'],
-    bucaramanga:   ['Fundación Cardiovascular de Colombia', 'Clínica Foscal'],
-    cartagena:     ['Hospital Bocagrande', 'Clínica Blas de Lezo'],
-    chia:          ['Clínica Chía', 'Fundación Clínica Universitaria de la Sabana'],
-    ibague:        ['Clínica Tolima', 'Clínica Medicadiz'],
-    manizales:     ['Clínica San Marcel', 'Hospital Departamental Santa Sofía'],
-    neiva:         ['Clínica Medilaser', 'Clínica Emcosalud'],
-    pereira:       ['Clínica Los Rosales', 'Comfamiliar Risaralda'],
-    villavicencio: ['Clínica Meta', 'Clínica Martha'],
+    bogota: [
+      'Fundación Santa Fe de Bogotá', 'Clínica del Country', 'Clínica La Colina',
+      'Fundación Cardioinfantil', 'Hospital Universitario San Ignacio',
+      'Clínica Reina Sofía', 'Clínica de Marly', 'Clínica Universitaria Colombia',
+      'Clínica Shaio', 'Clínica de la Mujer', 'Clínica Palermo',
+      'Hospital Militar Central', 'Country Plaza', 'Clínica Vascular Navarra',
+      'Clínica Nueva'
+    ],
+    barranquilla: [
+      'Clínica Portoazul', 'Clínica General del Norte', 'Hospital Universidad del Norte',
+      'Clínica Iberoamérica', 'Clínica La Misericordia', 'Clínica Reina Catalina'
+    ],
+    cali: [
+      'Fundación Valle del Lili', 'Clínica Imbanaco', 'Centro Médico Imbanaco',
+      'Clínica Sebastián de Belalcázar', 'Clínica Nuestra Señora de los Remedios',
+      'Clínica Versalles', 'Centro Médico Carlos Ardila Lülle'
+    ],
+    medellin: [
+      'Hospital Pablo Tobón Uribe', 'Clínica Las Américas', 'Clínica Medellín',
+      'Clínica El Rosario', 'Hospital General de Medellín', 'Clínica CES',
+      'Clínica Cardio VID', 'Clínica del Prado'
+    ],
+    bucaramanga: [
+      'Fundación Cardiovascular de Colombia', 'Clínica Foscal',
+      'Clínica Carlos Ardila Lülle', 'Clínica Materno Infantil San Luis'
+    ],
+    cartagena: [
+      'Hospital Bocagrande', 'Clínica Blas de Lezo',
+      'Hospital Universitario del Caribe', 'Hospital Naval'
+    ],
+    chia: [
+      'Clínica Chía', 'Fundación Clínica Universitaria de la Sabana',
+      'Clínica Sanitas Sabana'
+    ],
+    ibague: [
+      'Clínica Tolima', 'Clínica Medicadiz',
+      'Hospital Federico Lleras Acosta'
+    ],
+    manizales: [
+      'Clínica San Marcel', 'Hospital Departamental Santa Sofía',
+      'Clínica Versalles Manizales', 'Hospital de Caldas'
+    ],
+    neiva: [
+      'Clínica Medilaser', 'Clínica Emcosalud',
+      'Hospital Universitario Hernando Moncaleano'
+    ],
+    pereira: [
+      'Clínica Los Rosales', 'Comfamiliar Risaralda',
+      'Clínica Risaralda', 'Hospital Universitario San Jorge'
+    ],
+    villavicencio: [
+      'Clínica Meta', 'Clínica Martha',
+      'Hospital Departamental Villavicencio', 'Clínica Mayor'
+    ],
   };
   const CITY_LABELS = {
     bogota: 'Bogotá', barranquilla: 'Barranquilla', cali: 'Cali', medellin: 'Medellín',
@@ -2923,105 +3165,160 @@
   // ===== Plan modal
   const PLANS = {
     diamante: {
-      gama: 'Gama Diamante', tagline: 'Cobertura premium nacional e internacional',
+      gama: 'Plan Diamante', tagline: 'Cobertura premium nacional e internacional',
       price: '428.782',
       centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
-        'Red médica nacional completa con clínicas VIP',
-        'Cobertura internacional para viajes',
-        'Centro Médico exclusivo en Bogotá',
-        'Atención domiciliaria 24/7 con médico general',
-        'Hospitalización con habitación individual',
-        'Acceso directo a +100 especialidades',
-        'Cirugías sin copagos en red preferente',
-        'Maternidad premium y pediatría especializada',
-        'Salud mental ilimitada (SOM)',
-        'Asistencia en viajes nacional e internacional'
+        'Red hospitalaria VIP',
+        'Hospitalización en habitación tipo suite',
+        'Médico domiciliario',
+        'Servicio de orientación médica 24/7',
+        '+100 especialidades de acceso directo',
+        '+4.400 profesionales adscritos',
+        'Medicamentos ambulatorios pre y post-hospitalarios',
+        '33 Centros Médicos, de Diagnóstico y Odontológicos propios',
+        'Centro Médico Colmédica Exclusivo en Bogotá',
+        'Asistencia en viajes en el exterior',
+        'Reembolso para copagos y cuotas moderadoras',
+        'Auxilio diario por hospitalización',
+        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios',
+        'Reembolso para que elijas libremente dónde y con quién atenderte aunque no haga parte de nuestra guía médica'
       ]
     },
     zafiro: {
-      gama: 'Gama Zafiro', tagline: 'El equilibrio perfecto entre cobertura y precio',
-      price: '304.510',
+      gama: 'Plan Zafiro', tagline: 'El equilibrio perfecto entre cobertura y precio',
+      price: '301.786',
       centros: 'Acceso a los 33 Centros Médicos Colmédica a nivel nacional',
       features: [
-        'Amplia red de clínicas y centros médicos',
-        'Acceso directo a especialistas',
-        'Cirugías y hospitalización cubiertas',
-        'Odontología preventiva incluida',
-        'Maternidad y pediatría',
-        'Telemedicina ilimitada',
-        'App móvil para trámites',
-        'Descuentos en farmacias aliadas',
-        'Orientación médica 24/7',
-        'Acompañamiento psicológico'
+        'Red hospitalaria VIP',
+        'Hospitalización en habitación tipo suite',
+        'Médico domiciliario',
+        'Servicio de orientación médica 24/7',
+        '+100 especialidades de acceso directo',
+        '+4.400 profesionales adscritos',
+        'Medicamentos ambulatorios pre y post-hospitalarios',
+        '33 Centros Médicos, de Diagnóstico y Odontológicos propios',
+        'Centro Médico Colmédica Exclusivo en Bogotá',
+        'Asistencia en viajes en el exterior',
+        'Reembolso para copagos y cuotas moderadoras',
+        'Auxilio diario por hospitalización',
+        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios',
+        'Reembolso para libre elección de prestador'
       ]
     },
     rubi: {
-      gama: 'Gama Rubí', tagline: 'Protección esencial a un costo accesible',
-      price: '208.563',
-      centros: 'Acceso a Centros Médicos Colmédica en principales ciudades',
+      gama: 'Plan Rubí', tagline: 'Protección esencial a un costo accesible',
+      price: '257.664',
+      centros: 'Acceso a 32 Centros Médicos Colmédica + Centro Exclusivo en Bogotá',
       features: [
-        'Red preferente de clínicas',
-        'Consultas con especialistas',
-        'Exámenes de laboratorio y diagnóstico',
-        'Telemedicina incluida',
-        'Orientación médica 24/7',
-        'App móvil para agendar citas',
-        'Medicamentos con descuento',
-        'Urgencias cubiertas',
+        'Red hospitalaria preferente',
+        'Hospitalización en habitación individual',
+        'Médico domiciliario',
+        'Servicio de orientación médica 24/7',
+        '+100 especialidades de acceso directo',
+        '+4.400 profesionales adscritos',
+        'Medicamentos ambulatorios pre y post-hospitalarios',
+        '32 Centros Médicos, de Diagnóstico y Odontológicos propios',
+        'Centro Médico Colmédica Exclusivo en Bogotá',
+        'Asistencia en viajes en el exterior',
+        'Reembolso para copagos y cuotas moderadoras',
+        'Auxilio diario por hospitalización',
+        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios'
+      ]
+    },
+    esmeralda: {
+      gama: 'Plan Esmeralda Ambulatorio', tagline: 'Las ventajas de la medicina prepagada enfocadas en servicios ambulatorios',
+      price: '62.432',
+      centros: 'Acceso a Centros Médicos Colmédica para servicios ambulatorios',
+      features: [
+        'Acceso directo a más de 100 especialidades',
+        'Odontología preventiva',
+        'Servicios ambulatorios completos',
+        'Servicio de orientación médica 24/7',
+        'Citas prioritarias en menor tiempo',
+        'App Colmédica para gestión',
+        'Telemedicina y atención virtual',
         'Sin examen médico de ingreso',
         'Sin cuota de inscripción'
       ]
     },
-    esmeralda: {
-      gama: 'Gama Esmeralda', tagline: 'Complementa tu EPS con servicios ágiles',
-      price: '148.390',
-      centros: 'Acceso a servicios complementarios en Centros Médicos',
-      features: [
-        'Consultas sin copagos',
-        'Red complementaria a tu EPS',
-        'Citas prioritarias (menor tiempo de espera)',
-        'Salud mental (SOM)',
-        'Beneficios en aliados comerciales',
-        'Telemedicina básica',
-        'Orientación médica',
-        'Descuentos en farmacias',
-        'App móvil',
-        'Afiliación sin examen médico'
-      ]
-    },
     domiciliario: {
-      gama: 'Plan Domiciliario', tagline: 'Atención médica en la comodidad de tu casa',
-      price: '89.750',
+      gama: 'Plan Domiciliario Superior', tagline: 'Atención médica en la comodidad de tu hogar',
+      price: '51.255',
       centros: 'Servicio a domicilio en ciudades principales',
       features: [
-        'Consulta médica domiciliaria 24/7',
-        'Médico general y enfermería',
-        'Toma de muestras en casa',
-        'Aplicación de inyecciones',
-        'Curaciones y terapias',
-        'Telemedicina ilimitada',
-        'Orientación médica telefónica',
-        'App para solicitar servicios',
+        'Acceso ilimitado a consulta domiciliaria médica general',
+        'Acceso a 13 especialidades, además de psicología',
+        'Atención presencial o a través de videollamada',
+        'Servicio de orientación médica 24/7',
+        'Apoyo psicológico',
+        'App Colmédica para solicitar servicios',
+        'Toma de muestras a domicilio',
         'Sin carencias de entrada',
         'Cobertura nacional'
       ]
     },
     oncologico: {
-      gama: 'Plan Oncológico', tagline: 'Acompañamiento integral en el tratamiento',
-      price: '67.420',
-      centros: 'Red especializada en oncología',
+      gama: 'Plan Oncológico Vida Plus', tagline: 'Anticípate ante un diagnóstico de cáncer con atención especializada',
+      price: '46.989',
+      centros: 'Red especializada en oncología a nivel nacional',
       features: [
+        'Servicios ambulatorios en caso de diagnóstico de cáncer',
+        'Servicios hospitalarios en caso de diagnóstico de cáncer',
+        'Valoración preventiva oncológica',
         'Diagnóstico temprano cubierto',
         'Tratamiento especializado',
         'Equipo multidisciplinario',
-        'Apoyo psicológico incluido',
+        'Apoyo psicológico',
         'Quimioterapia y radioterapia',
-        'Segunda opinión internacional',
-        'Medicamentos oncológicos',
-        'Hospitalización especializada',
-        'Cuidados paliativos',
-        'Sin carencias de entrada'
+        'Acompañamiento integral en el tratamiento'
+      ]
+    },
+    hospitalarios: {
+      gama: 'Plan Hospitalarios', tagline: 'Cobertura para urgencias, hospitalización y cirugía',
+      price: '53.122',
+      centros: 'Acceso a clínicas para urgencias y hospitalización',
+      features: [
+        'Atención de urgencias que deriven en hospitalización o cirugía',
+        'Consultas médicas pre y post-hospitalarias',
+        'Cirugías programadas',
+        'Servicio de orientación médica 24/7',
+        'Cobertura de complicaciones quirúrgicas',
+        'App Colmédica para gestión',
+        'Sin cuota de inscripción',
+        'Sin examen médico de ingreso'
+      ]
+    },
+    caobo: {
+      gama: 'Caobo Integral', tagline: 'Cobertura integral con maternidad y enfermedades de alto costo',
+      price: '129.687',
+      centros: 'Red preferente con servicios ambulatorios y hospitalarios',
+      features: [
+        'Acceso directo a 8 especialidades',
+        'Psicología y medicina general',
+        'Cobertura de maternidad',
+        'Enfermedades de alto costo',
+        'Hospitalización',
+        'Servicio de orientación médica 24/7',
+        'Exámenes y procedimientos',
+        'Medicamentos ambulatorios',
+        'App Colmédica'
+      ]
+    },
+    ambar: {
+      gama: 'Ámbar Vital', tagline: 'Acceso directo a médicos VIP en las principales ciudades',
+      price: '154.219',
+      centros: 'Clínicas VIP en Bogotá, Cali, Medellín y Barranquilla',
+      features: [
+        'Acceso directo a médicos e instituciones del país',
+        'Atención en clínicas VIP en Bogotá, Cali, Medellín y Barranquilla',
+        'Acceso a instituciones de alta complejidad',
+        '+100 especialidades de acceso directo',
+        'Servicio de orientación médica 24/7',
+        'Hospitalización',
+        'Cobertura de maternidad',
+        'Medicamentos ambulatorios',
+        'Asistencia en viajes nacional'
       ]
     }
   };
@@ -3179,30 +3476,25 @@
       'zafiro':       ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional'],
       'diamante':     ['medico-dom','orientacion','ambulancia','especialistas','examenes','hospital','vip','maternidad','alto-costo','red-centros','internacional','donde-quieras'],
     };
-    // Pares de duelos
-    const PAIRS = [
-      ['especialistas', 'medico-dom'],
-      ['hospital',      'vip'],
-      ['maternidad',    'alto-costo'],
-      ['donde-quieras', 'internacional'],
-      ['orientacion',   'ambulancia'],
-      ['red-centros',   'examenes'],
+    // Orden en que se muestran las cards (las 12 coberturas de la matriz)
+    const COV_KEYS = [
+      'medico-dom', 'orientacion', 'ambulancia', 'especialistas',
+      'examenes', 'hospital', 'vip', 'maternidad',
+      'alto-costo', 'red-centros', 'internacional', 'donde-quieras'
     ];
-    const TOTAL = PAIRS.length;
 
     // Estado
-    let round = 0;
-    let chosen = [];
+    let chosen = new Set();
 
     const $ = id => document.getElementById(id);
     const screens = {
-      intro:  $('qzScreenIntro'),
       quiz:   $('qzScreenQuiz'),
       result: $('qzScreenResult'),
     };
 
     function show(name) {
       Object.entries(screens).forEach(([k, el]) => {
+        if (!el) return;
         if (k === name) {
           el.hidden = false;
           requestAnimationFrame(() => el.classList.add('is-active'));
@@ -3211,50 +3503,84 @@
           setTimeout(() => { el.hidden = true; }, 350);
         }
       });
-      $('qzProgress').hidden = (name !== 'quiz');
     }
 
     function start() {
-      round = 0; chosen = [];
+      chosen.clear();
+      // Reset visual selection
+      $('qzMultiGrid').querySelectorAll('.qz-multi-card').forEach(c => {
+        c.classList.remove('is-selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      updateActions();
       show('quiz');
-      renderRound();
     }
 
-    function renderRound() {
-      if (round >= TOTAL) { finish(); return; }
-      const [a, b] = PAIRS[round];
-      setCard($('qzCardA'), a);
-      setCard($('qzCardB'), b);
-      const pct = Math.round((round / TOTAL) * 100);
-      $('qzProgressLabel').textContent = `Pregunta ${round + 1} de ${TOTAL}`;
-      $('qzProgressPct').textContent = `${pct}%`;
-      $('qzProgressFill').style.width = pct + '%';
+    const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+    function buildGrid() {
+      const grid = $('qzMultiGrid');
+      grid.innerHTML = COV_KEYS.map(key => {
+        const c = COVS[key];
+        return `
+          <button type="button" class="qz-multi-card" data-cov="${key}" aria-pressed="false">
+            <span class="qz-multi-check">${CHECK_SVG}</span>
+            <span class="qz-multi-icon">${ICONS[key] || ''}</span>
+            <span class="qz-multi-name">${c.name}</span>
+          </button>
+        `;
+      }).join('');
+      grid.querySelectorAll('.qz-multi-card').forEach(card => {
+        card.addEventListener('click', () => toggleCov(card));
+      });
     }
 
-    function setCard(el, key) {
-      const c = COVS[key];
-      el.dataset.key = key;
-      el.classList.remove('is-picked', 'is-loser');
-      el.innerHTML = `
-        <div class="qz-duel-icon">${ICONS[key] || ''}</div>
-        <div class="qz-duel-card-title">${c.name}</div>
-        <div class="qz-duel-card-desc">${c.desc}</div>
-      `;
+    function toggleCov(card) {
+      const key = card.dataset.cov;
+      if (chosen.has(key)) {
+        chosen.delete(key);
+        card.classList.remove('is-selected');
+        card.setAttribute('aria-pressed', 'false');
+      } else {
+        chosen.add(key);
+        card.classList.add('is-selected');
+        card.setAttribute('aria-pressed', 'true');
+      }
+      updateActions();
     }
 
-    function pick(side) {
-      const a = $('qzCardA'), b = $('qzCardB');
-      const winner = side === 'A' ? a : b;
-      const loser  = side === 'A' ? b : a;
-      winner.classList.add('is-picked');
-      loser.classList.add('is-loser');
-      chosen.push(winner.dataset.key);
-      setTimeout(() => {
-        round++;
-        const pct = Math.round((round / TOTAL) * 100);
-        $('qzProgressFill').style.width = pct + '%';
-        setTimeout(renderRound, 80);
-      }, 480);
+    function updateActions() {
+      const n = chosen.size;
+      $('qzMultiCounter').textContent = n === 1 ? '1 seleccionada' : `${n} seleccionadas`;
+      $('qzMultiSubmit').disabled = n === 0;
+      // Botón "Seleccionar todas" toggle
+      const all = $('qzMultiAll');
+      const isAll = n === COV_KEYS.length;
+      all.classList.toggle('is-active', isAll);
+      all.textContent = isAll ? 'Quitar selección' : 'Seleccionar todas';
+    }
+
+    function toggleAll() {
+      if (chosen.size === COV_KEYS.length) {
+        chosen.clear();
+        $('qzMultiGrid').querySelectorAll('.qz-multi-card').forEach(c => {
+          c.classList.remove('is-selected');
+          c.setAttribute('aria-pressed', 'false');
+        });
+      } else {
+        COV_KEYS.forEach(k => chosen.add(k));
+        $('qzMultiGrid').querySelectorAll('.qz-multi-card').forEach(c => {
+          c.classList.add('is-selected');
+          c.setAttribute('aria-pressed', 'true');
+        });
+      }
+      updateActions();
+    }
+
+    function submit() {
+      if (!chosen.size) return;
+      const planKey = findBestPlan([...chosen]);
+      showResult(planKey);
     }
 
     function findBestPlan(sel) {
@@ -3275,13 +3601,6 @@
       return best;
     }
 
-    function finish() { showResult(findBestPlan(chosen)); }
-
-    function quieroTodo() {
-      chosen = Object.keys(COVS);
-      showResult('diamante');
-    }
-
     function showResult(planKey) {
       // Datos vienen del PLANS global del modal de la landing
       const plan = (typeof PLANS !== 'undefined' && PLANS[planKey]) || { gama: 'Plan', tagline: '', price: '' };
@@ -3292,7 +3611,7 @@
       $('qzResultTag').textContent  = plan.tagline || '';
       $('qzResultPrice').textContent = plan.price || '';
 
-      const uniq = [...new Set(chosen.filter(c => planCovs.includes(c)))];
+      const uniq = [...chosen].filter(c => planCovs.includes(c));
       const extras = planCovs.filter(c => !uniq.includes(c));
 
       $('qzResultPicks').innerHTML = uniq.map(li).join('') ||
@@ -3330,16 +3649,13 @@
     }
 
     // Bind
-    $('qzStart').addEventListener('click', start);
-    $('qzAllBtn').addEventListener('click', quieroTodo);
+    $('qzMultiAll').addEventListener('click', toggleAll);
+    $('qzMultiSubmit').addEventListener('click', submit);
     $('qzRestart').addEventListener('click', start);
-    $('qzCardA').addEventListener('click', () => pick('A'));
-    $('qzCardB').addEventListener('click', () => pick('B'));
-    document.addEventListener('keydown', e => {
-      if (!screens.quiz.classList.contains('is-active')) return;
-      if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') pick('A');
-      if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') pick('B');
-    });
+
+    // Construir la grilla al cargar — quiz visible desde el primer momento
+    buildGrid();
+    updateActions();
   })();
 
   // ===== Video placeholder (hook para reemplazar con videos reales)

@@ -1358,6 +1358,13 @@
      LAYOUT 2 COLUMNAS DESKTOP — col-aside (título) + col-body (contenido)
      ============================================================ */
   .col-aside, .col-body { width: 100%; }
+  /* En móvil/tablet (debajo del breakpoint 2-col) los bloques apilados necesitan respiración */
+  @media (max-width: 1023px) {
+    .col-aside { margin-bottom: 1.5rem; }
+    .col-aside > * + * { margin-top: 1rem; }    /* gap entre header, seo-card y CTA */
+    .col-aside .section-cta { margin-top: 1.4rem; margin-bottom: .5rem; }
+    .col-body { margin-top: .5rem; }
+  }
   @media (min-width: 1024px) {
     section.block > .wrap {
       display: grid;

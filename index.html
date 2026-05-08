@@ -1298,7 +1298,6 @@
      ============================================================ */
   @media (max-width: 768px) {
     .esp-grid.is-mobile-carousel,
-    .dif-grid,
     .test-grid {
       display: flex !important;
       grid-template-columns: none !important;
@@ -1312,27 +1311,34 @@
       -webkit-overflow-scrolling: touch;
     }
     .esp-grid.is-mobile-carousel::-webkit-scrollbar,
-    .dif-grid::-webkit-scrollbar,
     .test-grid::-webkit-scrollbar { display: none; }
 
-    /* Diferenciales — 2 cards por vista + peek */
+    /* Diferenciales — grid 2 columnas vertical (no carrusel) */
+    .dif-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .7rem;
+      overflow: visible;
+      padding: 0;
+      margin-inline: 0;
+    }
     .dif-card {
-      flex: 0 0 calc((100% - 30px - .75rem) / 2);
+      flex: none;
       min-width: 0;
       max-width: none;
-      scroll-snap-align: start;
       padding: 1.1rem .9rem;
     }
     .dif-card .dif-icon { margin-bottom: .6rem; }
     .dif-card .dif-title { font-size: .92rem; line-height: 1.2; }
     .dif-card .dif-desc { font-size: .76rem; line-height: 1.4; }
-    /* La card especial de aliados ocupa una vista completa */
+    /* La card especial de aliados ocupa las 2 columnas (full width) */
     .dif-card--allies {
-      flex: 0 0 80vw;
-      max-width: 340px;
+      grid-column: 1 / -1;
       padding: 1.4rem 1.2rem;
     }
     .dif-card--allies .dif-title { font-size: 1.05rem; }
+    /* Ocultar dots/controles del carrusel de diferenciales */
+    .mcarousel-ctrls[data-mcarousel-for="difGrid"] { display: none !important; }
 
     /* Experiencias — una card por vista + peek */
     .test-card {
@@ -1449,16 +1455,14 @@
     background: rgba(255, 255, 255, .14);
     border-color: rgba(255, 255, 255, .28);
   }
-  .dif-allies {
-    display: flex; flex-wrap: wrap; gap: .35rem;
-    margin-top: .8rem;
+  .dif-allies-text {
+    color: rgba(255, 255, 255, .92);
+    font-size: .9rem; line-height: 1.5;
+    margin-top: .4rem;
   }
-  .dif-allies span {
-    background: rgba(255, 255, 255, .22);
-    color: #fff;
-    font-size: .72rem; font-weight: 700;
-    padding: .3rem .7rem; border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, .25);
+  .dif-allies-text span {
+    color: #8ed8ff;
+    font-weight: 700;
   }
 
   /* ============================================================
@@ -2549,19 +2553,9 @@
 
       <!-- Card especial de aliados (cierra el carrusel) -->
       <div class="dif-card dif-card--allies">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
-        <h3 class="dif-title">¿Por qué elegirnos?</h3>
-        <p class="dif-desc">También por nuestros aliados con beneficios exclusivos.</p>
-        <div class="dif-allies">
-          <span>Chevignon</span>
-          <span>Bodytech</span>
-          <span>Pat Primo</span>
-          <span>Cruz Verde</span>
-          <span>Teatro Nacional</span>
-          <span>Clínica del Country</span>
-          <span>Farmatodo</span>
-          <span>Open English</span>
-        </div>
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 class="dif-title">Experiencias con aliados</h3>
+        <p class="dif-allies-text">Beneficios exclusivos con: <span>Bodytech</span>, <span>Chevignon</span>, <span>Teatro Nacional</span>, <span>Pat Primo</span>, <span>Cruz Verde</span> y más</p>
       </div>
     </div><!-- /.dif-grid -->
     <div class="mcarousel-ctrls" data-mcarousel-for="difGrid">

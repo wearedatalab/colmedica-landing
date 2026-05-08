@@ -1758,87 +1758,131 @@
     filter: none;
   }
 
-  /* RESULT */
+  /* RESULT — layout: cabecera fija + scroll interno + CTAs fijos abajo */
+  #qzResultModal .modal-box {
+    /* El modal-box no scrollea — el scroll vive dentro de .qz-result-scroll */
+    overflow: hidden;
+    max-width: 520px;
+  }
   .qz-result-card {
-    background: #fff; border-radius: var(--radius-lg);
-    padding: 1.8rem 1.7rem;
-    box-shadow: 0 24px 60px rgba(0, 30, 80, .35);
-    max-width: 520px; width: 100%;
-    margin: 0 auto;
+    background: #fff;
+    box-shadow: none;
+    border-radius: var(--radius-lg);
+    width: 100%; max-width: none;
+    margin: 0;
     text-align: center;
-    position: relative; overflow: hidden;
+    position: relative;
+    /* Layout vertical: head fijo, scroll en el medio, ctas fijos abajo */
+    display: flex; flex-direction: column;
+    height: 100%;
+    overflow: hidden;
   }
   .qz-result-card::before {
     content:''; position: absolute; inset: 0 0 auto 0; height: 6px;
     background: linear-gradient(90deg, var(--qz-color, var(--blue-serenidad)), var(--qz-color-2, var(--blue-vital)));
+    z-index: 1;
+  }
+  /* Botón cerrar — flotante en esquina superior derecha */
+  .qz-modal-close {
+    position: absolute; top: 10px; right: 10px;
+    width: 34px; height: 34px;
+    background: rgba(0,0,0,.08); color: var(--ink);
+    border: none; border-radius: 50%;
+    font-size: 1rem; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    z-index: 3; cursor: pointer;
+    transition: background .2s;
+  }
+  .qz-modal-close:hover { background: rgba(0,0,0,.16); }
+
+  /* Cabecera fija: no scrollea */
+  .qz-result-head {
+    flex-shrink: 0;
+    padding: 1.4rem 1.4rem .8rem;
+    background: #fff;
   }
   .qz-result-banner {
     display: inline-block;
     background: var(--blue-soft); color: var(--blue-serenidad);
-    padding: .35rem .9rem; border-radius: 50px;
-    font-size: .7rem; font-weight: 800;
+    padding: .3rem .85rem; border-radius: 50px;
+    font-size: .68rem; font-weight: 800;
     text-transform: uppercase; letter-spacing: .6px;
-    margin-bottom: .8rem;
+    margin-bottom: .55rem;
   }
-  .qz-result-title { font-size: .98rem; color: var(--ink-2); margin-bottom: .3rem; }
+  .qz-result-title { font-size: .9rem; color: var(--ink-2); margin: 0 0 .15rem; }
   .qz-result-name {
-    font-size: clamp(1.4rem, 3.6vw, 1.95rem); font-weight: 900;
+    font-size: clamp(1.3rem, 3.4vw, 1.85rem); font-weight: 900;
     color: var(--qz-color, var(--blue-serenidad));
-    letter-spacing: -.02em; margin-bottom: .25rem; line-height: 1.1;
+    letter-spacing: -.02em; margin: 0 0 .15rem; line-height: 1.1;
   }
-  .qz-result-tag { font-size: .88rem; color: var(--ink-2); margin-bottom: 1.1rem; }
+  .qz-result-tag { font-size: .82rem; color: var(--ink-2); margin: 0 0 .7rem; }
   .qz-result-price {
     background: var(--qz-color, var(--blue-serenidad)); color: #fff;
     border-radius: 12px;
-    padding: .75rem 1.1rem;
-    margin-bottom: 1.2rem;
-    display: inline-flex; align-items: center; gap: .8rem;
+    padding: .55rem .9rem;
+    margin: 0;
+    display: inline-flex; align-items: center; gap: .7rem;
   }
   .qz-result-price-from {
-    font-size: .65rem; font-weight: 700;
+    font-size: .6rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: .4px; opacity: .85;
   }
   .qz-result-price-amount {
     display: flex; align-items: baseline; gap: .1rem;
   }
-  .qz-cur { font-size: .95rem; font-weight: 800; }
-  .qz-val { font-size: 1.65rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
-  .qz-per { font-size: .7rem; font-weight: 600; opacity: .85; margin-left: .2rem; }
-  .qz-result-section-title {
-    font-size: .68rem; font-weight: 800; color: var(--blue-serenidad);
-    text-transform: uppercase; letter-spacing: .6px;
-    text-align: left; margin: 1rem 0 .45rem;
+  .qz-cur { font-size: .9rem; font-weight: 800; }
+  .qz-val { font-size: 1.45rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+  .qz-per { font-size: .65rem; font-weight: 600; opacity: .85; margin-left: .2rem; }
+
+  /* Ascensor de información: scroll interno entre head y ctas */
+  .qz-result-scroll {
+    flex: 1 1 auto;
+    min-height: 0;             /* permite que el flex item shrink debajo de su contenido */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: .4rem 1.4rem .6rem;
+    /* Sutil hint visual de que hay más contenido */
+    background:
+      linear-gradient(#fff 30%, rgba(255,255,255,0)) top / 100% 14px no-repeat,
+      linear-gradient(rgba(255,255,255,0), #fff 70%) bottom / 100% 14px no-repeat;
   }
+
+  .qz-result-section-title {
+    font-size: .66rem; font-weight: 800; color: var(--blue-serenidad);
+    text-transform: uppercase; letter-spacing: .6px;
+    text-align: left; margin: .55rem 0 .35rem;
+  }
+  .qz-result-section-title:first-child { margin-top: .25rem; }
   .qz-result-list {
     list-style: none; text-align: left;
-    display: flex; flex-direction: column; gap: .3rem;
-    padding: 0; margin-bottom: .4rem;
+    display: flex; flex-direction: column; gap: .25rem;
+    padding: 0; margin: 0 0 .25rem;
   }
   .qz-result-list li {
     display: flex; gap: .5rem; align-items: flex-start;
-    font-size: .87rem; color: var(--ink-2); line-height: 1.4;
+    font-size: .85rem; color: var(--ink-2); line-height: 1.35;
   }
   .qz-result-list li svg { width: 16px; height: 16px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px; }
   .qz-result-list--extras li svg { color: var(--muted); }
   .qz-result-list--extras li { color: var(--muted); }
+
+  /* CTAs fijos abajo */
   .qz-result-ctas {
-    display: flex; flex-direction: column; gap: .55rem;
-    margin-top: 1.4rem;
+    flex-shrink: 0;
+    display: flex; flex-direction: column; gap: .5rem;
+    padding: .8rem 1.4rem 1.1rem;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    /* Sombra sutil hacia arriba para indicar separación con el scroll */
+    box-shadow: 0 -6px 12px -8px rgba(0,30,80,.18);
   }
-  /* Botón "Cotízalo aquí" del resultado: contenido centrado dentro del pill */
   .qz-result-ctas .btn-primary {
     justify-content: center;
     text-align: center;
     width: 100%;
   }
   .qz-result-ctas .qz-restart { text-align: center; }
-
-  /* Popup del resultado: permitir scroll interno cuando el contenido excede la pantalla */
-  #qzResultModal .modal-box {
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-  }
   .qz-restart {
     background: transparent; color: var(--blue-serenidad);
     padding: .8rem 1.5rem; border-radius: 50px; font-weight: 700;
@@ -1893,22 +1937,21 @@
     .qz-multi-all { font-size: .78rem; padding: .4rem .9rem; }
     .qz-multi-counter { font-size: .78rem; }
 
-    /* Resultado más compacto */
-    .qz-result-card {
-      padding: 1.4rem 1.2rem;
-      border-radius: 16px;
-    }
+    /* Resultado más compacto en móvil */
+    .qz-result-card { border-radius: 16px; }
+    .qz-result-head { padding: 1.1rem 1.1rem .55rem; }
+    .qz-result-scroll { padding: .35rem 1.1rem .5rem; }
+    .qz-result-ctas { padding: .65rem 1.1rem .9rem; }
     .qz-result-banner {
       font-size: .62rem; padding: .25rem .7rem;
-      margin-bottom: .55rem;
+      margin-bottom: .45rem;
     }
-    .qz-result-title { font-size: .85rem; margin-bottom: .15rem; }
-    .qz-result-name { font-size: 1.3rem; margin-bottom: .2rem; }
-    .qz-result-tag { font-size: .8rem; margin-bottom: .85rem; }
+    .qz-result-title { font-size: .82rem; margin-bottom: .1rem; }
+    .qz-result-name { font-size: 1.25rem; margin-bottom: .12rem; }
+    .qz-result-tag { font-size: .78rem; margin-bottom: .55rem; }
     .qz-result-price {
-      padding: .55rem .85rem;
+      padding: .5rem .8rem;
       gap: .55rem;
-      margin-bottom: .9rem;
       border-radius: 10px;
     }
     .qz-result-price-from { font-size: .58rem; }
@@ -2953,24 +2996,34 @@
 <!-- =========== POPUP RESULTADO QUIZ =========== -->
 <div class="modal-overlay" id="qzResultModal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true">
-    <div class="qz-result-card" id="qzResultCard" data-plan="diamante" style="box-shadow:none;border-radius:var(--radius-lg);max-width:none;">
-      <button class="modal-close" onclick="closeQzResult()" aria-label="Cerrar" style="position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(0,0,0,.08);color:var(--ink);border-radius:50%;font-size:1.1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;z-index:2;">✕</button>
-      <span class="qz-result-banner">Tu match perfecto</span>
-      <p class="qz-result-title">Tu plan ideal es</p>
-      <h3 class="qz-result-name" id="qzResultName">Plan</h3>
-      <p class="qz-result-tag" id="qzResultTag"></p>
-      <div class="qz-result-price">
-        <span class="qz-result-price-from">Desde</span>
-        <div class="qz-result-price-amount">
-          <span class="qz-cur">$</span>
-          <span class="qz-val" id="qzResultPrice"></span>
-          <span class="qz-per">/mes</span>
+    <div class="qz-result-card" id="qzResultCard" data-plan="diamante">
+      <button class="modal-close qz-modal-close" onclick="closeQzResult()" aria-label="Cerrar">✕</button>
+
+      <!-- Cabecera fija (no scrollea) -->
+      <div class="qz-result-head">
+        <span class="qz-result-banner">Tu match perfecto</span>
+        <p class="qz-result-title">Tu plan ideal es</p>
+        <h3 class="qz-result-name" id="qzResultName">Plan</h3>
+        <p class="qz-result-tag" id="qzResultTag"></p>
+        <div class="qz-result-price">
+          <span class="qz-result-price-from">Desde</span>
+          <div class="qz-result-price-amount">
+            <span class="qz-cur">$</span>
+            <span class="qz-val" id="qzResultPrice"></span>
+            <span class="qz-per">/mes</span>
+          </div>
         </div>
       </div>
-      <div class="qz-result-section-title">Lo que elegiste</div>
-      <ul class="qz-result-list" id="qzResultPicks"></ul>
-      <div class="qz-result-section-title" id="qzExtrasTitle">Y además incluye</div>
-      <ul class="qz-result-list qz-result-list--extras" id="qzResultExtras"></ul>
+
+      <!-- Ascensor de información (scroll interno) -->
+      <div class="qz-result-scroll">
+        <div class="qz-result-section-title">Lo que elegiste</div>
+        <ul class="qz-result-list" id="qzResultPicks"></ul>
+        <div class="qz-result-section-title" id="qzExtrasTitle">Y además incluye</div>
+        <ul class="qz-result-list qz-result-list--extras" id="qzResultExtras"></ul>
+      </div>
+
+      <!-- CTAs fijos abajo -->
       <div class="qz-result-ctas">
         <a href="https://www.colmedica.com" target="_blank" class="btn-primary" id="qzResultAfiliar">
           Cotízalo aquí

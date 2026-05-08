@@ -869,6 +869,28 @@
   .esp-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem;
   }
+  /* Desktop: scroll horizontal por slides (3 cols × 3 filas) */
+  .esp-grid.is-desktop-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: .25rem;
+  }
+  .esp-grid.is-desktop-carousel::-webkit-scrollbar { display: none; }
+  .esp-grid.is-desktop-carousel .esp-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: .7rem;
+  }
   .esp-item {
     background: #fff; border: 1px solid var(--line); border-radius: 10px;
     padding: .85rem 1rem; font-size: .92rem; font-weight: 600; color: var(--ink);
@@ -1818,6 +1840,8 @@
   }
   /* Beneficios: controles SIEMPRE visibles (ruleta en todos los viewports) */
   .mcarousel-ctrls[data-mcarousel-for="difGrid"] { display: flex; }
+  /* Especialidades: controles también en desktop (carrusel horizontal) */
+  .mcarousel-ctrls[data-mcarousel-for="espGrid"] { display: flex; }
   .mc-btn {
     width: 40px; height: 40px; border-radius: 50%;
     background: #fff;
@@ -3031,7 +3055,7 @@
   const espMQ = window.matchMedia('(max-width: 768px)');
   function renderEsp() {
     if (espMQ.matches) {
-      // Móvil → carrusel horizontal en grupos de 4 (2x2)
+      // Móvil → carrusel horizontal en grupos de 8 (2x4)
       const slides = [];
       for (let i = 0; i < ESPECIALIDADES.length; i += 8) {
         const group = ESPECIALIDADES.slice(i, i + 8);
@@ -3043,8 +3067,20 @@
       }
       espGrid.innerHTML = slides.join('');
       espGrid.classList.add('is-mobile-carousel');
+      espGrid.classList.remove('is-desktop-carousel');
     } else {
-      espGrid.innerHTML = ESPECIALIDADES.map(e => `<div class="esp-item">${e}</div>`).join('');
+      // Desktop → carrusel horizontal en grupos de 9 (3x3)
+      const slides = [];
+      for (let i = 0; i < ESPECIALIDADES.length; i += 9) {
+        const group = ESPECIALIDADES.slice(i, i + 9);
+        slides.push(
+          '<div class="esp-slide">' +
+          group.map(e => `<div class="esp-item">${e}</div>`).join('') +
+          '</div>'
+        );
+      }
+      espGrid.innerHTML = slides.join('');
+      espGrid.classList.add('is-desktop-carousel');
       espGrid.classList.remove('is-mobile-carousel');
     }
     if (typeof window.__mcRebuildAll === 'function') window.__mcRebuildAll();

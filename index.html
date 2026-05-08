@@ -84,11 +84,14 @@
   header.site-header.scrolled { box-shadow: 0 4px 18px rgba(0, 40, 90, .18); }
   .header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 6px 0;
+    padding: 8px 0;
   }
   .logo-link { display: inline-flex; align-items: center; }
   .logo-link svg,
-  .logo-link .brand-logo { height: 26px; width: auto; display: block; }
+  .logo-link .brand-logo { height: 29px; width: auto; display: block; }
+  .header-actions {
+    display: flex; align-items: center; gap: .65rem;
+  }
 
   nav.main-nav { display: flex; gap: 1.4rem; align-items: center; }
   nav.main-nav a {
@@ -1671,8 +1674,8 @@
   .qz-result-card[data-plan="esmeralda"]   { --qz-color: var(--blue-vital); --qz-color-2: #0079b3; }
   .qz-result-card[data-plan="domiciliario"]{ --qz-color: #4fb8ea; --qz-color-2: var(--blue-vital); }
 
-  /* Confetti */
-  .qz-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  /* Confetti — dentro del modal del resultado */
+  .qz-confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 9999; }
   .qz-confetti span {
     position: absolute; width: 7px; height: 7px;
     border-radius: 2px;
@@ -1886,10 +1889,12 @@
       <a href="#pqr">PQR</a>
     </nav>
 
-    <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta desktop-only">Afiliarme</a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-actions">
+      <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Cotízalo aquí</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -1903,7 +1908,7 @@
   <a href="#diferenciales" onclick="closeMobile()">Diferenciales</a>
   <a href="#testimonios" onclick="closeMobile()">Testimonios</a>
   <a href="#pqr" onclick="closeMobile()">PQR</a>
-  <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Afiliarme</a>
+  <a href="https://www.colmedica.com" target="_blank" class="btn-header-cta">Cotízalo aquí</a>
 </div>
 
 <main>
@@ -2282,39 +2287,6 @@
             Ver mi plan ideal
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
-        </div>
-      </div>
-
-      <!-- RESULT -->
-      <div class="qz-screen" id="qzScreenResult" hidden>
-        <div class="qz-result-card" id="qzResultCard" data-plan="diamante">
-          <span class="qz-result-banner">Tu match perfecto</span>
-          <p class="qz-result-title">Tu plan ideal es</p>
-          <h3 class="qz-result-name" id="qzResultName">Plan</h3>
-          <p class="qz-result-tag" id="qzResultTag"></p>
-
-          <div class="qz-result-price">
-            <span class="qz-result-price-from">Desde</span>
-            <div class="qz-result-price-amount">
-              <span class="qz-cur">$</span>
-              <span class="qz-val" id="qzResultPrice"></span>
-              <span class="qz-per">/mes</span>
-            </div>
-          </div>
-
-          <div class="qz-result-section-title">Lo que elegiste</div>
-          <ul class="qz-result-list" id="qzResultPicks"></ul>
-
-          <div class="qz-result-section-title" id="qzExtrasTitle">Y además incluye</div>
-          <ul class="qz-result-list qz-result-list--extras" id="qzResultExtras"></ul>
-
-          <div class="qz-result-ctas">
-            <button class="btn-primary" id="qzResultDetail">
-              Ver plan completo
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-            <button class="qz-restart" id="qzRestart">Volver a hacer el quiz</button>
-          </div>
         </div>
       </div>
 
@@ -2748,6 +2720,38 @@
     </div>
   </div>
 </footer>
+
+<!-- =========== POPUP RESULTADO QUIZ =========== -->
+<div class="modal-overlay" id="qzResultModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="qz-result-card" id="qzResultCard" data-plan="diamante" style="box-shadow:none;border-radius:var(--radius-lg);max-width:none;">
+      <button class="modal-close" onclick="closeQzResult()" aria-label="Cerrar" style="position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(0,0,0,.08);color:var(--ink);border-radius:50%;font-size:1.1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;z-index:2;">✕</button>
+      <span class="qz-result-banner">Tu match perfecto</span>
+      <p class="qz-result-title">Tu plan ideal es</p>
+      <h3 class="qz-result-name" id="qzResultName">Plan</h3>
+      <p class="qz-result-tag" id="qzResultTag"></p>
+      <div class="qz-result-price">
+        <span class="qz-result-price-from">Desde</span>
+        <div class="qz-result-price-amount">
+          <span class="qz-cur">$</span>
+          <span class="qz-val" id="qzResultPrice"></span>
+          <span class="qz-per">/mes</span>
+        </div>
+      </div>
+      <div class="qz-result-section-title">Lo que elegiste</div>
+      <ul class="qz-result-list" id="qzResultPicks"></ul>
+      <div class="qz-result-section-title" id="qzExtrasTitle">Y además incluye</div>
+      <ul class="qz-result-list qz-result-list--extras" id="qzResultExtras"></ul>
+      <div class="qz-result-ctas">
+        <a href="https://www.colmedica.com" target="_blank" class="btn-primary" id="qzResultAfiliar">
+          Afiliarme a este plan
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="qz-restart" id="qzRestart">Volver a hacer el quiz</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- =========== MODAL =========== -->
 <div class="modal-overlay" id="planModal" aria-hidden="true">
@@ -3494,23 +3498,6 @@
     let chosen = new Set();
 
     const $ = id => document.getElementById(id);
-    const screens = {
-      quiz:   $('qzScreenQuiz'),
-      result: $('qzScreenResult'),
-    };
-
-    function show(name) {
-      Object.entries(screens).forEach(([k, el]) => {
-        if (!el) return;
-        if (k === name) {
-          el.hidden = false;
-          requestAnimationFrame(() => el.classList.add('is-active'));
-        } else {
-          el.classList.remove('is-active');
-          setTimeout(() => { el.hidden = true; }, 350);
-        }
-      });
-    }
 
     function start() {
       chosen.clear();
@@ -3520,7 +3507,7 @@
         c.setAttribute('aria-pressed', 'false');
       });
       updateActions();
-      show('quiz');
+      closeQzResult();
     }
 
     const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
@@ -3626,14 +3613,23 @@
       $('qzResultExtras').innerHTML = extras.map(li).join('');
       $('qzExtrasTitle').style.display = extras.length ? '' : 'none';
 
-      // Conectar el botón "Ver plan completo" al modal existente
-      $('qzResultDetail').onclick = () => {
-        if (typeof openPlan === 'function') openPlan(planKey);
-      };
-
-      show('result');
+      openQzResult();
       fireConfetti();
     }
+
+    function openQzResult() {
+      const m = $('qzResultModal');
+      m.classList.add('open');
+      m.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('no-scroll');
+    }
+    window.closeQzResult = function() {
+      const m = $('qzResultModal');
+      if (!m) return;
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('no-scroll');
+    };
 
     function li(key) {
       return `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${COVS[key].name}</li>`;
@@ -3659,6 +3655,14 @@
     $('qzMultiAll').addEventListener('click', toggleAll);
     $('qzMultiSubmit').addEventListener('click', submit);
     $('qzRestart').addEventListener('click', start);
+    // Cerrar popup al click fuera
+    $('qzResultModal').addEventListener('click', e => {
+      if (e.target === $('qzResultModal')) closeQzResult();
+    });
+    // Cerrar con ESC
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && $('qzResultModal').classList.contains('open')) closeQzResult();
+    });
 
     // Construir la grilla al cargar — quiz visible desde el primer momento
     buildGrid();

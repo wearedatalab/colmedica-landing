@@ -982,17 +982,36 @@
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
     backdrop-filter: blur(6px); border-radius: var(--radius-lg);
     padding: 1.6rem 1.3rem;
+    /* Layout: icono a la izquierda, título y descripción a la derecha */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1rem;
+    row-gap: .35rem;
+    align-items: start;
     /* Solo informativo: sin hover de botón */
   }
   .dif-icon {
     width: 48px; height: 48px; border-radius: 12px;
     background: rgba(141, 216, 255, .2); color: #8ed8ff;
     display: inline-flex; align-items: center; justify-content: center;
-    margin-bottom: 1rem;
+    margin: 0;
+    grid-row: 1 / span 2;
+    align-self: start;
+    flex-shrink: 0;
   }
   .dif-icon svg { width: 26px; height: 26px; }
-  .dif-title { font-size: 1.05rem; font-weight: 800; margin-bottom: .45rem; color: #fff; }
-  .dif-desc { font-size: .88rem; line-height: 1.55; color: rgba(255,255,255,.84); }
+  .dif-title {
+    font-size: 1.05rem; font-weight: 800; color: #fff;
+    margin: 0;
+    grid-column: 2; grid-row: 1;
+    align-self: center;
+  }
+  .dif-desc {
+    font-size: .88rem; line-height: 1.55; color: rgba(255,255,255,.84);
+    grid-column: 2; grid-row: 2;
+    margin: 0;
+  }
 
   /* ============================================================
      TESTIMONIOS — con videos antes de las estrellas
@@ -1567,7 +1586,8 @@
   .dif-allies-text {
     color: rgba(255, 255, 255, .92);
     font-size: .9rem; line-height: 1.5;
-    margin-top: .4rem;
+    margin: 0;
+    grid-column: 2; grid-row: 2;
   }
   .dif-allies-text span {
     color: #8ed8ff;

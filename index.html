@@ -965,7 +965,9 @@
   }
   .test-grid::-webkit-scrollbar { display: none; }
   .test-card {
-    flex: 0 0 calc((100% - 50% - 2.4rem) / 2);  /* 2 visibles + ~50% del 3o */
+    /* 2 cards completas + 50% de la 3a:
+       100% = 2.5·cw + 2·gap  →  cw = (100% - 2·gap) / 2.5 */
+    flex: 0 0 calc((100% - 2.4rem) / 2.5);
     min-width: 280px;
     scroll-snap-align: start;
     background: #fff; border-radius: var(--radius-lg);
@@ -2724,6 +2726,34 @@
           <p class="test-quote">"Tuve una cirugía compleja y todo el equipo fue excepcional. La red de clínicas Colmédica es la mejor, te sientes en las mejores manos."</p>
           <div class="test-author">Mario Alvarino</div>
           <div class="test-author-sub">Cali — Gama Rubí</div>
+        </div>
+      </article>
+
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo('carolina')">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Carolina, Barranquilla">
+          <span class="test-video-badge">Video</span>
+          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Las citas se agendan rapidísimo desde la app y los Centros Médicos quedan cerca. Cuidan a mis papás como si fueran de su familia."</p>
+          <div class="test-author">Carolina Ruiz</div>
+          <div class="test-author-sub">Barranquilla — Gama Esmeralda</div>
+        </div>
+      </article>
+
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo('esteban')">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80" alt="Esteban, Bucaramanga">
+          <span class="test-video-badge">Video</span>
+          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"En mi caso, lo que más valoro es la atención domiciliaria 24/7. Una llamada y el médico llega a casa, sin filas ni complicaciones."</p>
+          <div class="test-author">Esteban Pérez</div>
+          <div class="test-author-sub">Bucaramanga — Gama Caobo</div>
         </div>
       </article>
     </div><!-- /.test-grid -->

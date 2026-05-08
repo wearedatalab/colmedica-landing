@@ -820,6 +820,20 @@
   }
   .centros-tab-dot:hover { background: rgba(0, 88, 162, .55); }
 
+  /* Cuando la sección de centros está en banda azul oscura,
+     adaptar dots y disclaimer al fondo */
+  section.band-blue .centros-tab-dot { background: rgba(255,255,255,.3); }
+  section.band-blue .centros-tab-dot.active { background: #8ed8ff; }
+  section.band-blue .centros-tab-dot:hover { background: rgba(255,255,255,.55); }
+  section.band-blue .centros-disclaimer { color: rgba(255,255,255,.7); }
+  /* Los tabs de ciudad (pills blancos) sobre fondo azul siguen funcionando bien;
+     ajustamos el active para que destaque */
+  section.band-blue .centros-tab.active {
+    background: #fff; color: var(--blue-serenidad);
+    border-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
+  }
+
   .centros-main {
     display: grid; grid-template-columns: .85fr 1.15fr; gap: 2rem; align-items: start;
   }
@@ -2496,7 +2510,7 @@
      (las reglas CSS están bajo el mismo comentario "TOGGLE FOTOS"
       en la hoja de estilos, busca: "TOGGLE FOTOS DE CENTROS")
      ============================================================ -->
-<section class="block band-blue-medium centros--hide-photos" id="centros">
+<section class="block band-blue centros--hide-photos" id="centros">
   <div class="wrap"><div class="col-aside">
           <div class="section-header">
       <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>Red Propia</span>

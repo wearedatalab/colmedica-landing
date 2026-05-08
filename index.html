@@ -3759,33 +3759,20 @@
     window.__mcRebuildAll = rebuildAll;
   })();
 
-  // ===== Drag-to-scroll: cursor de mano + arrastre con inercia
+  // ===== Drag-to-scroll estilo Owl: drag 1:1 + snap-to-card al soltar
   (function(){
-    const DRAG_THRESHOLD = 5;            // pixels para considerar que es drag y no click
-    const MOMENTUM_MULT  = 16;           // amplificación inicial de velocidad (px·ms/frame)
-    const MOMENTUM_DECAY = 0.93;         // factor de deceleración por frame (~17ms)
-    const MOMENTUM_MIN   = 0.4;          // velocidad bajo la cual paramos
-    const SAMPLE_WINDOW  = 60;           // ventana de tiempo (ms) para promediar velocidad
+    const DRAG_THRESHOLD = 5;     // pixels para diferenciar click de drag
+    const FLICK_VELOCITY = 0.35;  // px/ms — sobre este umbral consideramos "flick" y avanza 1 card extra
+    const SAMPLE_WINDOW  = 80;    // ms — ventana para promediar velocidad
 
     function enableDragScroll(el) {
       if (!el || el.__dragInit) return;
       el.__dragInit = true;
 
       let isDown = false, startX = 0, scrollLeft = 0, moved = 0, dragging = false;
-      let samples = [];                  // [{x, t}, ...] últimas posiciones
-      let momentumRAF = null;            // id de animación en curso
-      let lastVelocity = 0;
-
-      const stopMomentum = () => {
-        if (momentumRAF) {
-          cancelAnimationFrame(momentumRAF);
-          momentumRAF = null;
-        }
-      };
+      let samples = [];           // [{x, t}, ...] últimas posiciones para velocidad
 
       const onDown = (clientX) => {
-        // Cualquier clic mata la inercia en curso (para sentirse responsivo)
-        stopMomentum();
         isDown = true;
         dragging = false;
         moved = 0;
@@ -3806,46 +3793,49 @@
             el.classList.add('is-grabbing');
           }
           if (ev) ev.preventDefault();
+          // Drag 1:1 — la card sigue exactamente al cursor
           el.scrollLeft = scrollLeft - dx;
 
-          // Guardamos muestras dentro de la ventana para calcular velocidad real
+          // Muestras para calcular velocidad real al soltar
           const now = performance.now();
           samples.push({ x: clientX, t: now });
           while (samples.length > 1 && now - samples[0].t > SAMPLE_WINDOW) samples.shift();
         }
       };
 
-      const startMomentum = () => {
-        // Velocidad media en la ventana reciente (px / ms, hacia donde arrastraba)
-        if (samples.length < 2) return;
-        const first = samples[0];
-        const last  = samples[samples.length - 1];
-        const dt = last.t - first.t;
-        if (dt <= 0) return;
-        const vx = (last.x - first.x) / dt;     // px por ms
-        if (Math.abs(vx) < 0.05) return;        // muy lento → no hay inercia
+      // Calcula la velocidad horizontal media (px/ms) de los últimos samples
+      const computeVelocity = () => {
+        if (samples.length < 2) return 0;
+        const a = samples[0], b = samples[samples.length - 1];
+        const dt = b.t - a.t;
+        return dt > 0 ? (b.x - a.x) / dt : 0;
+      };
 
-        // Convertimos a velocidad por frame (~16ms). Signo invertido porque
-        // cuando arrastrás a la derecha, scrollLeft decrece.
-        let v = -vx * MOMENTUM_MULT;
-        lastVelocity = v;
+      // Encuentra la card más cercana al inicio visible y anima suavemente
+      // hacia ella. Usa getBoundingClientRect para que sea robusto frente a
+      // padding/gap del contenedor (Owl-style).
+      const snapToNearest = () => {
+        const items = Array.from(el.children).filter(c => c.offsetWidth > 0);
+        if (items.length === 0) return;
+        const elLeft = el.getBoundingClientRect().left;
 
-        const tick = () => {
-          if (Math.abs(v) < MOMENTUM_MIN) {
-            momentumRAF = null;
-            return;
-          }
-          const before = el.scrollLeft;
-          el.scrollLeft = before + v;
-          // Si pegamos al borde, paramos
-          if (el.scrollLeft === before) {
-            momentumRAF = null;
-            return;
-          }
-          v *= MOMENTUM_DECAY;
-          momentumRAF = requestAnimationFrame(tick);
-        };
-        momentumRAF = requestAnimationFrame(tick);
+        // Card cuya borde izquierdo está más cerca del borde izquierdo del track
+        let nearestI = 0, bestDist = Infinity;
+        items.forEach((c, i) => {
+          const d = Math.abs(c.getBoundingClientRect().left - elLeft);
+          if (d < bestDist) { bestDist = d; nearestI = i; }
+        });
+
+        // Si fue un "flick" rápido, avanzamos en la dirección del flick
+        const vx = computeVelocity();           // negativo = hacia la izquierda
+        if (Math.abs(vx) > FLICK_VELOCITY) {
+          if (vx < 0) nearestI = Math.min(items.length - 1, nearestI + 1);
+          else        nearestI = Math.max(0, nearestI - 1);
+        }
+
+        const targetLeft = items[nearestI].getBoundingClientRect().left;
+        const delta = targetLeft - elLeft;
+        el.scrollTo({ left: el.scrollLeft + delta, behavior: 'smooth' });
       };
 
       const onUp = () => {
@@ -3855,7 +3845,7 @@
           // Solo si realmente hubo drag, removemos la clase (con un mini delay
           // para que el "click" siguiente quede bloqueado por el handler de abajo).
           setTimeout(() => el.classList.remove('is-grabbing'), 30);
-          startMomentum();
+          snapToNearest();
         }
       };
 
@@ -3867,10 +3857,6 @@
       window.addEventListener('mousemove', e => onMove(e.pageX, e));
       window.addEventListener('mouseup', onUp);
       el.addEventListener('mouseleave', onUp);
-
-      // Cualquier wheel/touchstart manual también cancela la inercia activa
-      el.addEventListener('wheel', stopMomentum, { passive: true });
-      el.addEventListener('touchstart', stopMomentum, { passive: true });
 
       // Solo bloqueamos el click si realmente hubo drag (>threshold)
       el.addEventListener('click', e => {

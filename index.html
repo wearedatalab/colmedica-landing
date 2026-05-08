@@ -888,7 +888,7 @@
     scroll-snap-align: start;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
     gap: .7rem;
   }
   .esp-item {
@@ -3069,10 +3069,10 @@
       espGrid.classList.add('is-mobile-carousel');
       espGrid.classList.remove('is-desktop-carousel');
     } else {
-      // Desktop → carrusel horizontal en grupos de 9 (3x3)
+      // Desktop → carrusel horizontal en grupos de 6 (3x2)
       const slides = [];
-      for (let i = 0; i < ESPECIALIDADES.length; i += 9) {
-        const group = ESPECIALIDADES.slice(i, i + 9);
+      for (let i = 0; i < ESPECIALIDADES.length; i += 6) {
+        const group = ESPECIALIDADES.slice(i, i + 6);
         slides.push(
           '<div class="esp-slide">' +
           group.map(e => `<div class="esp-item">${e}</div>`).join('') +

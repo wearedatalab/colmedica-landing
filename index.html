@@ -710,6 +710,22 @@
     font-size: .95rem; color: var(--ink); font-weight: 500;
   }
   .clinicas-list-items li:last-child { border-bottom: none; }
+  .clinicas-list-items li.clinicas-toggle {
+    padding: .8rem 0 .4rem;
+    border-bottom: none;
+    justify-content: center;
+  }
+  .clinicas-list-items li.clinicas-toggle::before { display: none; }
+  .clinicas-list-items li.clinicas-toggle button {
+    background: transparent; border: 1.5px solid var(--blue-serenidad);
+    color: var(--blue-serenidad);
+    padding: .5rem 1.2rem; border-radius: 50px;
+    font-size: .85rem; font-weight: 700; cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .clinicas-list-items li.clinicas-toggle button:hover {
+    background: var(--blue-serenidad); color: #fff;
+  }
   .clinicas-list-items li::before {
     content: ''; width: 8px; height: 8px; border-radius: 50%;
     background: var(--blue-vital); flex-shrink: 0;
@@ -1361,12 +1377,26 @@
      LAYOUT 2 COLUMNAS DESKTOP — col-aside (título) + col-body (contenido)
      ============================================================ */
   .col-aside, .col-body { width: 100%; }
-  /* En móvil/tablet (debajo del breakpoint 2-col) los bloques apilados necesitan respiración */
+  /* En móvil/tablet (debajo del breakpoint 2-col) — CTA va al final, después del contenido */
   @media (max-width: 1023px) {
-    .col-aside { margin-bottom: 1.5rem; }
-    .col-aside > * + * { margin-top: 1rem; }    /* gap entre header, seo-card y CTA */
-    .col-aside .section-cta { margin-top: 1.4rem; margin-bottom: .5rem; }
-    .col-body { margin-top: .5rem; }
+    section.block > .wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .col-aside { display: contents; }              /* dissolve aside: sus hijos suben a .wrap */
+    .col-aside > .section-header { order: 1; }
+    .col-aside > .seo-card       { order: 2; }
+    .col-body                    { order: 3; }
+    .col-aside > .section-cta {
+      order: 4;                                    /* CTA al final del bloque */
+      margin-top: 1rem;
+      display: flex; justify-content: center;
+    }
+    .col-aside > .section-cta .btn-primary {
+      width: 100%; max-width: 360px;
+      justify-content: center;
+    }
   }
   @media (min-width: 1024px) {
     section.block > .wrap {
@@ -2876,13 +2906,28 @@
     bucaramanga: 'Bucaramanga', cartagena: 'Cartagena', chia: 'Chía', ibague: 'Ibagué',
     manizales: 'Manizales', neiva: 'Neiva', pereira: 'Pereira', villavicencio: 'Villavicencio',
   };
-  function renderClinicas(city) {
+  const CLINICAS_LIMIT = 5;
+  function renderClinicas(city, expanded) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
     const title = document.getElementById('clinicasCityTitle');
     if (!list || !title) return;
     title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
-    list.innerHTML = items.map(c => `<li>${c}</li>`).join('');
+
+    const showAll = !!expanded;
+    const visible = showAll ? items : items.slice(0, CLINICAS_LIMIT);
+    let html = visible.map(c => `<li>${c}</li>`).join('');
+
+    // Toggle "Ver más / Ver menos"
+    if (items.length > CLINICAS_LIMIT) {
+      const remaining = items.length - CLINICAS_LIMIT;
+      const label = showAll ? 'Ver menos' : `Ver ${remaining} clínica${remaining === 1 ? '' : 's'} más`;
+      html += `<li class="clinicas-toggle"><button type="button" id="clinicasToggleBtn">${label}</button></li>`;
+    }
+    list.innerHTML = html;
+
+    const btn = document.getElementById('clinicasToggleBtn');
+    if (btn) btn.addEventListener('click', () => renderClinicas(city, !showAll));
   }
   const clinicasTabs = document.getElementById('clinicasTabs');
   const clinicasTabsDots = document.getElementById('clinicasTabsDots');

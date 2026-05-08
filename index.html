@@ -888,10 +888,16 @@
     -ms-overflow-style: none;
   }
   .dif-grid::-webkit-scrollbar { display: none; }
-  .dif-card {
-    flex: 0 0 calc((100% - 80px - 3rem) / 4);  /* 4 visibles + peek */
-    min-width: 220px;
+  /* Cada slide del carrusel agrupa 2 cards apiladas verticalmente */
+  .dif-slide {
+    flex: 0 0 calc((100% - 70px - 1rem) / 2);  /* 2 columnas visibles + peek de la 3a */
+    min-width: 260px;
     scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .dif-card {
+    flex: 1 1 0;
+    min-height: 0;
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
     backdrop-filter: blur(6px); border-radius: var(--radius-lg);
     padding: 1.6rem 1.3rem; transition: transform .25s var(--ease), background .25s var(--ease);
@@ -1321,6 +1327,10 @@
       overflow: visible;
       padding: 0;
       margin-inline: 0;
+    }
+    /* En mobile los slides desaparecen y las cards fluyen al grid */
+    .dif-slide {
+      display: contents;
     }
     .dif-card {
       flex: none;
@@ -2490,72 +2500,92 @@
 
     <div class="mcarousel-wrap">
     <div class="dif-grid" id="difGrid" data-mcarousel>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h3 class="dif-title">Acceso desde el primer día</h3>
-        <p class="dif-desc">Sin carencias para tus consultas y servicios esenciales.</p>
+      <!-- Slide 1 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3 class="dif-title">Acceso desde el primer día</h3>
+          <p class="dif-desc">Sin carencias para tus consultas y servicios esenciales.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 10h20M8 3v18"/></svg></div>
+          <h3 class="dif-title">Sin cuota de inscripción</h3>
+          <p class="dif-desc">Afíliate sin pagos adicionales. Tu bienestar es la prioridad.</p>
+        </div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 10h20M8 3v18"/></svg></div>
-        <h3 class="dif-title">Sin cuota de inscripción</h3>
-        <p class="dif-desc">Afíliate sin pagos adicionales. Tu bienestar es la prioridad.</p>
+      <!-- Slide 2 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3 class="dif-title">Sin examen médico</h3>
+          <p class="dif-desc">Ingresa a cualquier plan sin exámenes previos de admisión.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
+          <h3 class="dif-title">Domiciliaria 24/7</h3>
+          <p class="dif-desc">Atención médica en casa las 24 horas, los 7 días.</p>
+        </div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
-        <h3 class="dif-title">Sin examen médico</h3>
-        <p class="dif-desc">Ingresa a cualquier plan sin exámenes previos de admisión.</p>
+      <!-- Slide 3 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3 class="dif-title">Cobertura nacional</h3>
+          <p class="dif-desc">Red médica en las principales ciudades del país.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20"/></svg></div>
+          <h3 class="dif-title">+100 especialidades</h3>
+          <p class="dif-desc">Acceso directo sin pasar por médico general.</p>
+        </div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
-        <h3 class="dif-title">Domiciliaria 24/7</h3>
-        <p class="dif-desc">Atención médica en casa las 24 horas, los 7 días.</p>
+      <!-- Slide 4 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+          <h3 class="dif-title">App y telemedicina</h3>
+          <p class="dif-desc">100% de tus trámites desde tu celular.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <h3 class="dif-title">Salud mental</h3>
+          <p class="dif-desc">Acompañamiento psicológico ilimitado SOM.</p>
+        </div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <h3 class="dif-title">Cobertura nacional</h3>
-        <p class="dif-desc">Red médica en las principales ciudades del país.</p>
+      <!-- Slide 5 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
+          <h3 class="dif-title">Odontología preventiva</h3>
+          <p class="dif-desc">Incluida en planes seleccionados, con urgencias 24/7.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></div>
+          <h3 class="dif-title">Citas prioritarias</h3>
+          <p class="dif-desc">Tiempos de espera reducidos con tecnología de agendamiento.</p>
+        </div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20"/></svg></div>
-        <h3 class="dif-title">+100 especialidades</h3>
-        <p class="dif-desc">Acceso directo sin pasar por médico general.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-        <h3 class="dif-title">App y telemedicina</h3>
-        <p class="dif-desc">100% de tus trámites desde tu celular.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-        <h3 class="dif-title">Salud mental</h3>
-        <p class="dif-desc">Acompañamiento psicológico ilimitado SOM.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
-        <h3 class="dif-title">Odontología preventiva</h3>
-        <p class="dif-desc">Incluida en planes seleccionados, con urgencias 24/7.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></div>
-        <h3 class="dif-title">Citas prioritarias</h3>
-        <p class="dif-desc">Tiempos de espera reducidos con tecnología de agendamiento.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v12"/><path d="M9 12h6M9 16h6"/></svg></div>
-        <h3 class="dif-title">+30 años de experiencia</h3>
-        <p class="dif-desc">Trayectoria que respalda la confianza de miles de familias.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-        <h3 class="dif-title">+4.200 profesionales</h3>
-        <p class="dif-desc">Red adscrita de médicos de alta especialidad.</p>
+      <!-- Slide 6 -->
+      <div class="dif-slide">
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v12"/><path d="M9 12h6M9 16h6"/></svg></div>
+          <h3 class="dif-title">+30 años de experiencia</h3>
+          <p class="dif-desc">Trayectoria que respalda la confianza de miles de familias.</p>
+        </div>
+        <div class="dif-card">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <h3 class="dif-title">+4.200 profesionales</h3>
+          <p class="dif-desc">Red adscrita de médicos de alta especialidad.</p>
+        </div>
       </div>
 
-      <!-- Card especial de aliados (cierra el carrusel) -->
-      <div class="dif-card dif-card--allies">
-        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3 class="dif-title">Experiencias con aliados</h3>
-        <p class="dif-allies-text">Beneficios exclusivos con: <span>Bodytech</span>, <span>Chevignon</span>, <span>Teatro Nacional</span>, <span>Pat Primo</span>, <span>Cruz Verde</span> y más</p>
+      <!-- Slide 7: Card especial de aliados (cierra el carrusel) -->
+      <div class="dif-slide dif-slide--allies">
+        <div class="dif-card dif-card--allies">
+          <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3 class="dif-title">Experiencias con aliados</h3>
+          <p class="dif-allies-text">Beneficios exclusivos con: <span>Bodytech</span>, <span>Chevignon</span>, <span>Teatro Nacional</span>, <span>Pat Primo</span>, <span>Cruz Verde</span> y más</p>
+        </div>
       </div>
     </div><!-- /.dif-grid -->
     <div class="mcarousel-ctrls" data-mcarousel-for="difGrid">

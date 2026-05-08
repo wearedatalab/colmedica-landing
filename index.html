@@ -61,6 +61,31 @@
 
   /* Grid container — ancho máximo 1920px (header, footer, hero, bandas) */
   .wrap { width: min(1920px, 95vw); margin-inline: auto; }
+
+  /* ============================================================
+     DRAG-TO-SCROLL — cursor de mano + arrastre en los carruseles
+     ============================================================ */
+  .planes-carousel,
+  .dif-grid,
+  .test-grid,
+  .esp-grid.is-desktop-carousel,
+  .esp-grid.is-mobile-carousel {
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .planes-carousel.is-grabbing,
+  .dif-grid.is-grabbing,
+  .test-grid.is-grabbing,
+  .esp-grid.is-grabbing {
+    cursor: grabbing;
+    scroll-behavior: auto;   /* desactivar smooth durante el drag */
+  }
+  /* Mientras se arrastra, evitar que los enlaces/botones internos capturen el click */
+  .is-grabbing a,
+  .is-grabbing button,
+  .is-grabbing .test-card,
+  .is-grabbing .plan-card { pointer-events: none; }
   /* Pantallas muy grandes: el contenido de cada sección se capa a 1500px
      para que el layout 2-col no se estire con aire excesivo (sin tocar
      el ancho de la banda/fondo, que sigue full-width). */
@@ -3645,6 +3670,68 @@
     window.addEventListener('resize', onResize);
     // Exponer para que renderEsp pueda llamar rebuild cuando re-renderiza
     window.__mcRebuildAll = rebuildAll;
+  })();
+
+  // ===== Drag-to-scroll: cursor de mano + arrastre horizontal en carruseles
+  (function(){
+    function enableDragScroll(el) {
+      if (!el || el.__dragInit) return;
+      el.__dragInit = true;
+      let isDown = false, startX = 0, scrollLeft = 0, moved = 0;
+
+      const onDown = (clientX) => {
+        isDown = true;
+        moved = 0;
+        startX = clientX;
+        scrollLeft = el.scrollLeft;
+        el.classList.add('is-grabbing');
+      };
+      const onMove = (clientX, ev) => {
+        if (!isDown) return;
+        const dx = clientX - startX;
+        moved = Math.abs(dx);
+        if (moved > 4 && ev) ev.preventDefault();
+        el.scrollLeft = scrollLeft - dx;
+      };
+      const onUp = () => {
+        if (!isDown) return;
+        isDown = false;
+        // Pequeño delay para que un click "real" (sin drag) no quede bloqueado
+        setTimeout(() => el.classList.remove('is-grabbing'), 30);
+      };
+
+      // Mouse
+      el.addEventListener('mousedown', e => {
+        // Sólo botón principal y no sobre links/buttons
+        if (e.button !== 0) return;
+        onDown(e.pageX);
+      });
+      window.addEventListener('mousemove', e => onMove(e.pageX, e));
+      window.addEventListener('mouseup', onUp);
+      el.addEventListener('mouseleave', onUp);
+
+      // Si el usuario soltó después de un drag real (>4px), bloqueamos el click siguiente
+      el.addEventListener('click', e => {
+        if (moved > 4) {
+          e.preventDefault();
+          e.stopPropagation();
+          moved = 0;
+        }
+      }, true);
+    }
+
+    function initAll() {
+      document.querySelectorAll(
+        '.planes-carousel, .dif-grid, .test-grid, ' +
+        '.esp-grid.is-desktop-carousel, .esp-grid.is-mobile-carousel'
+      ).forEach(enableDragScroll);
+    }
+    initAll();
+    // Re-inicializar tras cambios de viewport (especialidades cambia clases)
+    window.addEventListener('resize', () => {
+      clearTimeout(window.__dragRT);
+      window.__dragRT = setTimeout(initAll, 250);
+    });
   })();
 
   // ===== Quiz "Encuentra tu plan ideal" (matriz del Excel)

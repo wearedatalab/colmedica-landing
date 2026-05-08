@@ -1038,20 +1038,31 @@
     display: flex; align-items: center; justify-content: center; overflow: hidden;
     cursor: pointer;
   }
-  .test-video img {
+  .test-video img,
+  .test-video-el {
     width: 100%; height: 100%; object-fit: cover;
-    opacity: .88; transition: opacity .25s, transform .35s var(--ease);
+    opacity: .92; transition: opacity .25s, transform .35s var(--ease);
+    display: block;
   }
-  .test-video:hover img { opacity: 1; transform: scale(1.04); }
+  .test-video:hover img,
+  .test-video:hover .test-video-el:not(.is-playing) {
+    opacity: 1; transform: scale(1.03);
+  }
+  /* Cuando el video está activo (controles visibles) deja de tener overlay */
+  .test-video-el.is-playing { opacity: 1; transform: none; }
   .test-video-play {
     position: absolute; width: 56px; height: 56px; border-radius: 50%;
     background: rgba(255,255,255,.95); color: var(--red-bienestar);
     display: inline-flex; align-items: center; justify-content: center;
     box-shadow: 0 8px 22px rgba(0,0,0,.3);
-    transition: transform .2s;
+    transition: transform .2s, opacity .2s;
+    border: none; cursor: pointer;
   }
   .test-video:hover .test-video-play { transform: scale(1.1); }
   .test-video-play svg { width: 24px; height: 24px; margin-left: 3px; }
+  /* Estado "playing": ocultar play y badge */
+  .test-video.is-playing .test-video-play,
+  .test-video.is-playing .test-video-badge { opacity: 0; pointer-events: none; }
   .test-video-badge {
     position: absolute; top: 12px; left: 12px;
     background: var(--red-bienestar); color: #fff;
@@ -2817,10 +2828,13 @@
     <div class="mcarousel-wrap">
     <div class="test-grid" id="testGrid" data-mcarousel>
       <article class="test-card">
-        <div class="test-video" onclick="playVideo('andrea')">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Andrea, Bogotá">
+        <div class="test-video" onclick="playVideo(this)">
+          <video class="test-video-el" preload="metadata" playsinline
+                 poster="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80">
+            <source src="videos/Bienvenida_e-commerce.mp4" type="video/mp4">
+          </video>
           <span class="test-video-badge">Video</span>
-          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <button class="test-video-play" type="button" aria-label="Reproducir video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
         <div class="test-body">
           <div class="test-stars">★★★★★</div>
@@ -2831,58 +2845,53 @@
       </article>
 
       <article class="test-card">
-        <div class="test-video" onclick="playVideo('lina')">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Lina, Medellín">
+        <div class="test-video" onclick="playVideo(this)">
+          <video class="test-video-el" preload="metadata" playsinline
+                 poster="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80">
+            <source src="videos/EsmeraldaAmbulatorio.mp4" type="video/mp4">
+          </video>
           <span class="test-video-badge">Video</span>
-          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <button class="test-video-play" type="button" aria-label="Reproducir video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
         <div class="test-body">
           <div class="test-stars">★★★★★</div>
-          <p class="test-quote">"Durante el embarazo de mi hija el acompañamiento fue impecable. Colmédica siempre está cuando lo necesito, con calidez y profesionalismo."</p>
-          <div class="test-author">Lina Gómez</div>
-          <div class="test-author-sub">Medellín — Gama Diamante</div>
-        </div>
-      </article>
-
-      <article class="test-card">
-        <div class="test-video" onclick="playVideo('mario')">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Mario, Cali">
-          <span class="test-video-badge">Video</span>
-          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        </div>
-        <div class="test-body">
-          <div class="test-stars">★★★★★</div>
-          <p class="test-quote">"Tuve una cirugía compleja y todo el equipo fue excepcional. La red de clínicas Colmédica es la mejor, te sientes en las mejores manos."</p>
-          <div class="test-author">Mario Alvarino</div>
-          <div class="test-author-sub">Cali — Gama Rubí</div>
-        </div>
-      </article>
-
-      <article class="test-card">
-        <div class="test-video" onclick="playVideo('carolina')">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Carolina, Barranquilla">
-          <span class="test-video-badge">Video</span>
-          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        </div>
-        <div class="test-body">
-          <div class="test-stars">★★★★★</div>
-          <p class="test-quote">"Las citas se agendan rapidísimo desde la app y los Centros Médicos quedan cerca. Cuidan a mis papás como si fueran de su familia."</p>
+          <p class="test-quote">"Las citas se agendan rapidísimo desde la app y los Centros Médicos quedan cerca. Tener cobertura ambulatoria sin pasar por médico general me cambió la vida."</p>
           <div class="test-author">Carolina Ruiz</div>
-          <div class="test-author-sub">Barranquilla — Gama Esmeralda</div>
+          <div class="test-author-sub">Barranquilla — Plan Esmeralda Ambulatorio</div>
         </div>
       </article>
 
       <article class="test-card">
-        <div class="test-video" onclick="playVideo('esteban')">
-          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80" alt="Esteban, Bucaramanga">
+        <div class="test-video" onclick="playVideo(this)">
+          <video class="test-video-el" preload="metadata" playsinline
+                 poster="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80">
+            <source src="videos/DomiciliarioSuperior.mp4" type="video/mp4">
+          </video>
           <span class="test-video-badge">Video</span>
-          <span class="test-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <button class="test-video-play" type="button" aria-label="Reproducir video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
         <div class="test-body">
           <div class="test-stars">★★★★★</div>
-          <p class="test-quote">"En mi caso, lo que más valoro es la atención domiciliaria 24/7. Una llamada y el médico llega a casa, sin filas ni complicaciones."</p>
+          <p class="test-quote">"Lo que más valoro es la atención domiciliaria 24/7. Una llamada y el médico llega a casa, sin filas ni complicaciones. Es paz mental para toda la familia."</p>
           <div class="test-author">Esteban Pérez</div>
-          <div class="test-author-sub">Bucaramanga — Gama Caobo</div>
+          <div class="test-author-sub">Bucaramanga — Plan Domiciliario Superior</div>
+        </div>
+      </article>
+
+      <article class="test-card">
+        <div class="test-video" onclick="playVideo(this)">
+          <video class="test-video-el" preload="metadata" playsinline
+                 poster="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80">
+            <source src="videos/Oncologico.mp4" type="video/mp4">
+          </video>
+          <span class="test-video-badge">Video</span>
+          <button class="test-video-play" type="button" aria-label="Reproducir video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="test-body">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"En mi tratamiento oncológico todo el equipo fue excepcional. El acompañamiento integral hace toda la diferencia, te sientes cuidado en cada paso."</p>
+          <div class="test-author">Mario Alvarino</div>
+          <div class="test-author-sub">Cali — Plan Oncológico Vida Plus</div>
         </div>
       </article>
     </div><!-- /.test-grid -->
@@ -3978,9 +3987,30 @@
     updateActions();
   })();
 
-  // ===== Video placeholder (hook para reemplazar con videos reales)
-  function playVideo(id) {
-    alert('Video de testimonio: ' + id + '\n\n(Conecta aquí la URL del video real — YouTube/Vimeo/mp4.)');
+  // ===== Reproducción de videos de testimonios (mp4 in-place con controles)
+  function playVideo(holder) {
+    if (!holder) return;
+    const video = holder.querySelector('video');
+    if (!video) return;
+    // Pausar cualquier otro video que esté reproduciéndose
+    document.querySelectorAll('.test-video.is-playing').forEach(h => {
+      if (h !== holder) {
+        const v = h.querySelector('video');
+        if (v) { v.pause(); v.controls = false; v.classList.remove('is-playing'); }
+        h.classList.remove('is-playing');
+      }
+    });
+    holder.classList.add('is-playing');
+    video.classList.add('is-playing');
+    video.controls = true;
+    video.play().catch(() => {});
+    // Cuando termina, restaurar overlay para volver a verlo si quieren
+    video.onended = () => {
+      holder.classList.remove('is-playing');
+      video.classList.remove('is-playing');
+      video.controls = false;
+      try { video.currentTime = 0; } catch(_) {}
+    };
   }
 </script>
 

@@ -59,8 +59,10 @@
   a { color: inherit; text-decoration: none; }
   button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
 
-  /* Grid container — ancho máximo 1920px (header, footer, hero, bandas) */
-  .wrap { width: min(1920px, 95vw); margin-inline: auto; }
+  /* Grid container — ancho fijo máximo 1440px para toda la página
+     (header, hero, secciones, footer). Buen balance en pantallas
+     grandes y normales. */
+  .wrap { width: min(1440px, 95vw); margin-inline: auto; }
 
   /* ============================================================
      DRAG-TO-SCROLL — cursor de mano + arrastre en los carruseles
@@ -170,9 +172,9 @@
   /* ============================================================
      HERO
      ============================================================ */
-  /* Hero usa el mismo .wrap que el resto: max 1920px centrado */
+  /* Hero usa el mismo .wrap que el resto: max 1440px centrado */
   .hero .wrap.hero-wrap {
-    /* hereda width: min(1920px, 95vw) y margin-inline: auto del .wrap base */
+    /* hereda width: min(1440px, 95vw) y margin-inline: auto del .wrap base */
     padding-inline: 0;
   }
   .hero {

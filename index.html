@@ -932,11 +932,7 @@
     background: #fff; border: 1px solid var(--line); border-radius: 10px;
     padding: .85rem 1rem; font-size: .92rem; font-weight: 600; color: var(--ink);
     display: flex; align-items: center; gap: .55rem;
-    transition: all .22s var(--ease);
-  }
-  .esp-item:hover {
-    border-color: var(--blue-vital); color: var(--blue-serenidad);
-    transform: translateY(-2px); box-shadow: var(--shadow-sm);
+    /* Solo informativo: sin hover de botón */
   }
   .esp-item::before {
     content: ''; width: 6px; height: 6px; border-radius: 50%;
@@ -971,9 +967,9 @@
     flex: 1 1 auto;
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
     backdrop-filter: blur(6px); border-radius: var(--radius-lg);
-    padding: 1.6rem 1.3rem; transition: transform .25s var(--ease), background .25s var(--ease);
+    padding: 1.6rem 1.3rem;
+    /* Solo informativo: sin hover de botón */
   }
-  .dif-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.13); }
   .dif-icon {
     width: 48px; height: 48px; border-radius: 12px;
     background: rgba(141, 216, 255, .2); color: #8ed8ff;

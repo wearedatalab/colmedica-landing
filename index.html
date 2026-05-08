@@ -1319,36 +1319,38 @@
     .esp-grid.is-mobile-carousel::-webkit-scrollbar,
     .test-grid::-webkit-scrollbar { display: none; }
 
-    /* Diferenciales — grid 2 columnas vertical (no carrusel) */
+    /* Diferenciales — carrusel horizontal: 1 slide visible + peek (2 cards apiladas por slide) */
     .dif-grid {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
       gap: .7rem;
-      overflow: visible;
-      padding: 0;
-      margin-inline: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: .3rem 1rem 1rem;
+      margin-inline: -1rem;
     }
-    /* En mobile los slides desaparecen y las cards fluyen al grid */
+    .dif-grid::-webkit-scrollbar { display: none; }
     .dif-slide {
-      display: contents;
+      flex: 0 0 86vw;
+      max-width: 360px;
+      min-width: 250px;
+      scroll-snap-align: center;
+      display: flex; flex-direction: column; gap: .7rem;
     }
+    .dif-slide--allies { /* slide de aliados se comporta igual */ }
     .dif-card {
-      flex: none;
+      flex: 1 1 auto;
       min-width: 0;
       max-width: none;
-      padding: 1.1rem .9rem;
+      padding: 1.3rem 1.1rem;
     }
-    .dif-card .dif-icon { margin-bottom: .6rem; }
-    .dif-card .dif-title { font-size: .92rem; line-height: 1.2; }
-    .dif-card .dif-desc { font-size: .76rem; line-height: 1.4; }
-    /* La card especial de aliados ocupa las 2 columnas (full width) */
-    .dif-card--allies {
-      grid-column: 1 / -1;
-      padding: 1.4rem 1.2rem;
-    }
+    .dif-card .dif-icon { margin-bottom: .7rem; }
+    .dif-card .dif-title { font-size: 1.05rem; line-height: 1.25; }
+    .dif-card .dif-desc { font-size: .88rem; line-height: 1.5; }
+    .dif-card--allies { padding: 1.4rem 1.2rem; }
     .dif-card--allies .dif-title { font-size: 1.05rem; }
-    /* Ocultar dots/controles del carrusel de diferenciales */
-    .mcarousel-ctrls[data-mcarousel-for="difGrid"] { display: none !important; }
 
     /* Experiencias — una card por vista + peek */
     .test-card {
@@ -2492,7 +2494,7 @@
       <p>+30 años cuidando la salud con respaldo, tecnología y calidez. Beneficios exclusivos solo Colmédica.</p>
     </div>
           <div class="section-cta">
-      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Cotízalo aquí</a>
+      <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Descubre todos los beneficios</a>
     </div>
         </div>
 

@@ -950,10 +950,24 @@
   /* ============================================================
      TESTIMONIOS — con videos antes de las estrellas
      ============================================================ */
+  /* Carrusel horizontal: 2 cards visibles + peek de la mitad de la 3a */
   .test-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: .25rem .25rem 1rem;
   }
+  .test-grid::-webkit-scrollbar { display: none; }
   .test-card {
+    flex: 0 0 calc((100% - 50% - 2.4rem) / 2);  /* 2 visibles + ~50% del 3o */
+    min-width: 280px;
+    scroll-snap-align: start;
     background: #fff; border-radius: var(--radius-lg);
     border: 1px solid var(--line); box-shadow: var(--shadow-sm);
     overflow: hidden; display: flex; flex-direction: column;
@@ -1842,6 +1856,8 @@
   .mcarousel-ctrls[data-mcarousel-for="difGrid"] { display: flex; }
   /* Especialidades: controles también en desktop (carrusel horizontal) */
   .mcarousel-ctrls[data-mcarousel-for="espGrid"] { display: flex; }
+  /* Testimonios: controles también en desktop (carrusel horizontal) */
+  .mcarousel-ctrls[data-mcarousel-for="testGrid"] { display: flex; }
   .mc-btn {
     width: 40px; height: 40px; border-radius: 50%;
     background: #fff;
@@ -2661,7 +2677,7 @@
       <p>Miles de familias confían en Colmédica. Conoce las experiencias reales de nuestros usuarios.</p>
     </div>
           <div class="section-cta">
-            <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Cotízalo aquí</a>
+            <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Habla con un asesor</a>
           </div>
         </div>
 

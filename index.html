@@ -86,12 +86,6 @@
   .is-grabbing button,
   .is-grabbing .test-card,
   .is-grabbing .plan-card { pointer-events: none; }
-  /* Pantallas muy grandes: el contenido de cada sección se capa a 1500px
-     para que el layout 2-col no se estire con aire excesivo (sin tocar
-     el ancho de la banda/fondo, que sigue full-width). */
-  @media (min-width: 1600px) {
-    section.block > .wrap { max-width: 1500px; }
-  }
 
   /* ============================================================
      PROGRESS BAR (solid, no transparency issues)
@@ -176,11 +170,10 @@
   /* ============================================================
      HERO
      ============================================================ */
-  /* Hero a width 100% en desktop (full bleed) */
+  /* Hero usa el mismo .wrap que el resto: max 1920px centrado */
   .hero .wrap.hero-wrap {
-    width: 100%;
-    max-width: none;
-    padding-inline: 4vw;
+    /* hereda width: min(1920px, 95vw) y margin-inline: auto del .wrap base */
+    padding-inline: 0;
   }
   .hero {
     position: relative; color: #fff; overflow: hidden;

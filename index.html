@@ -3356,16 +3356,17 @@
     document.getElementById('centrosCity').textContent = d.nombre;
     document.getElementById('centrosCount').textContent = d.cantidad;
 
-    const box = (title, count, icon, items) => {
-      const content = items.length
-        ? `<div class="centros-box-list">${items.map(i=>`<span class="centros-chip">${i}</span>`).join('')}</div>`
-        : `<p class="centros-empty">No disponible en esta ciudad</p>`;
+    // Si un bloque no tiene sedes, NO lo renderiza (oculto completo).
+    const box = (title, icon, items) => {
+      if (!items || !items.length) return '';
+      const content = `<div class="centros-box-list">${items.map(i=>`<span class="centros-chip">${i}</span>`).join('')}</div>`;
+      const count = items.length;
       return `
         <div class="centros-box">
           <div class="centros-box-head">
             <span class="centros-box-icon">${icon}</span>
             <div class="centros-box-title">${title}</div>
-            <div class="centros-box-count">${count} ${items.length === 1 ? 'sede' : 'sedes'}</div>
+            <div class="centros-box-count">${count} ${count === 1 ? 'sede' : 'sedes'}</div>
           </div>
           ${content}
         </div>`;
@@ -3376,9 +3377,9 @@
     const iconDia = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><circle cx="12" cy="15" r="2"/></svg>';
 
     document.getElementById('centrosBoxes').innerHTML =
-      box('Centros Médicos', d.medicos.length, iconMed, d.medicos) +
-      box('Odontológicos', d.odontologicos.length, iconOdo, d.odontologicos) +
-      box('Diagnóstico', d.diagnostico.length, iconDia, d.diagnostico);
+      box('Centros Médicos', iconMed, d.medicos) +
+      box('Odontológicos',   iconOdo, d.odontologicos) +
+      box('Diagnóstico',     iconDia, d.diagnostico);
   }
   // Tabs de ciudad de Centros (con dots paginadores y scroll al activar)
   (function() {

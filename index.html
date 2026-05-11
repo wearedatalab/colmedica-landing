@@ -1133,6 +1133,34 @@
   }
 
   /* ============================================================
+     BANNER PROMOCIONAL (debajo del hero) — Zafiro Usaquén
+     ============================================================ */
+  .promo-banner {
+    background: var(--blue-bg);
+    padding: 32px 0;
+  }
+  .promo-banner-link {
+    display: block;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 30, 70, .18);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .promo-banner-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 48px rgba(0, 30, 70, .28);
+  }
+  .promo-banner-link img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    .promo-banner { padding: 20px 0; }
+  }
+
+  /* ============================================================
      CTA FINAL
      ============================================================ */
   .cta-final {
@@ -2206,6 +2234,17 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- =========== BANNER PROMOCIONAL (Centro Médico Zafiro Usaquén) =========== -->
+<section class="promo-banner" aria-label="Nuevo Centro Médico Colmédica Zafiro Usaquén">
+  <div class="wrap">
+    <a href="https://www.colmedica.com" target="_blank" class="promo-banner-link" aria-label="Programa tu cita en el nuevo Centro Médico Colmédica Zafiro Usaquén">
+      <img src="banner-usaquen.jpg"
+           alt="Sé el primero en programar una cita en nuestro nuevo Centro Médico Colmédica Zafiro — Usaquén Plaza, Cra. 7 #120 20"
+           loading="lazy">
+    </a>
   </div>
 </section>
 

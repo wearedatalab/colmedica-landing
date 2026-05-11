@@ -267,6 +267,15 @@
     color: #8ed8ff;
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    position: relative;
+  }
+  .hero-stat-icon::after {
+    content: '';
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--red-bienestar);
+    box-shadow: 0 0 0 2px var(--blue-900);
   }
   .hero-stat-icon svg { width: 24px; height: 24px; }
   .hero-stat-text { display: flex; flex-direction: column; gap: .1rem; }
@@ -885,6 +894,15 @@
     background: var(--blue-soft); color: var(--blue-serenidad);
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    position: relative;
+  }
+  .centros-box-icon::after {
+    content: '';
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--red-bienestar);
+    box-shadow: 0 0 0 2px #fff;
   }
   .centros-box-icon svg { width: 18px; height: 18px; }
   .centros-box-title {
@@ -994,6 +1012,16 @@
     grid-row: 1 / span 2;
     align-self: start;
     flex-shrink: 0;
+    position: relative;
+  }
+  /* Pequeño acento rojo en la esquina del icono (estilo manual de marca) */
+  .dif-icon::after {
+    content: '';
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--red-bienestar);
+    box-shadow: 0 0 0 2px var(--blue-900);
   }
   .dif-icon svg { width: 26px; height: 26px; }
   .dif-title {
@@ -1741,10 +1769,22 @@
     background: var(--blue-soft); color: var(--blue-serenidad);
     display: flex; align-items: center; justify-content: center;
     margin-top: .15rem;
+    position: relative;
+  }
+  .qz-multi-icon::after {
+    content: '';
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--red-bienestar);
+    box-shadow: 0 0 0 2px #fff;
   }
   .qz-multi-card.is-selected .qz-multi-icon {
     background: var(--blue-serenidad);
     color: #fff;
+  }
+  .qz-multi-card.is-selected .qz-multi-icon::after {
+    box-shadow: 0 0 0 2px var(--blue-soft);
   }
   .qz-multi-icon svg { width: 24px; height: 24px; }
   .qz-multi-name {

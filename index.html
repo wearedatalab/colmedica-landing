@@ -2195,21 +2195,24 @@
   <a href="#pqr" onclick="closeMobile()">PQR</a>
 </div>
 
-<!-- SVG global: gradientes para iconos duotono (azul + rojo de marca) -->
+<!-- SVG global: iconos duotono (azul + acento rojo de marca)
+     Usamos gradiente radial con un foco pequeño en la esquina inferior-derecha
+     para que el rojo se vea como un detalle puntual dentro del icono, no como
+     una transición gradual sobre todo el trazo. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <!-- Gradiente para iconos en fondo CLARO (centros, quiz) — azul serenidad → rojo bienestar -->
-    <linearGradient id="icoGradLight" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#0058A2"/>
-      <stop offset="55%"  stop-color="#0058A2"/>
-      <stop offset="100%" stop-color="#E30613"/>
-    </linearGradient>
-    <!-- Gradiente para iconos en fondo OSCURO (hero stats, beneficios) — azul claro → coral -->
-    <linearGradient id="icoGradDark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#8ed8ff"/>
-      <stop offset="55%"  stop-color="#8ed8ff"/>
-      <stop offset="100%" stop-color="#ff8a93"/>
-    </linearGradient>
+    <!-- Fondo CLARO (centros, quiz) — azul serenidad con foco rojo en esquina -->
+    <radialGradient id="icoGradLight" cx="92%" cy="92%" r="32%" fx="100%" fy="100%">
+      <stop offset="0%"   stop-color="#E30613"/>
+      <stop offset="55%"  stop-color="#E30613"/>
+      <stop offset="100%" stop-color="#0058A2"/>
+    </radialGradient>
+    <!-- Fondo OSCURO (hero stats, beneficios) — celeste con foco rojo saturado en esquina -->
+    <radialGradient id="icoGradDark" cx="92%" cy="92%" r="32%" fx="100%" fy="100%">
+      <stop offset="0%"   stop-color="#ff1f33"/>
+      <stop offset="55%"  stop-color="#ff1f33"/>
+      <stop offset="100%" stop-color="#8ed8ff"/>
+    </radialGradient>
   </defs>
 </svg>
 

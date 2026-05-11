@@ -1160,31 +1160,91 @@
   }
 
   /* ============================================================
-     BANNER PROMOCIONAL (debajo del hero) — Zafiro Usaquén
+     BANNER PROMOCIONAL — Slider (debajo del hero) — Zafiro Usaquén
      ============================================================ */
   .promo-banner {
     background: var(--blue-bg);
     padding: 32px 0;
   }
-  .promo-banner-link {
-    display: block;
+  .promo-slider-wrap {
+    position: relative;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: 0 14px 36px rgba(0, 30, 70, .18);
-    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
   }
-  .promo-banner-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 22px 48px rgba(0, 30, 70, .28);
+  .promo-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  .promo-banner-link img {
+  .promo-slider::-webkit-scrollbar { display: none; }
+  .promo-slider.is-grabbing { cursor: grabbing; scroll-behavior: auto; }
+  .promo-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: block;
+    transition: opacity .25s var(--ease);
+  }
+  .promo-slide img {
     display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
+    pointer-events: none; /* el click va al <a> padre, no a la img */
   }
+  /* Flechas */
+  .promo-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(255,255,255,.92); color: var(--blue-serenidad);
+    box-shadow: 0 4px 14px rgba(0, 30, 70, .25);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2;
+    transition: transform .2s var(--ease), background .2s, opacity .2s;
+  }
+  .promo-arrow:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+  .promo-arrow.prev { left: 14px; }
+  .promo-arrow.next { right: 14px; }
+  .promo-arrow svg { width: 20px; height: 20px; }
+  .promo-arrow:disabled { opacity: .35; cursor: default; }
+  /* Dots */
+  .promo-dots {
+    position: absolute;
+    bottom: 14px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: .5rem; align-items: center;
+    z-index: 2;
+  }
+  .promo-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: rgba(255,255,255,.55);
+    border: none; padding: 0; cursor: pointer;
+    transition: all .22s var(--ease);
+  }
+  .promo-dot.active {
+    background: #fff;
+    width: 26px; border-radius: 20px;
+  }
+  .promo-dot:hover:not(.active) { background: rgba(255,255,255,.8); }
+  /* Bloquear clicks de los <a> mientras se arrastra el slider */
+  .promo-slider.is-grabbing .promo-slide { pointer-events: none; }
+
   @media (max-width: 768px) {
     .promo-banner { padding: 20px 0; }
+    .promo-arrow { width: 36px; height: 36px; }
+    .promo-arrow.prev { left: 8px; }
+    .promo-arrow.next { right: 8px; }
+    .promo-arrow svg { width: 17px; height: 17px; }
+    .promo-dots { bottom: 8px; }
+    .promo-dot { width: 7px; height: 7px; }
+    .promo-dot.active { width: 20px; }
   }
 
   /* ============================================================
@@ -2285,14 +2345,35 @@
   </div>
 </section>
 
-<!-- =========== BANNER PROMOCIONAL (Centro Médico Zafiro Usaquén) =========== -->
-<section class="promo-banner" aria-label="Nuevo Centro Médico Colmédica Zafiro Usaquén">
+<!-- =========== BANNER PROMOCIONAL (Slider — Centro Médico Zafiro Usaquén) =========== -->
+<section class="promo-banner" aria-label="Promociones Colmédica">
   <div class="wrap">
-    <a href="https://www.colmedica.com" target="_blank" class="promo-banner-link" aria-label="Programa tu cita en el nuevo Centro Médico Colmédica Zafiro Usaquén">
-      <img src="banner-usaquen.jpg"
-           alt="Sé el primero en programar una cita en nuestro nuevo Centro Médico Colmédica Zafiro — Usaquén Plaza, Cra. 7 #120 20"
-           loading="lazy">
-    </a>
+    <div class="promo-slider-wrap">
+      <div class="promo-slider" id="promoSlider">
+        <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Programa tu cita en el nuevo Centro Médico Colmédica Zafiro Usaquén">
+          <img src="banner-usaquen.jpg"
+               alt="Sé el primero en programar una cita en nuestro nuevo Centro Médico Colmédica Zafiro — Usaquén Plaza, Cra. 7 #120 20"
+               loading="lazy">
+        </a>
+        <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Programa tu cita en el nuevo Centro Médico Colmédica Zafiro Usaquén">
+          <img src="banner-usaquen.jpg"
+               alt="Centro Médico Colmédica Zafiro Usaquén"
+               loading="lazy">
+        </a>
+        <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Programa tu cita en el nuevo Centro Médico Colmédica Zafiro Usaquén">
+          <img src="banner-usaquen.jpg"
+               alt="Centro Médico Colmédica Zafiro Usaquén"
+               loading="lazy">
+        </a>
+      </div>
+      <button class="promo-arrow prev" id="promoPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="promo-arrow next" id="promoNext" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="promo-dots" id="promoDots" role="tablist" aria-label="Indicador de slide"></div>
+    </div>
   </div>
 </section>
 
@@ -3960,7 +4041,8 @@
     function initAll() {
       document.querySelectorAll(
         '.planes-carousel, .dif-grid, .test-grid, ' +
-        '.esp-grid.is-desktop-carousel, .esp-grid.is-mobile-carousel'
+        '.esp-grid.is-desktop-carousel, .esp-grid.is-mobile-carousel, ' +
+        '.promo-slider'
       ).forEach(enableDragScroll);
     }
     initAll();
@@ -3969,6 +4051,78 @@
       clearTimeout(window.__dragRT);
       window.__dragRT = setTimeout(initAll, 250);
     });
+  })();
+
+  // ===== Slider del banner promocional (dots + arrows + auto-advance)
+  (function(){
+    const slider = document.getElementById('promoSlider');
+    if (!slider) return;
+    const slides = Array.from(slider.children);
+    const dotsBox = document.getElementById('promoDots');
+    const prevBtn = document.getElementById('promoPrev');
+    const nextBtn = document.getElementById('promoNext');
+    const AUTO_MS = 6000;
+    let autoTimer = null;
+
+    // Construir dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'promo-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', 'Ir al slide ' + (i + 1));
+      d.addEventListener('click', () => { goTo(i); restartAuto(); });
+      dotsBox.appendChild(d);
+    });
+    const dots = Array.from(dotsBox.children);
+
+    function activeIndex() {
+      const left = slider.scrollLeft;
+      let best = 0, bestDist = Infinity;
+      slides.forEach((s, i) => {
+        const dist = Math.abs(s.offsetLeft - left);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      return best;
+    }
+    function goTo(i) {
+      const target = slides[i];
+      if (!target) return;
+      slider.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+    }
+    function update() {
+      const idx = activeIndex();
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === slides.length - 1;
+    }
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(() => {
+        const idx = activeIndex();
+        const next = (idx + 1) % slides.length;
+        goTo(next);
+      }, AUTO_MS);
+    }
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+    function restartAuto() { startAuto(); }
+
+    slider.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    prevBtn.addEventListener('click', () => {
+      goTo(Math.max(0, activeIndex() - 1)); restartAuto();
+    });
+    nextBtn.addEventListener('click', () => {
+      goTo(Math.min(slides.length - 1, activeIndex() + 1)); restartAuto();
+    });
+
+    // Pausar auto-advance al hover/drag
+    slider.addEventListener('mouseenter', stopAuto);
+    slider.addEventListener('mouseleave', startAuto);
+    slider.addEventListener('mousedown',  stopAuto);
+    slider.addEventListener('touchstart', stopAuto, { passive: true });
+    window.addEventListener('mouseup',    () => { if (!autoTimer) startAuto(); });
+
+    update();
+    startAuto();
   })();
 
   // ===== Quiz "Encuentra tu plan ideal" (matriz del Excel)

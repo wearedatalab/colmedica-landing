@@ -1008,6 +1008,14 @@
   .esp-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem;
   }
+  /* Disclaimer "*Aplican condiciones contractuales" */
+  .esp-disclaimer {
+    margin: 1rem 0 0;
+    font-size: .82rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .esp-disclaimer sup { color: var(--red-bienestar); font-weight: 700; }
   /* Desktop: scroll horizontal por slides (3 cols × 3 filas) */
   .esp-grid.is-desktop-carousel {
     display: flex;
@@ -2894,6 +2902,7 @@
         </button>
       </div>
     </div>
+    <p class="esp-disclaimer"><sup>*</sup>Aplican condiciones contractuales</p>
   </div>
     </div>
 </section>

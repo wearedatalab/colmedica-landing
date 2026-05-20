@@ -46,7 +46,11 @@
     box-sizing: border-box; margin: 0; padding: 0;
     -webkit-tap-highlight-color: transparent; /* quita flash negro al tocar en móvil */
   }
-  html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 56px;
+    overflow-x: hidden;     /* evita revelar "campo blanco" al arrastrar lateralmente */
+  }
   body {
     font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
     color: var(--ink);
@@ -54,6 +58,8 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;     /* idem en body */
+    overscroll-behavior-x: none;
   }
   img, svg { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
@@ -102,6 +108,8 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+    /* El swipe horizontal no se propaga al body (evita el bounce/blanco lateral en mobile) */
+    overscroll-behavior-x: contain;
   }
   .planes-carousel.is-grabbing,
   .dif-grid.is-grabbing,

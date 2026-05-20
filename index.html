@@ -2760,18 +2760,26 @@
 
     <!-- Tabs de ciudad (mismo patrón que Centros) -->
     <div class="clinicas-city-tabs" id="clinicasTabs">
-      <button class="clinicas-tab active" data-city="bogota">Bogotá</button>
+      <button class="clinicas-tab" data-city="armenia">Armenia</button>
+      <button class="clinicas-tab" data-city="barrancabermeja">Barrancabermeja</button>
       <button class="clinicas-tab" data-city="barranquilla">Barranquilla</button>
-      <button class="clinicas-tab" data-city="cali">Cali</button>
-      <button class="clinicas-tab" data-city="medellin">Medellín</button>
+      <button class="clinicas-tab active" data-city="bogota">Bogotá</button>
       <button class="clinicas-tab" data-city="bucaramanga">Bucaramanga</button>
+      <button class="clinicas-tab" data-city="cali">Cali</button>
       <button class="clinicas-tab" data-city="cartagena">Cartagena</button>
       <button class="clinicas-tab" data-city="chia">Chía</button>
+      <button class="clinicas-tab" data-city="cucuta">Cúcuta</button>
       <button class="clinicas-tab" data-city="ibague">Ibagué</button>
       <button class="clinicas-tab" data-city="manizales">Manizales</button>
+      <button class="clinicas-tab" data-city="medellin">Medellín</button>
+      <button class="clinicas-tab" data-city="monteria">Montería</button>
       <button class="clinicas-tab" data-city="neiva">Neiva</button>
+      <button class="clinicas-tab" data-city="pasto">Pasto</button>
       <button class="clinicas-tab" data-city="pereira">Pereira</button>
+      <button class="clinicas-tab" data-city="santamarta">Santa Marta</button>
+      <button class="clinicas-tab" data-city="valledupar">Valledupar</button>
       <button class="clinicas-tab" data-city="villavicencio">Villavicencio</button>
+      <button class="clinicas-tab" data-city="yopal">Yopal</button>
     </div>
 
     <!-- Dots: indican que hay más ciudades a la derecha -->
@@ -3309,92 +3317,141 @@
   }
 
   // ===== Clínicas por ciudad
+  // Listado de clínicas — ciudades y clínicas en orden alfabético
   const CLINICAS = {
     armenia: [
-      'Clínica Central del Quindio', 'Clínica del Parque',
-      'Clínica la Sagrada Familia', 'E.S.E Hospital Departamental San Juan de Dios'
+      'Clínica Central del Quindio',
+      'Clínica del Parque',
+      'Clínica la Sagrada Familia',
+      'E.S.E Hospital Departamental San Juan de Dios'
     ],
     barrancabermeja: [
-      'Clínica Reina Lucia', 'Clínica San José',
-      'Unidad Clínica la Magdalena', 'Unidad Clínica San Nicolas'
+      'Clínica Reina Lucia',
+      'Clínica San José',
+      'Unidad Clínica la Magdalena',
+      'Unidad Clínica San Nicolas'
     ],
     barranquilla: [
-      'Clínica Portoazul', 'Clínica del Caribe', 'Clínica General del Norte',
-      'Clínica Atenas', 'Clínica la Asunción'
+      'Clínica Atenas',
+      'Clínica del Caribe',
+      'Clínica General del Norte',
+      'Clínica la Asunción',
+      'Clínica Portoazul'
     ],
     bogota: [
-      'Clínica del Country', 'Clínica La Colina', 'Fundación Santa Fé de Bogotá',
-      'Fundación Abood Shaio (Clínica Shaio)', 'Fundación Cardioinfantil',
-      'Clínica de La Mujer', 'Clínica de Marly', 'Clínica del Occidente',
-      'Clínica los Nogales', 'Clínica Palermo', 'Clínica la Sabana'
+      'Clínica de La Mujer',
+      'Clínica de Marly',
+      'Clínica del Country',
+      'Clínica del Occidente',
+      'Clínica La Colina',
+      'Clínica la Sabana',
+      'Clínica los Nogales',
+      'Clínica Palermo',
+      'Fundación Abood Shaio (Clínica Shaio)',
+      'Fundación Cardioinfantil',
+      'Fundación Santa Fé de Bogotá'
     ],
     bucaramanga: [
-      'FOSCAL', 'Fosunab', 'Fundación Cardiovascular de Colombia'
+      'FOSCAL',
+      'Fosunab',
+      'Fundación Cardiovascular de Colombia'
     ],
     cali: [
-      'Fundación Valle del Lili', 'Centro Médico Imbanaco de Cali',
-      'Clínica Farallones', 'Clínica Versalles', 'Clínica de Occidente',
-      'Clínica Basilia', 'Clínica los Andes', 'Clínica Med'
+      'Centro Médico Imbanaco de Cali',
+      'Clínica Basilia',
+      'Clínica de Occidente',
+      'Clínica Farallones',
+      'Clínica los Andes',
+      'Clínica Med',
+      'Clínica Versalles',
+      'Fundación Valle del Lili'
     ],
     cartagena: [
-      'Centro Hospitalario Serena del Mar', 'Clínica Medihelp Service',
-      'Clínica Blas de Lezo', 'Clínica la Misericordia',
-      'Clínica Madre Bernarda', 'Nuevo Hospital Bocagrande'
+      'Centro Hospitalario Serena del Mar',
+      'Clínica Blas de Lezo',
+      'Clínica la Misericordia',
+      'Clínica Madre Bernarda',
+      'Clínica Medihelp Service',
+      'Nuevo Hospital Bocagrande'
     ],
     chia: [
+      'Clínica Chía',
       'Clínica de Marly Jorge Cavelier Gaviría',
-      'Clínica Universidad de la Sabana', 'Clínica Chía'
+      'Clínica Universidad de la Sabana'
     ],
     cucuta: [
-      'Clínica Norte', 'Clínica San José de Cúcuta',
-      'Clínica Santa Ana', 'Profamilia'
+      'Clínica Norte',
+      'Clínica San José de Cúcuta',
+      'Clínica Santa Ana',
+      'Profamilia'
     ],
     ibague: [
-      'Clínica Avidanti Ibagué', 'Clínica Asotrauma',
-      'Clinaltec - Clínica Internacional de Alta Tecnología'
+      'Clinaltec - Clínica Internacional de Alta Tecnología',
+      'Clínica Asotrauma',
+      'Clínica Avidanti Ibagué'
     ],
     manizales: [
-      'Clínica de la Santillana', 'Clínica de la Presentación',
+      'Clínica de la Presentación',
+      'Clínica de la Santillana',
       'Hospital Universitario de Caldas'
     ],
     medellin: [
-      'Hospital Pablo Tobón Uribe', 'Clínica de Las Américas',
-      'Clínica el Rosario', 'Clínica Medellín', 'Clínica Cardio Vid',
-      'Clínica del Campestre', 'Clínica del Prado', 'Clinica Las Vegas',
-      'Hospital San Vicente Fundación', 'Clínica Llanogrande'
+      'Clinica Las Vegas',
+      'Clínica Cardio Vid',
+      'Clínica de Las Américas',
+      'Clínica del Campestre',
+      'Clínica del Prado',
+      'Clínica el Rosario',
+      'Clínica Llanogrande',
+      'Clínica Medellín',
+      'Hospital Pablo Tobón Uribe',
+      'Hospital San Vicente Fundación'
     ],
     monteria: [
-      'Clínica Montería', 'Clínica Central O.H.L.',
-      'Clínica Materno Infantil Casa del Niño', 'Clínica Zayma'
+      'Clínica Central O.H.L.',
+      'Clínica Materno Infantil Casa del Niño',
+      'Clínica Montería',
+      'Clínica Zayma'
     ],
     neiva: [
-      'Clínica Alejandría', 'Clínica Belo Horizonte'
+      'Clínica Alejandría',
+      'Clínica Belo Horizonte'
     ],
     pasto: [
-      'Clínica Aurora', 'Clínica Nuestra Señora de Fátima',
-      'Fundación Hospital San Pedro',
-      'Compañía Operadora Clínica Hispanoamérica'
+      'Clínica Aurora',
+      'Clínica Nuestra Señora de Fátima',
+      'Compañía Operadora Clínica Hispanoamérica',
+      'Fundación Hospital San Pedro'
     ],
     pereira: [
-      'Clínica Comfamiliar', 'Clínica los Rosales'
+      'Clínica Comfamiliar',
+      'Clínica los Rosales'
     ],
     santamarta: [
+      'Clínica Avidanti',
+      'Clínica de la Mujer',
       'Clínica el Prado - Sociedad Médica Santa Marta',
-      'Clínica la Milagrosa', 'Clínica Mar Caribe',
-      'Clínica Avidanti', 'Clínica de la Mujer', 'Perfect Body'
+      'Clínica la Milagrosa',
+      'Clínica Mar Caribe',
+      'Perfect Body'
     ],
     valledupar: [
-      'Instituto Cardiovascular del Cesar', 'Clínica del Cesar',
-      'Clínica Valledupar', 'Clínica Buenos Aires'
+      'Clínica Buenos Aires',
+      'Clínica del Cesar',
+      'Clínica Valledupar',
+      'Instituto Cardiovascular del Cesar'
     ],
     villavicencio: [
-      'Clínica del Meta', 'Clínica Emperatriz',
-      'Hospital Departamental de Villavicencio',
-      'Corporación Clínica Universidad Cooperativa de Colombia'
+      'Clínica del Meta',
+      'Clínica Emperatriz',
+      'Corporación Clínica Universidad Cooperativa de Colombia',
+      'Hospital Departamental de Villavicencio'
     ],
     yopal: [
-      'Clínica Casanare', 'Clínica Medicenter Ficubo',
-      'E.S.E Salud Yopal', 'Hospital Regional de la Orinoquia'
+      'Clínica Casanare',
+      'Clínica Medicenter Ficubo',
+      'E.S.E Salud Yopal',
+      'Hospital Regional de la Orinoquia'
     ],
   };
   const CITY_LABELS = {

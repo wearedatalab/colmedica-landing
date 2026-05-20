@@ -3462,7 +3462,6 @@
     pereira: 'Pereira', santamarta: 'Santa Marta', valledupar: 'Valledupar',
     villavicencio: 'Villavicencio', yopal: 'Yopal',
   };
-  const CLINICAS_LIMIT = 9; // máximo de clínicas que mostramos antes del "y muchas más"
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
@@ -3470,13 +3469,10 @@
     if (!list || !title) return;
     title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
 
-    const visible = items.slice(0, CLINICAS_LIMIT);
-    let html = visible.map(c => `<li>${c}</li>`).join('');
-
-    // Si hay más clínicas que el límite, añadimos un ítem final "y muchas más"
-    if (items.length > CLINICAS_LIMIT) {
-      html += `<li class="clinicas-more">y muchas más</li>`;
-    }
+    // Mostramos TODAS las clínicas + un ítem final "y muchas más"
+    // (igual que la landing original — siempre aparece al final de cada ciudad)
+    let html = items.map(c => `<li>${c}</li>`).join('');
+    html += `<li class="clinicas-more">y muchas más</li>`;
     list.innerHTML = html;
   }
   const clinicasTabs = document.getElementById('clinicasTabs');

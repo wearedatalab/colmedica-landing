@@ -1789,6 +1789,47 @@
     font-weight: 700;
   }
 
+  /* Términos y condiciones de Beneficios (estilo para fondo azul oscuro) */
+  .dif-terms {
+    margin-top: 1.2rem;
+    color: rgba(255, 255, 255, .85);
+    font-size: .82rem;
+    line-height: 1.5;
+  }
+  .dif-terms + .dif-terms { margin-top: .5rem; }
+  .dif-terms summary {
+    cursor: pointer;
+    color: #8ed8ff;
+    font-weight: 700;
+    padding: .35rem 0;
+    list-style: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .dif-terms summary::-webkit-details-marker,
+  .dif-terms summary::marker { display: none; content: none; }
+  .dif-terms summary::after {
+    content: '+';
+    margin-left: .4rem;
+    font-weight: 700;
+    display: inline-block;
+    transition: transform .2s var(--ease);
+  }
+  .dif-terms[open] summary::after { content: '−'; }
+  .dif-terms-body {
+    padding: .5rem 0 .25rem;
+    border-left: 2px solid rgba(141, 216, 255, .35);
+    padding-left: .9rem;
+    margin-top: .3rem;
+  }
+  .dif-terms-body p {
+    margin: 0 0 .5rem;
+    color: rgba(255, 255, 255, .82);
+  }
+  .dif-terms-body p:last-child { margin-bottom: 0; }
+  .dif-terms-body sup { color: #8ed8ff; font-weight: 700; }
+
   /* ============================================================
      QUIZ DE PLAN IDEAL (sustituye "¿Qué plan elegir?")
      ============================================================ */
@@ -3019,6 +3060,25 @@
       </button>
     </div>
     </div><!-- /.mcarousel-wrap -->
+
+    <!-- ===== Términos y condiciones de Beneficios (2 bloques del original) ===== -->
+    <details class="dif-terms">
+      <summary>Ver términos y condiciones</summary>
+      <div class="dif-terms-body">
+        <p>Aplican condiciones contractuales</p>
+        <p><sup>(1)</sup> Beneficio no contractual otorgado unilateralmente por Colmédica en los términos definidos por esta compañía.</p>
+        <p><sup>(2)</sup> Aplica en los Centros Médicos Colmédica, los cuales son operados por UMD.</p>
+      </div>
+    </details>
+
+    <details class="dif-terms">
+      <summary>Ver términos y condiciones</summary>
+      <div class="dif-terms-body">
+        <p>Aplican condiciones contractuales</p>
+        <p><sup>(1)</sup> Los Centros Médicos, Centros de Diagnóstico y Centros Odontológicos Colmédica son operados por UMD.</p>
+        <p><sup>(2)</sup> Sujeto al cumplimiento de los términos y condiciones contractuales establecidos.</p>
+      </div>
+    </details>
   </div>
     </div>
 </section>

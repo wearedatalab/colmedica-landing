@@ -207,10 +207,27 @@
   .mobile-menu {
     position: fixed; inset: 66px 0 0 0; z-index: 999;
     background: var(--blue-serenidad); padding: 1.6rem 6vw;
-    transform: translateY(-120%); transition: transform .32s var(--ease);
+    transform: translateY(-120%);
+    transition: transform .32s var(--ease),
+                visibility 0s linear .32s,
+                opacity .25s linear;
     display: flex; flex-direction: column; gap: 1.1rem;
+    /* Ocultamos también con visibility + opacity + pointer-events para que
+       aunque el transform falle por algún caso raro (aspect ratios cortos,
+       redondeo en algunos navegadores) el menú quede 100% oculto. */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
-  .mobile-menu.open { transform: translateY(0); }
+  .mobile-menu.open {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform .32s var(--ease),
+                visibility 0s linear 0s,
+                opacity .25s linear;
+  }
   .mobile-menu a {
     color: #fff; font-size: 1.1rem; font-weight: 600;
     padding: .7rem 0; border-bottom: 1px solid rgba(255,255,255,.14);

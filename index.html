@@ -138,11 +138,24 @@
   header.site-header.scrolled { box-shadow: 0 4px 18px rgba(0, 40, 90, .18); }
   .header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 0;
+    padding: 14px 0;   /* header un poco más alto */
   }
   .logo-link { display: inline-flex; align-items: center; }
   .logo-link svg,
-  .logo-link .brand-logo { height: 29px; width: auto; display: block; }
+  .logo-link .brand-logo { height: 36px; width: auto; display: block; }   /* logo más grande */
+  /* CTA del header oculto hasta que el usuario hace scroll fuera del hero */
+  header.site-header:not(.scrolled) .btn-header-cta {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity .25s var(--ease), transform .25s var(--ease);
+  }
+  header.site-header.scrolled .btn-header-cta {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity .25s var(--ease), transform .25s var(--ease);
+  }
   .header-actions {
     display: flex; align-items: center; gap: .65rem;
   }
@@ -206,21 +219,22 @@
   }
   .hero {
     position: relative; color: #fff; overflow: hidden;
-    /* Hero a 100% del viewport en altura — capado a 900px en pantallas grandes */
-    min-height: min(100vh, 900px);
-    min-height: min(100svh, 900px); /* mejor en móviles modernos (sin barras del browser) */
+    /* Hero al ~80% del viewport para que el banner promo asome debajo */
+    min-height: min(80vh, 720px);
+    min-height: min(80svh, 720px);
     display: flex; align-items: center;
     padding: 110px 0 50px;
+    /* Foto de fondo + overlay azul oscuro encima */
     background:
-      radial-gradient(circle at 80% 30%, rgba(0, 159, 227, .28), transparent 55%),
-      radial-gradient(circle at 10% 80%, rgba(0, 159, 227, .18), transparent 55%),
-      linear-gradient(160deg, var(--blue-900) 0%, var(--blue-serenidad) 55%, var(--blue-vital) 120%);
+      linear-gradient(180deg, rgba(0,30,70,.78) 0%, rgba(0,42,81,.82) 100%),
+      url('hero-bg.jpg') center / cover no-repeat;
   }
   .hero::before {
     content:''; position: absolute; inset:0;
     background-image:
-      radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
-    background-size: 26px 26px; opacity:.6;
+      radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 26px 26px; opacity:.4;
+    pointer-events: none;
   }
   /* Badge promocional arriba del hero */
   .hero-promo {
@@ -422,6 +436,57 @@
        · Domiciliario→ periwinkle light (Livianos)
        · Oncológico  → rojo bienestar (brand)
      ============================================================ */
+
+  /* Carrusel de NOMBRES (pills) — encima del carrusel de cards */
+  .planes-pills-wrap {
+    position: relative;
+    margin-bottom: .9rem;
+  }
+  .planes-pills {
+    display: flex;
+    gap: .55rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: .2rem .25rem .35rem;
+    margin-inline: -.25rem;
+  }
+  .planes-pills::-webkit-scrollbar { display: none; }
+  .plan-pill {
+    flex-shrink: 0;
+    padding: .55rem 1.1rem;
+    border-radius: 50px;
+    font-size: .9rem; font-weight: 700;
+    background: #fff;
+    color: var(--ink-2);
+    border: 1.5px solid var(--line);
+    transition: all .22s var(--ease);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .plan-pill:hover {
+    border-color: var(--blue-vital);
+    color: var(--blue-serenidad);
+  }
+  .plan-pill.active {
+    background: var(--blue-serenidad);
+    color: #fff;
+    border-color: var(--blue-serenidad);
+    box-shadow: 0 4px 12px rgba(0, 88, 162, .25);
+  }
+  /* En band-blue (Plan ideal usa band-blue, pero Planes usa band-soft — esto es por si acaso) */
+  section.band-blue .plan-pill {
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.9);
+    border-color: rgba(255,255,255,.25);
+  }
+  section.band-blue .plan-pill.active {
+    background: #fff;
+    color: var(--blue-serenidad);
+    border-color: #fff;
+  }
 
   .planes-carousel-wrap {
     position: relative;
@@ -762,32 +827,33 @@
     font-size: .8rem; font-weight: 700; color: var(--blue-serenidad);
     text-transform: uppercase; letter-spacing: .5px; margin-bottom: 1rem;
   }
-  .clinicas-list-items { list-style: none; }
+  /* Listado de clínicas en 2 columnas — los <li> fluyen verticalmente
+     dentro de cada columna gracias a CSS columns */
+  .clinicas-list-items {
+    list-style: none;
+    column-count: 2;
+    column-gap: 2rem;
+  }
   .clinicas-list-items li {
-    display: flex; align-items: center; gap: .7rem;
-    padding: .7rem 0; border-bottom: 1px dashed var(--line);
-    font-size: .95rem; color: var(--ink); font-weight: 500;
-  }
-  .clinicas-list-items li:last-child { border-bottom: none; }
-  .clinicas-list-items li.clinicas-toggle {
-    padding: .8rem 0 .4rem;
-    border-bottom: none;
-    justify-content: center;
-  }
-  .clinicas-list-items li.clinicas-toggle::before { display: none; }
-  .clinicas-list-items li.clinicas-toggle button {
-    background: transparent; border: 1.5px solid var(--blue-serenidad);
-    color: var(--blue-serenidad);
-    padding: .5rem 1.2rem; border-radius: 50px;
-    font-size: .85rem; font-weight: 700; cursor: pointer;
-    transition: background .2s, color .2s;
-  }
-  .clinicas-list-items li.clinicas-toggle button:hover {
-    background: var(--blue-serenidad); color: #fff;
+    display: flex; align-items: flex-start; gap: .65rem;
+    padding: .55rem 0;
+    font-size: .95rem; color: var(--blue-serenidad); font-weight: 600;
+    line-height: 1.35;
+    break-inside: avoid;
   }
   .clinicas-list-items li::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--blue-vital); flex-shrink: 0;
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--blue-vital); flex-shrink: 0; margin-top: .45rem;
+  }
+  /* Ítem final "y muchas más" — sin bullet, en color azul vital y un poco más liviano */
+  .clinicas-list-items li.clinicas-more {
+    color: var(--blue-vital);
+    font-weight: 700;
+    font-style: italic;
+  }
+  .clinicas-list-items li.clinicas-more::before { display: none; }
+  @media (max-width: 540px) {
+    .clinicas-list-items { column-count: 1; }
   }
   @media (max-width: 600px) {
     .clinicas-stats { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
@@ -856,26 +922,26 @@
     box-shadow: 0 4px 12px rgba(0,0,0,.18);
   }
 
+  /* Foto arriba (panorámica) + los 3 boxes apilados abajo */
   .centros-main {
-    display: grid; grid-template-columns: .85fr 1.15fr; gap: 2rem; align-items: start;
+    display: flex; flex-direction: column; gap: 1.2rem;
   }
   .centros-photo {
     position: relative; border-radius: var(--radius-lg); overflow: hidden;
     box-shadow: var(--shadow-md); background: var(--blue-soft);
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 32 / 9;   /* muy horizontal — banner-like */
+    width: 100%;
   }
   @media (max-width: 768px) {
-    .centros-photo { aspect-ratio: 21 / 9; }
+    .centros-photo { aspect-ratio: 21 / 9; }   /* algo más alto en móvil */
   }
   /* ============================================================
      ⬇⬇⬇  TOGGLE FOTOS DE CENTROS MÉDICOS  ⬇⬇⬇
-     Para OCULTAR las fotos: agregar la clase  centros--hide-photos
-     en el  <section id="centros" ...>  (busca el comentario gemelo
-     "TOGGLE FOTOS" en el HTML para verlo claramente).
-     Para MOSTRARLAS: simplemente quitar esa clase.
+     Por defecto la foto se MUESTRA.
+     Para OCULTARLA: agregar la clase  centros--hide-photos
+     en el  <section id="centros" ...>.
      ============================================================ */
   #centros.centros--hide-photos .centros-photo { display: none; }
-  #centros.centros--hide-photos .centros-main { grid-template-columns: 1fr; }
   /* ============================================================
      ⬆⬆⬆  FIN TOGGLE FOTOS  ⬆⬆⬆
      ============================================================ */
@@ -991,19 +1057,19 @@
     -ms-overflow-style: none;
   }
   .dif-grid::-webkit-scrollbar { display: none; }
-  /* Cada slide del carrusel agrupa 2 cards apiladas verticalmente */
+  /* Cada slide del carrusel agrupa 3 cards apiladas verticalmente */
   .dif-slide {
     flex: 0 0 calc((100% - 70px - 1rem) / 2);  /* 2 columnas visibles + peek de la 3a */
     min-width: 260px;
     scroll-snap-align: start;
-    display: flex; flex-direction: column; gap: 1rem;
+    display: flex; flex-direction: column; gap: .55rem;   /* menos espacio entre cards */
     align-self: stretch;
   }
   .dif-card {
     flex: 1 1 auto;
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
     backdrop-filter: blur(6px); border-radius: var(--radius-lg);
-    padding: 1.6rem 1.3rem;
+    padding: 1rem 1.1rem;                                  /* padding más ajustado */
     /* Layout: icono a la izquierda, título y descripción a la derecha */
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1414,7 +1480,7 @@
   /* ============================================================
      COMPACTAR: override de paddings/gaps para reducir espacio en blanco
      ============================================================ */
-  .hero { padding: 96px 0 48px; min-height: min(100vh, 900px); min-height: min(100svh, 900px); }
+  .hero { padding: 96px 0 48px; min-height: min(80vh, 720px); min-height: min(80svh, 720px); }
   .hero h1 { margin-bottom: .8rem; }
   .hero-sub { margin-bottom: 1.3rem; }
   .hero-promo { margin-bottom: 1.2rem; }
@@ -1482,7 +1548,7 @@
     nav.main-nav, .btn-header-cta.desktop-only { display: none; }
     .hamburger { display: block; }
 
-    .hero { padding: 94px 0 44px; min-height: min(100vh, 900px); min-height: min(100svh, 900px); }
+    .hero { padding: 94px 0 44px; min-height: min(80vh, 720px); min-height: min(80svh, 720px); }
     .hero-grid { grid-template-columns: 1fr; gap: 1.4rem; }
     /* Full width: rompe los 4vw del .wrap para llegar a los bordes */
     .hero-stats {
@@ -1531,7 +1597,7 @@
     .planes-carousel { padding: .8rem .5rem 1.2rem; gap: .6rem; }
     section.block { padding: 36px 0; }
     .hero h1 { font-size: 2rem; }
-    .hero { padding: 84px 0 36px; min-height: min(100vh, 900px); min-height: min(100svh, 900px); }
+    .hero { padding: 84px 0 36px; min-height: min(80vh, 720px); min-height: min(80svh, 720px); }
     .cta-final { padding: 40px 0; }
   }
 
@@ -1556,10 +1622,10 @@
     .esp-grid.is-mobile-carousel::-webkit-scrollbar,
     .test-grid::-webkit-scrollbar { display: none; }
 
-    /* Diferenciales — carrusel horizontal: 1 slide visible + peek (2 cards apiladas por slide) */
+    /* Diferenciales — carrusel horizontal: 1 slide visible + peek (3 cards apiladas por slide) */
     .dif-grid {
       display: flex;
-      gap: .7rem;
+      gap: .55rem;
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
@@ -1574,20 +1640,20 @@
       max-width: 360px;
       min-width: 250px;
       scroll-snap-align: center;
-      display: flex; flex-direction: column; gap: .7rem;
+      display: flex; flex-direction: column; gap: .5rem;   /* menos espacio entre cards */
     }
     .dif-slide--allies { /* slide de aliados se comporta igual */ }
     .dif-card {
       flex: 1 1 auto;
       min-width: 0;
       max-width: none;
-      padding: 1.3rem 1.1rem;
+      padding: .85rem .95rem;                              /* padding más ajustado */
     }
-    .dif-card .dif-icon { margin-bottom: .7rem; }
-    .dif-card .dif-title { font-size: 1.05rem; line-height: 1.25; }
-    .dif-card .dif-desc { font-size: .88rem; line-height: 1.5; }
-    .dif-card--allies { padding: 1.4rem 1.2rem; }
-    .dif-card--allies .dif-title { font-size: 1.05rem; }
+    .dif-card .dif-icon { margin-bottom: 0; }
+    .dif-card .dif-title { font-size: .96rem; line-height: 1.2; }
+    .dif-card .dif-desc { font-size: .8rem; line-height: 1.35; }
+    .dif-card--allies { padding: 1.1rem 1rem; }
+    .dif-card--allies .dif-title { font-size: 1rem; }
 
     /* Experiencias — una card por vista + peek */
     .test-card {
@@ -2282,12 +2348,6 @@
 <section class="hero">
   <div class="wrap hero-wrap">
 
-    <!-- Badge promocional superior -->
-    <a href="#planes" class="hero-promo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg>
-      <span>Pago anual y <strong>6 cuotas gratis</strong> del plan Odontológico Básico Integral</span>
-    </a>
-
     <div class="hero-grid">
       <div class="hero-copy">
         <h1>En Colmédica te <em>queremos bien</em></h1>
@@ -2391,6 +2451,11 @@
         </div>
 
         <div class="col-body">
+
+    <!-- Carrusel de NOMBRES de planes (pills) — sincronizado con las cards -->
+    <div class="planes-pills-wrap">
+      <div class="planes-pills" id="planesPills" role="tablist" aria-label="Selecciona un plan"></div>
+    </div>
 
     <div class="planes-carousel-wrap">
       <button class="carousel-arrow prev" id="planPrev" aria-label="Plan anterior">
@@ -2747,7 +2812,7 @@
      (las reglas CSS están bajo el mismo comentario "TOGGLE FOTOS"
       en la hoja de estilos, busca: "TOGGLE FOTOS DE CENTROS")
      ============================================================ -->
-<section class="block band-blue centros--hide-photos" id="centros">
+<section class="block band-blue" id="centros">
   <div class="wrap"><div class="col-aside">
           <div class="section-header">
       <span class="section-tag"><span class="section-tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>Red Propia</span>
@@ -2862,7 +2927,7 @@
 
     <div class="mcarousel-wrap">
     <div class="dif-grid" id="difGrid" data-mcarousel>
-      <!-- Slide 1 -->
+      <!-- Slide 1: 3 cards apiladas -->
       <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
@@ -2874,22 +2939,19 @@
           <h3 class="dif-title">Sin cuota de inscripción</h3>
           <p class="dif-desc">Afíliate sin pagos adicionales. Tu bienestar es la prioridad.</p>
         </div>
-      </div>
-      <!-- Slide 2 -->
-      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
           <h3 class="dif-title">Sin examen médico</h3>
           <p class="dif-desc">Ingresa a cualquier plan sin exámenes previos de admisión.</p>
         </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
           <h3 class="dif-title">Domiciliaria 24/7</h3>
           <p class="dif-desc">Atención médica en casa las 24 horas, los 7 días.</p>
         </div>
-      </div>
-      <!-- Slide 3 -->
-      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2C20 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <h3 class="dif-title">Cobertura nacional</h3>
@@ -2901,7 +2963,7 @@
           <p class="dif-desc">Acceso directo sin pasar por médico general.</p>
         </div>
       </div>
-      <!-- Slide 4 -->
+      <!-- Slide 3 -->
       <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
@@ -2913,22 +2975,19 @@
           <h3 class="dif-title">Salud mental</h3>
           <p class="dif-desc">Acompañamiento psicológico ilimitado SOM.</p>
         </div>
-      </div>
-      <!-- Slide 5 -->
-      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
           <h3 class="dif-title">Odontología preventiva</h3>
           <p class="dif-desc">Incluida en planes seleccionados, con urgencias 24/7.</p>
         </div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></div>
           <h3 class="dif-title">Citas prioritarias</h3>
           <p class="dif-desc">Tiempos de espera reducidos con tecnología de agendamiento.</p>
         </div>
-      </div>
-      <!-- Slide 6 -->
-      <div class="dif-slide">
         <div class="dif-card">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v12"/><path d="M9 12h6M9 16h6"/></svg></div>
           <h3 class="dif-title">+30 años de experiencia</h3>
@@ -2941,7 +3000,7 @@
         </div>
       </div>
 
-      <!-- Slide 7: Card especial de aliados (cierra el carrusel) -->
+      <!-- Slide 5: Card especial de aliados (cierra el carrusel) -->
       <div class="dif-slide dif-slide--allies">
         <div class="dif-card dif-card--allies">
           <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -3328,28 +3387,22 @@
     bucaramanga: 'Bucaramanga', cartagena: 'Cartagena', chia: 'Chía', ibague: 'Ibagué',
     manizales: 'Manizales', neiva: 'Neiva', pereira: 'Pereira', villavicencio: 'Villavicencio',
   };
-  const CLINICAS_LIMIT = 5;
-  function renderClinicas(city, expanded) {
+  const CLINICAS_LIMIT = 9; // máximo de clínicas que mostramos antes del "y muchas más"
+  function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
     const title = document.getElementById('clinicasCityTitle');
     if (!list || !title) return;
     title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
 
-    const showAll = !!expanded;
-    const visible = showAll ? items : items.slice(0, CLINICAS_LIMIT);
+    const visible = items.slice(0, CLINICAS_LIMIT);
     let html = visible.map(c => `<li>${c}</li>`).join('');
 
-    // Toggle "Ver más / Ver menos"
+    // Si hay más clínicas que el límite, añadimos un ítem final "y muchas más"
     if (items.length > CLINICAS_LIMIT) {
-      const remaining = items.length - CLINICAS_LIMIT;
-      const label = showAll ? 'Ver menos' : `Ver ${remaining} clínica${remaining === 1 ? '' : 's'} más`;
-      html += `<li class="clinicas-toggle"><button type="button" id="clinicasToggleBtn">${label}</button></li>`;
+      html += `<li class="clinicas-more">y muchas más</li>`;
     }
     list.innerHTML = html;
-
-    const btn = document.getElementById('clinicasToggleBtn');
-    if (btn) btn.addEventListener('click', () => renderClinicas(city, !showAll));
   }
   const clinicasTabs = document.getElementById('clinicasTabs');
   const clinicasTabsDots = document.getElementById('clinicasTabsDots');
@@ -3581,15 +3634,31 @@
   })();
   renderCentros('bogota');
 
-  // ===== Carrusel de planes (3 visibles + peek)
+  // ===== Carrusel de planes (3 visibles + peek)  + pills de nombres sincronizadas
   (function() {
     const track = document.getElementById('planesCarousel');
     const wrap  = track.parentElement;
     const cards = Array.from(track.querySelectorAll('.plan-card'));
-    const dotsBox = document.getElementById('planDots');
-    const prevBtn = document.getElementById('planPrev');
-    const nextBtn = document.getElementById('planNext');
+    const dotsBox  = document.getElementById('planDots');
+    const pillsBox = document.getElementById('planesPills');
+    const prevBtn  = document.getElementById('planPrev');
+    const nextBtn  = document.getElementById('planNext');
 
+    // Nombres cortos para las pills (sin el prefijo "Planes" en las 3 gamas
+    // principales para que las pills queden compactas)
+    const SHORT_NAMES = {
+      diamante:      'Diamante',
+      zafiro:        'Zafiro',
+      rubi:          'Rubí',
+      hospitalarios: 'Hospitalarios',
+      caobo:         'Caobo',
+      ambar:         'Ámbar Vital',
+      esmeralda:     'Esmeralda',
+      domiciliario:  'Domiciliario',
+      oncologico:    'Oncológico',
+    };
+
+    // Dots
     cards.forEach((_, i) => {
       const d = document.createElement('button');
       d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -3598,6 +3667,21 @@
       dotsBox.appendChild(d);
     });
     const dots = Array.from(dotsBox.children);
+
+    // Pills (un botón por card, usando data-gama del card)
+    cards.forEach((c, i) => {
+      const gama = c.dataset.gama || '';
+      const label = SHORT_NAMES[gama] || (c.querySelector('.plan-gama')?.textContent || ('Plan ' + (i + 1)));
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'plan-pill' + (i === 0 ? ' active' : '');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Ver ' + label);
+      b.textContent = label;
+      b.addEventListener('click', () => scrollToCard(i));
+      pillsBox.appendChild(b);
+    });
+    const pills = Array.from(pillsBox.children);
 
     function scrollToCard(i) {
       const card = cards[i];
@@ -3618,9 +3702,25 @@
       return best;
     }
 
+    function scrollPillIntoView(idx) {
+      const pill = pills[idx];
+      if (!pill) return;
+      // Asegurarnos de que la pill activa quede visible dentro del scroll del pills-wrap
+      const pillRect = pill.getBoundingClientRect();
+      const boxRect  = pillsBox.getBoundingClientRect();
+      if (pillRect.left < boxRect.left || pillRect.right > boxRect.right) {
+        pillsBox.scrollTo({
+          left: pill.offsetLeft - pillsBox.clientWidth / 2 + pill.offsetWidth / 2,
+          behavior: 'smooth'
+        });
+      }
+    }
+
     function update() {
       const active = getActiveIndex();
       dots.forEach((d, i) => d.classList.toggle('active', i === active));
+      pills.forEach((p, i) => p.classList.toggle('active', i === active));
+      scrollPillIntoView(active);
 
       // Detectar si ya está al final (para ocultar fade derecho)
       const maxScroll = track.scrollWidth - track.clientWidth;

@@ -1035,21 +1035,26 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: .25rem;
+    /* Forzar al usuario a quedarse en una slide a la vez (no a medias) */
   }
   .esp-grid.is-desktop-carousel::-webkit-scrollbar { display: none; }
   .esp-grid.is-desktop-carousel .esp-slide {
     flex: 0 0 100%;
     min-width: 0;
     scroll-snap-align: start;
+    scroll-snap-stop: always;   /* la scroll no salta varias slides ni se queda a la mitad */
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, auto);
     gap: .7rem;
+    overflow: hidden;           /* evita que items con texto largo se dibujen fuera del slide */
   }
   .esp-item {
     background: #fff; border: 1px solid var(--line); border-radius: 10px;
     padding: .85rem 1rem; font-size: .92rem; font-weight: 600; color: var(--ink);
     display: flex; align-items: center; gap: .55rem;
+    min-width: 0;               /* el item respeta su celda del grid */
+    overflow: hidden;
     /* Solo informativo: sin hover de botón */
   }
   .esp-item::before {

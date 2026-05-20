@@ -954,11 +954,11 @@
   .centros-photo {
     position: relative; border-radius: var(--radius-lg); overflow: hidden;
     box-shadow: var(--shadow-md); background: var(--blue-soft);
-    aspect-ratio: 32 / 9;   /* muy horizontal — banner-like */
+    aspect-ratio: 16 / 10;   /* en col-aside (más estrecho) — relación cómoda */
     width: 100%;
   }
   @media (max-width: 768px) {
-    .centros-photo { aspect-ratio: 21 / 9; }   /* algo más alto en móvil */
+    .centros-photo { aspect-ratio: 21 / 9; }   /* más horizontal en móvil */
   }
   /* ============================================================
      ⬇⬇⬇  TOGGLE FOTOS DE CENTROS MÉDICOS  ⬇⬇⬇
@@ -2914,6 +2914,19 @@
     <div class="seo-card">
       <p>Centros Médicos, Odontológicos y de Diagnóstico propios. Atención ágil, sin filas y con la mejor tecnología.</p>
     </div>
+
+    <!-- 🟦 INICIO BLOQUE DE FOTO — col-aside, entre la descripción y el botón.
+         Toggle: ver clase centros--hide-photos en <section>. -->
+    <div class="centros-photo" id="centrosPhoto">
+      <img id="centrosImg" src="https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=900&q=80" alt="Bogotá">
+      <div class="centros-photo-overlay">
+        <h3 class="centros-photo-line">
+          <span id="centrosCity">Bogotá</span>: <span id="centrosCount">14</span> Centros Colmédica
+        </h3>
+      </div>
+    </div>
+    <!-- 🟦 FIN BLOQUE DE FOTO -->
+
           <div class="section-cta">
       <a href="https://www.colmedica.com" target="_blank" class="btn-primary">Cotízalo aquí</a>
     </div>
@@ -2944,19 +2957,6 @@
       <div class="centros-boxes" id="centrosBoxes">
         <!-- Injected by JS -->
       </div>
-
-      <!-- 🟦 INICIO BLOQUE DE FOTO — colocado al final para que no compita
-           visualmente con el título / descripción del lado izquierdo.
-           Toggle: ver clase centros--hide-photos en <section>. -->
-      <div class="centros-photo" id="centrosPhoto">
-        <img id="centrosImg" src="https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=900&q=80" alt="Bogotá">
-        <div class="centros-photo-overlay">
-          <h3 class="centros-photo-line">
-            <span id="centrosCity">Bogotá</span>: <span id="centrosCount">14</span> Centros Colmédica
-          </h3>
-        </div>
-      </div>
-      <!-- 🟦 FIN BLOQUE DE FOTO -->
     </div>
 
     <p class="centros-disclaimer">

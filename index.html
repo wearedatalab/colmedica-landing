@@ -2941,7 +2941,13 @@
     <div class="centros-tabs-dots" id="centrosTabsDots" aria-hidden="true"></div>
 
     <div class="centros-main">
-      <!-- 🟦 INICIO BLOQUE DE FOTO (TOGGLE FOTOS — ver clase centros--hide-photos en <section>) -->
+      <div class="centros-boxes" id="centrosBoxes">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- 🟦 INICIO BLOQUE DE FOTO — colocado al final para que no compita
+           visualmente con el título / descripción del lado izquierdo.
+           Toggle: ver clase centros--hide-photos en <section>. -->
       <div class="centros-photo" id="centrosPhoto">
         <img id="centrosImg" src="https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=900&q=80" alt="Bogotá">
         <div class="centros-photo-overlay">
@@ -2951,10 +2957,6 @@
         </div>
       </div>
       <!-- 🟦 FIN BLOQUE DE FOTO -->
-
-      <div class="centros-boxes" id="centrosBoxes">
-        <!-- Injected by JS -->
-      </div>
     </div>
 
     <p class="centros-disclaimer">

@@ -2812,18 +2812,19 @@
         <div class="col-body">
 
     <div class="centros-city-tabs" id="centrosTabs">
-      <button class="centros-tab active" data-city="bogota">Bogotá</button>
-      <button class="centros-tab" data-city="medellin">Medellín</button>
-      <button class="centros-tab" data-city="cali">Cali</button>
       <button class="centros-tab" data-city="barranquilla">Barranquilla</button>
+      <button class="centros-tab active" data-city="bogota">Bogotá</button>
       <button class="centros-tab" data-city="bucaramanga">Bucaramanga</button>
+      <button class="centros-tab" data-city="cali">Cali</button>
       <button class="centros-tab" data-city="cartagena">Cartagena</button>
       <button class="centros-tab" data-city="chia">Chía</button>
       <button class="centros-tab" data-city="ibague">Ibagué</button>
       <button class="centros-tab" data-city="manizales">Manizales</button>
+      <button class="centros-tab" data-city="medellin">Medellín</button>
       <button class="centros-tab" data-city="neiva">Neiva</button>
       <button class="centros-tab" data-city="pereira">Pereira</button>
       <button class="centros-tab" data-city="villavicencio">Villavicencio</button>
+      <button class="centros-tab" data-city="yopal">Yopal</button>
     </div>
 
     <!-- Dots: indican que hay más ciudades a la derecha -->
@@ -3520,7 +3521,15 @@
   const DEMO_IMG = (seed) =>
     `https://images.unsplash.com/${seed}?w=800&h=500&fit=crop&crop=entropy&q=80&auto=format`;
 
+  // Datos de centros por ciudad — orden alfabético, cantidades igual al sitio original
   const CENTROS = {
+    barranquilla: {
+      nombre: 'Barranquilla', cantidad: 2, desc: 'Atención en la costa atlántica',
+      img: DEMO_IMG('photo-1516549655169-df83a0774514'),
+      medicos: ['Centro Médico Colmédica Barranquilla'],
+      odontologicos: ['Centro Odontológico Colmédica Barranquilla'],
+      diagnostico: []
+    },
     bogota: {
       nombre: 'Bogotá', cantidad: 23,
       desc: 'Red completa: médicos, odontológicos y diagnóstico',
@@ -3529,60 +3538,82 @@
       odontologicos: ['Belaire','Calle 84','Cedritos','Chapinero','Salitre Capital','Torre Colmédica Santa Bárbara'],
       diagnostico: ['Bella Suiza','Calle 84','Torre Colmédica Santa Bárbara']
     },
-    medellin: {
-      nombre: 'Medellín', cantidad: 4, desc: 'Atención integral en el Valle de Aburrá',
-      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
-      medicos: ['El Poblado','Laureles'], odontologicos: ['El Poblado'], diagnostico: ['El Poblado']
-    },
-    cali: {
-      nombre: 'Cali', cantidad: 4, desc: 'Servicios médicos en el Valle del Cauca',
-      img: DEMO_IMG('photo-1504813184591-01572f98c85f'),
-      medicos: ['Chipichape','Santa Mónica'], odontologicos: ['Chipichape'], diagnostico: ['Chipichape']
-    },
-    barranquilla: {
-      nombre: 'Barranquilla', cantidad: 2, desc: 'Atención en la costa atlántica',
-      img: DEMO_IMG('photo-1516549655169-df83a0774514'),
-      medicos: ['Alto Prado'], odontologicos: ['Alto Prado'], diagnostico: []
-    },
     bucaramanga: {
       nombre: 'Bucaramanga', cantidad: 2, desc: 'Servicios en Santander',
       img: DEMO_IMG('photo-1587351021355-a479a299d2f9'),
-      medicos: ['Cabecera del Llano'], odontologicos: ['Cabecera'], diagnostico: []
+      medicos: ['Centro Médico Colmédica Bucaramanga'],
+      odontologicos: ['Centro Odontológico Colmédica Bucaramanga'],
+      diagnostico: []
+    },
+    cali: {
+      nombre: 'Cali', cantidad: 3, desc: 'Servicios médicos en el Valle del Cauca',
+      img: DEMO_IMG('photo-1504813184591-01572f98c85f'),
+      medicos: ['Centro Médico Colmédica Cali Norte','Centro Médico Colmédica Cali Sur'],
+      odontologicos: ['Centro Odontológico Colmédica Cali'],
+      diagnostico: []
     },
     cartagena: {
       nombre: 'Cartagena', cantidad: 2, desc: 'Atención en la ciudad heroica',
       img: DEMO_IMG('photo-1586773860418-d37222d8fce3'),
-      medicos: ['Bocagrande'], odontologicos: ['Bocagrande'], diagnostico: []
+      medicos: ['Centro Médico Colmédica Cartagena'],
+      odontologicos: ['Centro Odontológico Colmédica Cartagena'],
+      diagnostico: []
     },
     chia: {
-      nombre: 'Chía', cantidad: 1, desc: 'Centro médico en Cundinamarca',
+      nombre: 'Chía', cantidad: 2, desc: 'Centro médico en Cundinamarca',
       img: DEMO_IMG('photo-1579684385127-1ef15d508118'),
-      medicos: ['Chía Centro'], odontologicos: [], diagnostico: []
+      medicos: ['Centro Médico Colmédica Chía'],
+      odontologicos: ['Centro Odontológico Colmédica Chía'],
+      diagnostico: []
     },
     ibague: {
       nombre: 'Ibagué', cantidad: 1, desc: 'Capital musical con atención Colmédica',
       img: DEMO_IMG('photo-1551076805-e1869033e561'),
-      medicos: ['Ibagué Centro'], odontologicos: [], diagnostico: []
+      medicos: ['Centro Médico Colmédica Ibagué'],
+      odontologicos: [],
+      diagnostico: []
     },
     manizales: {
       nombre: 'Manizales', cantidad: 1, desc: 'Atención en el eje cafetero',
       img: DEMO_IMG('photo-1504439468489-c8920d796a29'),
-      medicos: ['Manizales Centro'], odontologicos: [], diagnostico: []
+      medicos: ['Centro Médico Colmédica Manizales'],
+      odontologicos: [],
+      diagnostico: []
+    },
+    medellin: {
+      nombre: 'Medellín', cantidad: 3, desc: 'Atención integral en el Valle de Aburrá',
+      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
+      medicos: ['Centro Médico Colmédica El Poblado','Centro Médico Colmédica Laureles'],
+      odontologicos: ['Centro Odontológico Colmédica Medellín'],
+      diagnostico: []
     },
     neiva: {
       nombre: 'Neiva', cantidad: 1, desc: 'Servicios en el Huila',
-      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
-      medicos: ['Neiva Centro'], odontologicos: [], diagnostico: []
+      img: DEMO_IMG('photo-1542884748-2b87b36c6b90'),
+      medicos: ['Centro Médico Colmédica Neiva'],
+      odontologicos: [],
+      diagnostico: []
     },
     pereira: {
       nombre: 'Pereira', cantidad: 1, desc: 'Atención en el eje cafetero',
       img: DEMO_IMG('photo-1519494080410-f9aa76cb4283'),
-      medicos: ['Pereira Centro'], odontologicos: [], diagnostico: []
+      medicos: ['Centro Médico Colmédica Pereira'],
+      odontologicos: [],
+      diagnostico: []
     },
     villavicencio: {
-      nombre: 'Villavicencio', cantidad: 1, desc: 'Servicios médicos en los Llanos',
+      nombre: 'Villavicencio', cantidad: 2, desc: 'Servicios médicos en los Llanos',
       img: DEMO_IMG('photo-1504439904031-93ded9f93e4e'),
-      medicos: ['Villavicencio Centro'], odontologicos: [], diagnostico: []
+      medicos: ['Centro Médico Colmédica Villavicencio'],
+      odontologicos: ['Centro Odontológico Colmédica Villavicencio'],
+      diagnostico: []
+    },
+    yopal: {
+      nombre: 'Yopal', cantidad: 1, desc: 'Centro médico en Casanare',
+      img: DEMO_IMG('photo-1551836022-d5d88e9218df'),
+      medicos: ['Centro Médico Colmédica Yopal'],
+      odontologicos: [],
+      diagnostico: []
     }
   };
 

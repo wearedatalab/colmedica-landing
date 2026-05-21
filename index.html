@@ -1088,7 +1088,9 @@
     padding: .85rem 1rem; font-size: .92rem; font-weight: 600; color: var(--ink);
     display: flex; align-items: center; gap: .55rem;
     min-width: 0;               /* el item respeta su celda del grid */
-    overflow: hidden;
+    /* Palabras largas (Otorrinolaringología, etc.) pueden cortarse a otra línea */
+    overflow-wrap: anywhere;
+    word-break: break-word;
     /* Solo informativo: sin hover de botón */
   }
   .esp-item::before {

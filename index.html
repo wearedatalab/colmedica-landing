@@ -1517,13 +1517,6 @@
     font-size: .86rem; line-height: 1.35; color: var(--ink-2);
   }
   .modal-body ul li svg { width: 16px; height: 16px; color: var(--blue-vital); flex-shrink: 0; margin-top: 2px; }
-  .modal-centros-box {
-    background: var(--blue-soft); border-radius: var(--radius);
-    padding: .65rem .9rem; margin-top: .8rem;
-    display: flex; gap: .55rem; align-items: flex-start;
-    font-size: .8rem; line-height: 1.4; color: var(--ink-2);
-  }
-  .modal-centros-box svg { width: 18px; height: 18px; color: var(--blue-serenidad); flex-shrink: 0; margin-top: 1px; }
 
   /* Footer sticky con CTA siempre visible */
   .modal-footer {
@@ -3429,10 +3422,6 @@
     <div class="modal-body">
       <div class="modal-section-title">¿Qué incluye?</div>
       <ul id="modalFeatures"></ul>
-      <div class="modal-centros-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        <span id="modalCentros"></span>
-      </div>
     </div>
     <div class="modal-footer">
       <a href="https://www.colmedica.com" target="_blank" class="btn-primary">
@@ -4014,7 +4003,6 @@
     diamante: {
       gama: 'Planes Diamante', tagline: 'Cobertura premium nacional e internacional',
       price: '428.782',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Red hospitalaria VIP',
         'Hospitalización en habitación tipo suite',
@@ -4035,7 +4023,6 @@
     zafiro: {
       gama: 'Planes Zafiro', tagline: 'El equilibrio perfecto entre cobertura y precio',
       price: '301.786',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Red hospitalaria VIP',
         'Hospitalización en habitación tipo suite',
@@ -4056,7 +4043,6 @@
     rubi: {
       gama: 'Planes Rubí', tagline: 'Protección esencial a un costo accesible',
       price: '257.664',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Red hospitalaria preferente',
         'Hospitalización en habitación individual',
@@ -4076,7 +4062,6 @@
     esmeralda: {
       gama: 'Esmeralda Ambulatorio', tagline: 'Este plan ofrece todas las ventajas de la medicina prepagada, enfocado en servicios ambulatorios.',
       price: '62.432',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Acceso directo a más de 100 especialidades',
         'Odontología preventiva'
@@ -4085,7 +4070,6 @@
     domiciliario: {
       gama: 'Domiciliario Superior', tagline: 'Consultas médicas en casa, y acceso a algunas de las principales y más solicitadas especialidades.',
       price: '51.255',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Acceso ilimitado a consulta domiciliaria médica general',
         'Acceso a 13 especialidades, además de psicología, de manera presenciales o a través de videollamada'
@@ -4094,7 +4078,6 @@
     oncologico: {
       gama: 'Oncológico vida Plus', tagline: 'Anticípate ante un diagnóstico de cáncer con atención especializada.',
       price: '46.989',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Servicios ambulatorios y hospitalarios en caso de diagnóstico de cáncer',
         'Valoración preventiva oncológica'
@@ -4103,7 +4086,6 @@
     hospitalarios: {
       gama: 'Hospitalarios', tagline: 'Cobertura para urgencias, hospitalización y cirugía',
       price: '53.122',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Atención de urgencias que deriven en hospitalización o cirugía',
         'Consultas médicas pre y post - hospitalarias'
@@ -4112,7 +4094,6 @@
     caobo: {
       gama: 'Caobo Integral', tagline: 'Cobertura integral con maternidad y enfermedades de alto costo',
       price: '129.687',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Acceso directo a 8 especialidades, además de psicología y medicina general',
         'Cobertura de maternidad y enfermedades de alto costo'
@@ -4121,7 +4102,6 @@
     ambar: {
       gama: 'Ámbar Vital', tagline: 'Acceso directo a médicos VIP en las principales ciudades',
       price: '154.219',
-      centros: 'Acceso a los 33 Centros Médicos + Centro Exclusivo en Bogotá',
       features: [
         'Acceso directo a médicos e instituciones en el país',
         'Atención en clínicas VIP en Bogotá, Cali, Medellín y Barranquilla'
@@ -4136,7 +4116,6 @@
     document.getElementById('modalGama').textContent = p.gama;
     document.getElementById('modalTagline').textContent = p.tagline;
     document.getElementById('modalPriceValue').textContent = p.price || '';
-    document.getElementById('modalCentros').textContent = p.centros;
     document.getElementById('modalFeatures').innerHTML = p.features.map(f =>
       `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${f}</li>`
     ).join('');

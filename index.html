@@ -639,6 +639,23 @@
     color: rgba(255, 255, 255, .78);
     margin-left: .25rem;
   }
+  /* Superíndice (1)-(9) en los precios, link a T&C */
+  .plan-price-ref {
+    font-size: .68rem;
+    margin-left: .15rem;
+    vertical-align: super;
+    line-height: 1;
+  }
+  .plan-price-ref a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255,255,255,.45);
+    transition: border-color .2s, color .2s;
+  }
+  .plan-price-ref a:hover {
+    color: #8ed8ff;
+    border-bottom-color: #8ed8ff;
+  }
   .plan-features {
     list-style: none; display: flex; flex-direction: column;
     gap: .65rem; margin-bottom: 1.4rem;
@@ -2569,16 +2586,16 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">428.782</span>
+            <span class="plan-price-value">428.782</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(1)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Asistencia en viajes en el exterior</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para copagos y cuotas moderadoras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio diario por hospitalización</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para libre elección de prestador</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para copagos y cuotas moderadoras*</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio diario por hospitalización*</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios*</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para que elijas libremente dónde y con quién atenderte aunque no haga parte de nuestra guía médica**</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('diamante')">Ver plan completo</button>
@@ -2594,16 +2611,16 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">301.786</span>
+            <span class="plan-price-value">301.786</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(2)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Centro Médico Colmédica Exclusivo en Bogotá</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Asistencia en viajes en el exterior</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para copagos y cuotas moderadoras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio diario por hospitalización</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para copagos y cuotas moderadoras*</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio diario por hospitalización*</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios*</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('zafiro')">Ver plan completo</button>
@@ -2619,16 +2636,16 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">257.664</span>
+            <span class="plan-price-value">257.664</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(3)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
         <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Servicio de orientación médica 24/7</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+100 especialidades de acceso directo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>+4.400 profesionales adscritos</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Medicamentos ambulatorios pre y post-hospitalarios</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>32 Centros Médicos, de Diagnóstico y Odontológicos propios</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Asistencia en viajes en el exterior</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reembolso para copagos y cuotas moderadoras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios</li>
         </ul>
         <div class="plan-actions">
           <button class="btn-plan-detail" onclick="openPlan('rubi')">Ver plan completo</button>
@@ -2644,7 +2661,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">53.122</span>
+            <span class="plan-price-value">53.122</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(4)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2666,7 +2683,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">129.687</span>
+            <span class="plan-price-value">129.687</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(5)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2688,7 +2705,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">154.219</span>
+            <span class="plan-price-value">154.219</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(6)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2711,7 +2728,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">62.432</span>
+            <span class="plan-price-value">62.432</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(8)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2733,7 +2750,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">51.255</span>
+            <span class="plan-price-value">51.255</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(7)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2755,7 +2772,7 @@
           <span class="plan-price-from">Desde</span>
           <div class="plan-price-amount">
             <span class="plan-price-currency">$</span>
-            <span class="plan-price-value">46.989</span>
+            <span class="plan-price-value">46.989</span><sup class="plan-price-ref"><a href="#planes-terms" data-open-terms>(9)</a></sup>
             <span class="plan-price-period">/mes</span>
           </div>
         </div>
@@ -2777,14 +2794,18 @@
     </div><!-- /.planes-carousel-wrap -->
 
     <!-- Términos y condiciones (toggle) -->
-    <details class="terms-toggle">
+    <details class="terms-toggle" id="planes-terms">
       <summary>Ver términos y condiciones</summary>
       <div class="terms-content">
         <ol class="terms-list">
           <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Diamante Élite</strong>. Venta a nivel nacional. Aplican condiciones.</li>
-          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Zafiro Exclusivo</strong>. Venta para personas con residencia en Bogotá y Chía. Aplican condiciones.</li>
-          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Rubí Integral</strong>. Venta para personas con residencia en Bogotá y Chía. Aplican condiciones.</li>
-          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Hospitalario Vital</strong>. Venta a nivel nacional. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Zafiro Exclusivo</strong>. Venta para personas con residencia en Bogotá o Chía. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Rubí Integral</strong>. Venta para personas con residencia en Bogotá o Chía. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Hospitalario Rubí</strong> para la alternativa que tiene un límite máximo total anual de cobertura de 50 SMLMV. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Caobo Integral</strong>. Venta para personas con residencia en Bogotá o Chía. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 5 a 14 años en contrato familiar, plan <strong>Ámbar Vital</strong>. Venta para personas con residencia a nivel nacional excluyendo Bogotá y municipios aledaños a Bogotá. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, plan <strong>Domiciliario Superior</strong>. Aplica para contratos nuevos familiares e individuales. No aplica para inclusiones a contratos ya existentes. Venta a nivel nacional. Aplican condiciones.</li>
+          <li>Tarifa mensual 2026 IVA incluido, para una persona de 3 a 17 años en contrato familiar, plan <strong>Esmeralda Ambulatorio</strong>. Venta a nivel nacional. Aplican condiciones.</li>
           <li>Tarifa mensual 2026 IVA incluido, para una persona de 15 a 18 años en contrato familiar, plan <strong>Oncológico Vida Plus</strong>. Venta a nivel nacional. Aplican condiciones.</li>
         </ol>
 
@@ -4014,10 +4035,10 @@
         '33 Centros Médicos, de Diagnóstico y Odontológicos propios',
         'Centro Médico Colmédica Exclusivo en Bogotá',
         'Asistencia en viajes en el exterior',
-        'Reembolso para copagos y cuotas moderadoras',
-        'Auxilio diario por hospitalización',
-        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios',
-        'Reembolso para que elijas libremente dónde y con quién atenderte aunque no haga parte de nuestra guía médica'
+        'Reembolso para copagos y cuotas moderadoras*',
+        'Auxilio diario por hospitalización*',
+        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios*',
+        'Reembolso para que elijas libremente dónde y con quién atenderte aunque no haga parte de nuestra guía médica**'
       ]
     },
     zafiro: {
@@ -4034,10 +4055,9 @@
         '33 Centros Médicos, de Diagnóstico y Odontológicos propios',
         'Centro Médico Colmédica Exclusivo en Bogotá',
         'Asistencia en viajes en el exterior',
-        'Reembolso para copagos y cuotas moderadoras',
-        'Auxilio diario por hospitalización',
-        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios',
-        'Reembolso para libre elección de prestador'
+        'Reembolso para copagos y cuotas moderadoras*',
+        'Auxilio diario por hospitalización*',
+        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios*'
       ]
     },
     rubi: {
@@ -4051,12 +4071,7 @@
         '+100 especialidades de acceso directo',
         '+4.400 profesionales adscritos',
         'Medicamentos ambulatorios pre y post-hospitalarios',
-        '32 Centros Médicos, de Diagnóstico y Odontológicos propios',
-        'Centro Médico Colmédica Exclusivo en Bogotá',
-        'Asistencia en viajes en el exterior',
-        'Reembolso para copagos y cuotas moderadoras',
-        'Auxilio diario por hospitalización',
-        'Auxilio para nueva tecnología en servicios ambulatorios y hospitalarios'
+        '32 Centros Médicos, de Diagnóstico y Odontológicos propios'
       ]
     },
     esmeralda: {
@@ -4665,6 +4680,17 @@
       try { video.currentTime = 0; } catch(_) {}
     };
   }
+  // ===== Abrir T&C de planes al hacer click en cualquier superíndice de precio
+  (function(){
+    document.querySelectorAll('[data-open-terms]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.getElementById('planes-terms');
+        if (target) target.open = true;
+      });
+    });
+  })();
+
+
 </script>
 
 </body>

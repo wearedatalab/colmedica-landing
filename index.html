@@ -3482,7 +3482,7 @@
   }
 
   // ===== Clínicas por ciudad
-  // Listado de clínicas — ciudades y clínicas en orden alfabético
+  // Listado de clínicas — orden tal cual aparece en el sitio oficial
   const CLINICAS = {
     armenia: [
       'Clínica Central del Quindio',
@@ -3497,24 +3497,24 @@
       'Unidad Clínica San Nicolas'
     ],
     barranquilla: [
-      'Clínica Atenas',
+      'Clínica Portoazul',
       'Clínica del Caribe',
       'Clínica General del Norte',
-      'Clínica la Asunción',
-      'Clínica Portoazul'
+      'Clínica Atenas',
+      'Clínica la Asunción'
     ],
     bogota: [
-      'Clínica de La Mujer',
-      'Clínica de Marly',
       'Clínica del Country',
-      'Clínica del Occidente',
       'Clínica La Colina',
-      'Clínica la Sabana',
-      'Clínica los Nogales',
-      'Clínica Palermo',
+      'Fundación Santa Fé de Bogotá',
       'Fundación Abood Shaio (Clínica Shaio)',
       'Fundación Cardioinfantil',
-      'Fundación Santa Fé de Bogotá'
+      'Clínica de La Mujer',
+      'Clínica de Marly',
+      'Clínica del Occidente',
+      'Clínica los Nogales',
+      'Clínica Palermo',
+      'Clínica la Sabana'
     ],
     bucaramanga: [
       'FOSCAL',
@@ -3522,27 +3522,27 @@
       'Fundación Cardiovascular de Colombia'
     ],
     cali: [
+      'Fundación Valle del Lili',
       'Centro Médico Imbanaco de Cali',
-      'Clínica Basilia',
-      'Clínica de Occidente',
       'Clínica Farallones',
-      'Clínica los Andes',
-      'Clínica Med',
       'Clínica Versalles',
-      'Fundación Valle del Lili'
+      'Clínica de Occidente',
+      'Clínica Basilia',
+      'Clínica los Andes',
+      'Clínica Med'
     ],
     cartagena: [
       'Centro Hospitalario Serena del Mar',
+      'Clínica Medihelp Service',
       'Clínica Blas de Lezo',
       'Clínica la Misericordia',
       'Clínica Madre Bernarda',
-      'Clínica Medihelp Service',
       'Nuevo Hospital Bocagrande'
     ],
     chia: [
-      'Clínica Chía',
       'Clínica de Marly Jorge Cavelier Gaviría',
-      'Clínica Universidad de la Sabana'
+      'Clínica Universidad de la Sabana',
+      'Clínica Chía'
     ],
     cucuta: [
       'Clínica Norte',
@@ -3551,31 +3551,31 @@
       'Profamilia'
     ],
     ibague: [
-      'Clinaltec - Clínica Internacional de Alta Tecnología',
+      'Clínica Avidanti Ibagué',
       'Clínica Asotrauma',
-      'Clínica Avidanti Ibagué'
+      'Clinaltec - Clínica Internacional de Alta Tecnología'
     ],
     manizales: [
-      'Clínica de la Presentación',
       'Clínica de la Santillana',
+      'Clínica de la Presentación',
       'Hospital Universitario de Caldas'
     ],
     medellin: [
-      'Clinica Las Vegas',
-      'Clínica Cardio Vid',
+      'Hospital Pablo Tobón Uribe',
       'Clínica de Las Américas',
+      'Clínica el Rosario',
+      'Clínica Medellín',
+      'Clínica Cardio Vid',
       'Clínica del Campestre',
       'Clínica del Prado',
-      'Clínica el Rosario',
-      'Clínica Llanogrande',
-      'Clínica Medellín',
-      'Hospital Pablo Tobón Uribe',
-      'Hospital San Vicente Fundación'
+      'Clinica Las Vegas',
+      'Hospital San Vicente Fundación',
+      'Clínica Llanogrande'
     ],
     monteria: [
+      'Clínica Montería',
       'Clínica Central O.H.L.',
       'Clínica Materno Infantil Casa del Niño',
-      'Clínica Montería',
       'Clínica Zayma'
     ],
     neiva: [
@@ -3585,32 +3585,32 @@
     pasto: [
       'Clínica Aurora',
       'Clínica Nuestra Señora de Fátima',
-      'Compañía Operadora Clínica Hispanoamérica',
-      'Fundación Hospital San Pedro'
+      'Fundación Hospital San Pedro',
+      'Compañía Operadora Clínica Hispanoamérica'
     ],
     pereira: [
       'Clínica Comfamiliar',
       'Clínica los Rosales'
     ],
     santamarta: [
-      'Clínica Avidanti',
-      'Clínica de la Mujer',
       'Clínica el Prado - Sociedad Médica Santa Marta',
       'Clínica la Milagrosa',
       'Clínica Mar Caribe',
+      'Clínica Avidanti',
+      'Clínica de la Mujer',
       'Perfect Body'
     ],
     valledupar: [
-      'Clínica Buenos Aires',
+      'Instituto Cardiovascular del Cesar',
       'Clínica del Cesar',
       'Clínica Valledupar',
-      'Instituto Cardiovascular del Cesar'
+      'Clínica Buenos Aires'
     ],
     villavicencio: [
       'Clínica del Meta',
       'Clínica Emperatriz',
-      'Corporación Clínica Universidad Cooperativa de Colombia',
-      'Hospital Departamental de Villavicencio'
+      'Hospital Departamental de Villavicencio',
+      'Corporación Clínica Universidad Cooperativa de Colombia'
     ],
     yopal: [
       'Clínica Casanare',
@@ -3678,18 +3678,131 @@
 
   // ===== Especialidades (complete list, no emojis)
   const ESPECIALIDADES = [
-    'Cardiología','Dermatología','Endocrinología','Gastroenterología','Geriatría',
-    'Ginecología','Hematología','Infectología','Medicina Interna','Nefrología',
-    'Neumología','Neurología','Neurocirugía','Oftalmología','Oncología',
-    'Ortopedia','Otorrinolaringología','Pediatría','Psiquiatría','Reumatología',
-    'Urología','Cirugía General','Cirugía Cardiovascular','Cirugía Plástica','Cirugía Pediátrica',
-    'Cirugía Vascular','Cirugía Maxilofacial','Anestesiología','Medicina Familiar','Medicina del Deporte',
-    'Medicina Laboral','Medicina del Dolor','Medicina Física y Rehabilitación','Radiología','Radioterapia',
-    'Patología','Psicología','Nutrición y Dietética','Odontología General','Ortodoncia',
-    'Periodoncia','Endodoncia','Rehabilitación Oral','Odontopediatría','Fisioterapia',
-    'Fonoaudiología','Terapia Ocupacional','Optometría','Alergología','Cardiología Pediátrica',
-    'Hepatología','Mastología','Inmunología','Cuidados Paliativos','Medicina Crítica',
-    'Cirugía de Tórax','Ginecología Oncológica','Urología Oncológica','Neurología Pediátrica','Pediatría Especializada'
+    'Acupuntura',
+    'Alergología',
+    'Alergología Pediátrica',
+    'Alto Riesgo Obstétrico',
+    'Cardiología',
+    'Cardiología - Electrofisiología',
+    'Cardiología Pediátrica',
+    'Cirugía Cabeza y Cuello',
+    'Cirugía Cardiovascular',
+    'Cirugía de Colon y Recto (Coloproctología)',
+    'Cirugía de la Mano',
+    'Cirugía de Seno - Mastología',
+    'Cirugía de Seno - Mastología y Tejidos Blandos',
+    'Cirugía de Tórax',
+    'Cirugía Gastrointestinal',
+    'Cirugía General',
+    'Cirugía General - Endoscopia',
+    'Cirugía Hepatobiliar',
+    'Cirugía Maxilofacial',
+    'Cirugía Maxilofacial-Oral',
+    'Cirugía Oncológica',
+    'Cirugía Oncológica Pediátrica',
+    'Cirugía Oncológica Piel y Tejidos Blandos',
+    'Cirugía Pediátrica',
+    'Cirugía Plástica Oncológica',
+    'Cirugía Plástica y Reconstructiva',
+    'Cirugía Vascular Periférica',
+    'Clínica del Dolor',
+    'Consulta Médica Domiciliaria',
+    'Dermatología',
+    'Dermatología Oncológica',
+    'Dermatología Pediátrica',
+    'Endocrinología',
+    'Endocrinología Pediátrica',
+    'Gastroenterología',
+    'Gastroenterología Pediátrica',
+    'Genética',
+    'Geriatría',
+    'Ginecología',
+    'Ginecología Endocrinológica',
+    'Ginecología Oncológica',
+    'Ginecología y Obstetricia',
+    'Ginecología y Obstetricia (Énfasis en Adolescentes)',
+    'Hemato - Oncología Pediátrica',
+    'Hematología',
+    'Hematología Oncológica',
+    'Hematología Pediátrica',
+    'Hepatología',
+    'Homeopatía',
+    'Homeopatía Pediátrica',
+    'Infectología',
+    'Infectología Pediátrica',
+    'Inmunología',
+    'Medicina Alternativa',
+    'Medicina Alternativa Pediátrica',
+    'Medicina Alternativa Pediátrica-Acupuntura',
+    'Medicina Bioenergética',
+    'Medicina de Adolescentes',
+    'Medicina de Aviación',
+    'Medicina del Dolor y Cuidado Paliativo',
+    'Medicina Deportiva',
+    'Medicina Familiar',
+    'Medicina Física y Rehabilitación (Fisiatría)',
+    'Medicina General',
+    'Medicina Interna',
+    'Medicina Nuclear',
+    'Nefrología',
+    'Nefrología Pediátrica',
+    'Neonatología',
+    'Neumología',
+    'Neumología Pediátrica',
+    'Neurocirugía',
+    'Neurocirugía Pediátrica',
+    'Neurología',
+    'Neurología Oncológica',
+    'Neurología Pediátrica',
+    'Neuropsicología',
+    'Nutrición y Dietética',
+    'Oftalmología',
+    'Oftalmología Glaucoma',
+    'Oftalmología Oculoplástica',
+    'Oftalmología Oncológica',
+    'Oftalmología Orbitología',
+    'Oftalmología Pediátrica',
+    'Oftalmología Retina y Vítreo',
+    'Oftalmología Segmento Anterior-Córnea',
+    'Oftalmología Uveología',
+    'Oncología Clínica',
+    'Oncología Pediátrica',
+    'Optometría',
+    'Optometría Pediátrica',
+    'Ortopedia de Cadera',
+    'Ortopedia de Columna',
+    'Ortopedia de Hombro',
+    'Ortopedia de Pie y Cuello de Pie',
+    'Ortopedia de Rodilla',
+    'Ortopedia Oncológica',
+    'Ortopedia y Traumatología',
+    'Ortopedia y Traumatología Pediátrica',
+    'Ortóptica',
+    'Otorrinolaringología',
+    'Otorrinolaringología - Otología',
+    'Otorrinolaringología Pediátrica',
+    'Pediatría',
+    'Psicología',
+    'Psicología Infantil',
+    'Psiquiatría',
+    'Psiquiatría Infantil',
+    'Radioterapia',
+    'Rehabilitación Cardiopulmonar',
+    'Reumatología',
+    'Reumatología Pediátrica',
+    'Terapia de Lenguaje (Fonoaudiología)',
+    'Terapia de Lenguaje Domiciliaria',
+    'Terapia Física Domiciliaria',
+    'Terapia Física y Rehabilitación (Fisioterapia)',
+    'Terapia Ocupacional',
+    'Terapia Ocupacional Domiciliaria',
+    'Terapia Respiratoria',
+    'Terapia Respiratoria Domiciliaria',
+    'Toxicología',
+    'Urología',
+    'Urología Oncológica',
+    'Urología Pediátrica',
+    'Y más'
   ];
   const espGrid = document.getElementById('espGrid');
   const espMQ = window.matchMedia('(max-width: 768px)');

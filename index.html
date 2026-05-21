@@ -1789,6 +1789,23 @@
       width: 100%; max-width: 360px;
       justify-content: center;
     }
+
+    /* ============================================================
+       Override solo para #centros en mobile:
+       - disuelve también col-body y centros-main
+       - reordena para que la foto quede DEBAJO de los tabs de ciudad
+       Orden final: título → desc → tabs → dots → FOTO → boxes → disclaimer → CTA
+       ============================================================ */
+    #centros .col-body     { display: contents; }
+    #centros .centros-main { display: contents; }
+    #centros .col-aside > .section-header { order: 1; }
+    #centros .col-aside > .seo-card        { order: 2; }
+    #centros .centros-city-tabs            { order: 3; }
+    #centros .centros-tabs-dots            { order: 4; }
+    #centros .col-aside > .centros-photo   { order: 5; }
+    #centros .centros-boxes                { order: 6; }
+    #centros .centros-disclaimer           { order: 7; }
+    #centros .col-aside > .section-cta     { order: 8; }
   }
   @media (min-width: 1024px) {
     section.block > .wrap {

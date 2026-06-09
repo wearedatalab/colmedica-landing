@@ -10,14 +10,42 @@
 <meta name="publisher" content="Colmédica Medicina Prepagada" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow" />
-<!-- TODO tras migración: definir el dominio final y añadir:
-     <link rel="canonical" href="https://DOMINIO-FINAL/..." />
-     <meta property="og:url" content="https://DOMINIO-FINAL/..." />
-     y convertir og:image / twitter:image a URL absoluta (algunas redes lo exigen). -->
+<!-- Nota: canonical y og:url se generan automáticamente y son portables (ver script abajo).
+     Opcional tras la migración: convertir og:image / twitter:image a URL ABSOLUTA del dominio
+     final, ya que algunos validadores sociales no resuelven rutas relativas. -->
 <meta name="theme-color" content="#0058A2" />
 <meta name="color-scheme" content="light" />
 <meta name="rating" content="general" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- Favicons / iconos / PWA -->
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="application-name" content="Colmédica" />
+<meta name="apple-mobile-web-app-title" content="Colmédica" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="msapplication-TileColor" content="#0058A2" />
+
+<!-- Precarga del fondo del hero (mejora LCP) -->
+<link rel="preload" as="image" href="hero-bg.jpg" fetchpriority="high" />
+
+<!-- Canonical + og:url autorreferenciados: portables, se resuelven al dominio donde se aloje la página (sin query ni hash) -->
+<script>
+  (function () {
+    var url = location.origin + location.pathname;
+    var link = document.createElement('link');
+    link.rel = 'canonical'; link.href = url;
+    document.head.appendChild(link);
+    var og = document.createElement('meta');
+    og.setAttribute('property', 'og:url'); og.setAttribute('content', url);
+    document.head.appendChild(og);
+  })();
+</script>
 
 <!-- Idioma / Geo (Colombia) -->
 <meta http-equiv="content-language" content="es-CO" />
@@ -2445,6 +2473,15 @@
   @media (max-width: 600px) {
     .terms-content { font-size: .78rem; }
   }
+
+  /* Accesibilidad: enlace "saltar al contenido" (visible solo con foco de teclado) */
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 2000;
+    background: #0058A2; color: #fff; padding: .7rem 1.1rem;
+    border-radius: 0 0 10px 0; font-weight: 700; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  }
+  .skip-link:focus { left: 0; outline: 3px solid #009FE3; outline-offset: 2px; }
 </style>
 
 <!-- =========== DATOS ESTRUCTURADOS (schema.org / JSON-LD) =========== -->
@@ -2539,6 +2576,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
 <!-- Progress bar -->
 <div id="scroll-progress"></div>
 
@@ -2601,7 +2640,7 @@
   </defs>
 </svg>
 
-<main>
+<main id="contenido">
 
 <!-- =========== HERO =========== -->
 <section class="hero">

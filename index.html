@@ -10,7 +10,10 @@
 <meta name="publisher" content="Colmédica Medicina Prepagada" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow" />
-<link rel="canonical" href="https://wearedatalab.github.io/colmedica-landing/" />
+<!-- TODO tras migración: definir el dominio final y añadir:
+     <link rel="canonical" href="https://DOMINIO-FINAL/..." />
+     <meta property="og:url" content="https://DOMINIO-FINAL/..." />
+     y convertir og:image / twitter:image a URL absoluta (algunas redes lo exigen). -->
 <meta name="theme-color" content="#0058A2" />
 <meta name="color-scheme" content="light" />
 <meta name="rating" content="general" />
@@ -21,17 +24,13 @@
 <meta name="geo.region" content="CO" />
 <meta name="geo.placename" content="Colombia" />
 <meta name="language" content="Spanish" />
-<link rel="alternate" hreflang="es-co" href="https://wearedatalab.github.io/colmedica-landing/" />
-<link rel="alternate" hreflang="x-default" href="https://wearedatalab.github.io/colmedica-landing/" />
 
 <!-- Open Graph (Facebook · LinkedIn · WhatsApp) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Colmédica Medicina Prepagada" />
 <meta property="og:title" content="Planes Colmédica | Medicina Prepagada con Respaldo Nacional" />
 <meta property="og:description" content="Más de 15 planes en 8 gamas, acceso directo a +100 especialidades, +35 Centros Médicos propios, cobertura nacional y asistencia internacional. Encuentra tu plan ideal en 30 segundos." />
-<meta property="og:url" content="https://wearedatalab.github.io/colmedica-landing/" />
-<meta property="og:image" content="https://wearedatalab.github.io/colmedica-landing/og-image.jpg" />
-<meta property="og:image:secure_url" content="https://wearedatalab.github.io/colmedica-landing/og-image.jpg" />
+<meta property="og:image" content="og-image.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -42,7 +41,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Planes Colmédica | Medicina Prepagada con Respaldo Nacional" />
 <meta name="twitter:description" content="Más de 15 planes en 8 gamas, +100 especialidades de acceso directo, +35 Centros Médicos propios, cobertura nacional y asistencia internacional." />
-<meta name="twitter:image" content="https://wearedatalab.github.io/colmedica-landing/og-image.jpg" />
+<meta name="twitter:image" content="og-image.jpg" />
 <meta name="twitter:image:alt" content="Colmédica — Medicina prepagada con respaldo nacional" />
 
 <!-- Red Hat Display (manual de marca) -->
@@ -2455,17 +2454,17 @@
   "@graph": [
     {
       "@type": ["MedicalOrganization", "Organization"],
-      "@id": "https://wearedatalab.github.io/colmedica-landing/#organization",
+      "@id": "#organization",
       "name": "Colmédica Medicina Prepagada",
       "alternateName": "Colmédica",
-      "url": "https://wearedatalab.github.io/colmedica-landing/",
+      "url": "https://www.colmedica.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://wearedatalab.github.io/colmedica-landing/colmedica-logo-white.png",
+        "url": "colmedica-logo-white.png",
         "width": 195,
         "height": 55
       },
-      "image": "https://wearedatalab.github.io/colmedica-landing/og-image.jpg",
+      "image": "og-image.jpg",
       "slogan": "En Colmédica te queremos bien",
       "description": "Colmédica es una compañía de medicina prepagada en Colombia con más de 15 planes en 8 gamas, acceso directo a más de 100 especialidades, más de 4.400 profesionales adscritos, 35 Centros Médicos, de Diagnóstico y Odontológicos propios, atención domiciliaria, cobertura nacional y asistencia internacional.",
       "areaServed": { "@type": "Country", "name": "Colombia" },
@@ -2488,43 +2487,41 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://wearedatalab.github.io/colmedica-landing/#website",
-      "url": "https://wearedatalab.github.io/colmedica-landing/",
+      "@id": "#website",
       "name": "Planes Colmédica",
       "inLanguage": "es-CO",
-      "publisher": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" }
+      "publisher": { "@id": "#organization" }
     },
     {
       "@type": "WebPage",
-      "@id": "https://wearedatalab.github.io/colmedica-landing/#webpage",
-      "url": "https://wearedatalab.github.io/colmedica-landing/",
+      "@id": "#webpage",
       "name": "Planes Colmédica | Medicina Prepagada con Respaldo Nacional",
       "description": "Conoce los planes de medicina prepagada Colmédica: más de 15 planes en 8 gamas, +100 especialidades de acceso directo, +35 Centros Médicos propios, cobertura nacional y asistencia internacional.",
-      "isPartOf": { "@id": "https://wearedatalab.github.io/colmedica-landing/#website" },
-      "about": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" },
-      "primaryImageOfPage": "https://wearedatalab.github.io/colmedica-landing/og-image.jpg",
+      "isPartOf": { "@id": "#website" },
+      "about": { "@id": "#organization" },
+      "primaryImageOfPage": "og-image.jpg",
       "inLanguage": "es-CO"
     },
     {
       "@type": "OfferCatalog",
-      "@id": "https://wearedatalab.github.io/colmedica-landing/#planes",
+      "@id": "#planes",
       "name": "Planes de medicina prepagada Colmédica",
-      "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" },
+      "provider": { "@id": "#organization" },
       "itemListElement": [
-        { "@type": "Offer", "name": "Plan Diamante", "category": "Medicina prepagada", "price": "428782", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Diamante", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Zafiro", "category": "Medicina prepagada", "price": "301786", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Zafiro", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Rubí", "category": "Medicina prepagada", "price": "257664", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Rubí", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Ámbar Vital", "category": "Medicina prepagada", "price": "154219", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Ámbar Vital", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Caobo Integral", "category": "Medicina prepagada", "price": "129687", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Caobo Integral", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Hospitalarios", "category": "Medicina prepagada", "price": "53122", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Hospitalarios", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Esmeralda Ambulatorio", "category": "Medicina prepagada", "price": "62432", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Esmeralda Ambulatorio", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Domiciliario Superior", "category": "Medicina prepagada", "price": "51255", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Domiciliario Superior", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } },
-        { "@type": "Offer", "name": "Plan Oncológico Vida Plus", "category": "Medicina prepagada", "price": "46989", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "https://wearedatalab.github.io/colmedica-landing/#planes", "itemOffered": { "@type": "Service", "name": "Plan Oncológico Vida Plus", "serviceType": "Medicina prepagada", "provider": { "@id": "https://wearedatalab.github.io/colmedica-landing/#organization" } } }
+        { "@type": "Offer", "name": "Plan Diamante", "category": "Medicina prepagada", "price": "428782", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Diamante", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Zafiro", "category": "Medicina prepagada", "price": "301786", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Zafiro", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Rubí", "category": "Medicina prepagada", "price": "257664", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Rubí", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Ámbar Vital", "category": "Medicina prepagada", "price": "154219", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Ámbar Vital", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Caobo Integral", "category": "Medicina prepagada", "price": "129687", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Caobo Integral", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Hospitalarios", "category": "Medicina prepagada", "price": "53122", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Hospitalarios", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Esmeralda Ambulatorio", "category": "Medicina prepagada", "price": "62432", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Esmeralda Ambulatorio", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Domiciliario Superior", "category": "Medicina prepagada", "price": "51255", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Domiciliario Superior", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } },
+        { "@type": "Offer", "name": "Plan Oncológico Vida Plus", "category": "Medicina prepagada", "price": "46989", "priceCurrency": "COP", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "url": "#planes", "itemOffered": { "@type": "Service", "name": "Plan Oncológico Vida Plus", "serviceType": "Medicina prepagada", "provider": { "@id": "#organization" } } }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://wearedatalab.github.io/colmedica-landing/#faq",
+      "@id": "#faq",
       "mainEntity": [
         { "@type": "Question", "name": "¿Qué es un plan de medicina prepagada?", "acceptedAnswer": { "@type": "Answer", "text": "La medicina prepagada es un plan voluntario de salud que se adquiere adicional a la EPS. Ofrece una red de atención más amplia, mejorando los tiempos para acceder tanto a servicios ambulatorios (citas médicas, exámenes, terapias) como a servicios hospitalarios que se prestan en una gran variedad de clínicas, incluyendo las más prestigiosas del país." } },
         { "@type": "Question", "name": "¿Para qué sirve la medicina prepagada?", "acceptedAnswer": { "@type": "Answer", "text": "Con la medicina prepagada tienes la tranquilidad de asegurar una atención en salud oportuna y de calidad. Según el plan contratado puedes elegir el día, la hora y el especialista, mejorar tu atención, acceder a servicios adicionales a tu PBS, hospitalización domiciliaria, nuevas tecnologías para exámenes y tratamientos, cobertura de enfermedades de alto costo, habitación individual en hospitalización y coberturas especiales para embarazo y parto." } },

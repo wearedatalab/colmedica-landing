@@ -3851,6 +3851,8 @@
   // para las demás se oculta la foto (no se muestra una imagen genérica/incorrecta).
   const CLINIC_PHOTO_BASE = 'https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/';
   const CLINIC_PHOTO_CITIES = new Set(['barranquilla','bogota','bucaramanga','cali','cartagena','chia','ibague','manizales','medellin','neiva','pereira','villavicencio','yopal']);
+  // Imagen genérica de clínica para las ciudades sin foto oficial
+  const CLINIC_PHOTO_GENERIC = 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=735&h=285&fit=crop&crop=entropy&q=80&auto=format';
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
@@ -3862,10 +3864,11 @@
       if (CLINIC_PHOTO_CITIES.has(city)) {
         cimg.src = CLINIC_PHOTO_BASE + city + '.png';
         cimg.alt = 'Clínicas Colmédica en ' + (CITY_LABELS[city] || city);
-        cimg.parentElement.style.display = '';
       } else {
-        cimg.parentElement.style.display = 'none';
+        cimg.src = CLINIC_PHOTO_GENERIC;
+        cimg.alt = 'Red de clínicas Colmédica';
       }
+      cimg.parentElement.style.display = '';
     }
 
     // Mostramos TODAS las clínicas + un ítem final "y muchas más"

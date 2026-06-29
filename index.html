@@ -3110,7 +3110,7 @@
     <!-- Card con listado de clínicas de la ciudad activa -->
     <div class="clinicas-card">
       <div class="clinicas-photo">
-        <img id="clinicasImg" src="https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/bogota.png" alt="Clínicas Colmédica en Bogotá" decoding="async">
+        <img id="clinicasImg" src="img-clinicas/bogota.png" alt="Clínicas Colmédica en Bogotá" decoding="async">
       </div>
       <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
       <ul class="clinicas-list-items" id="clinicasList"></ul>
@@ -3141,7 +3141,7 @@
     <!-- 🟦 INICIO BLOQUE DE FOTO — col-aside, entre la descripción y el botón.
          Toggle: ver clase centros--hide-photos en <section>. -->
     <div class="centros-photo" id="centrosPhoto">
-      <img id="centrosImg" src="https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/bogota.png" alt="Bogotá">
+      <img id="centrosImg" src="img-clinicas/bogota.png" alt="Bogotá">
       <div class="centros-photo-overlay">
         <h3 class="centros-photo-line">
           <span id="centrosCity">Bogotá</span>: <span id="centrosCount">14</span> Centros Colmédica
@@ -3849,10 +3849,10 @@
   };
   // Fotos oficiales de clínicas por ciudad (Colmédica). Solo existen para estas ciudades;
   // para las demás se oculta la foto (no se muestra una imagen genérica/incorrecta).
-  const CLINIC_PHOTO_BASE = 'https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/';
+  const CLINIC_PHOTO_BASE = 'img-clinicas/';
   const CLINIC_PHOTO_CITIES = new Set(['barranquilla','bogota','bucaramanga','cali','cartagena','chia','ibague','manizales','medellin','neiva','pereira','villavicencio','yopal']);
-  // Imagen genérica de clínica para las ciudades sin foto oficial
-  const CLINIC_PHOTO_GENERIC = 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=735&h=285&fit=crop&crop=entropy&q=80&auto=format';
+  // Imagen genérica de clínica para las ciudades sin foto oficial (local)
+  const CLINIC_PHOTO_GENERIC = 'img-clinicas/generica.jpg';
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
@@ -4085,15 +4085,11 @@
   }
 
   // ===== Centros Médicos
-  // ── Imágenes demo de centros médicos — mismo tamaño (800x500) y temática coherente
-  const DEMO_IMG = (seed) =>
-    `https://images.unsplash.com/${seed}?w=800&h=500&fit=crop&crop=entropy&q=80&auto=format`;
 
   // Datos de centros por ciudad — orden alfabético, cantidades igual al sitio original
   const CENTROS = {
     barranquilla: {
       nombre: 'Barranquilla', cantidad: 2, desc: 'Atención en la costa atlántica',
-      img: DEMO_IMG('photo-1516549655169-df83a0774514'),
       medicos: ['Centro Médico Colmédica Barranquilla'],
       odontologicos: ['Centro Odontológico Colmédica Barranquilla'],
       diagnostico: []
@@ -4101,84 +4097,72 @@
     bogota: {
       nombre: 'Bogotá', cantidad: 23,
       desc: 'Red completa: médicos, odontológicos y diagnóstico',
-      img: DEMO_IMG('photo-1519494026892-80bbd2d6fd0d'),
       medicos: ['Belaire','Bulevar Niza','Calle 185','Cedritos','Chapinero','Colina Campestre','Country Park','Metrópolis','Plaza Central','Salitre Capital','Suba','Torre Colmédica Santa Bárbara','Unicentro de Occidente','Zafiro Usaquén'],
       odontologicos: ['Belaire','Calle 84','Cedritos','Chapinero','Salitre Capital','Torre Colmédica Santa Bárbara'],
       diagnostico: ['Bella Suiza','Calle 84','Torre Colmédica Santa Bárbara']
     },
     bucaramanga: {
       nombre: 'Bucaramanga', cantidad: 2, desc: 'Servicios en Santander',
-      img: DEMO_IMG('photo-1587351021355-a479a299d2f9'),
       medicos: ['Centro Médico Colmédica Bucaramanga'],
       odontologicos: ['Centro Odontológico Colmédica Bucaramanga'],
       diagnostico: []
     },
     cali: {
       nombre: 'Cali', cantidad: 3, desc: 'Servicios médicos en el Valle del Cauca',
-      img: DEMO_IMG('photo-1504813184591-01572f98c85f'),
       medicos: ['Centro Médico Colmédica Cali Norte','Centro Médico Colmédica Cali Sur'],
       odontologicos: ['Centro Odontológico Colmédica Cali'],
       diagnostico: []
     },
     cartagena: {
       nombre: 'Cartagena', cantidad: 2, desc: 'Atención en la ciudad heroica',
-      img: DEMO_IMG('photo-1586773860418-d37222d8fce3'),
       medicos: ['Centro Médico Colmédica Cartagena'],
       odontologicos: ['Centro Odontológico Colmédica Cartagena'],
       diagnostico: []
     },
     chia: {
       nombre: 'Chía', cantidad: 2, desc: 'Centro médico en Cundinamarca',
-      img: DEMO_IMG('photo-1579684385127-1ef15d508118'),
       medicos: ['Centro Médico Colmédica Chía'],
       odontologicos: ['Centro Odontológico Colmédica Chía'],
       diagnostico: []
     },
     ibague: {
       nombre: 'Ibagué', cantidad: 1, desc: 'Capital musical con atención Colmédica',
-      img: DEMO_IMG('photo-1551076805-e1869033e561'),
       medicos: ['Centro Médico Colmédica Ibagué'],
       odontologicos: [],
       diagnostico: []
     },
     manizales: {
       nombre: 'Manizales', cantidad: 1, desc: 'Atención en el eje cafetero',
-      img: DEMO_IMG('photo-1504439468489-c8920d796a29'),
       medicos: ['Centro Médico Colmédica Manizales'],
       odontologicos: [],
       diagnostico: []
     },
     medellin: {
       nombre: 'Medellín', cantidad: 3, desc: 'Atención integral en el Valle de Aburrá',
-      img: DEMO_IMG('photo-1538108149393-fbbd81895907'),
       medicos: ['Centro Médico Colmédica El Poblado','Centro Médico Colmédica Laureles'],
       odontologicos: ['Centro Odontológico Colmédica Medellín'],
       diagnostico: []
     },
     neiva: {
       nombre: 'Neiva', cantidad: 1, desc: 'Servicios en el Huila',
-      img: DEMO_IMG('photo-1542884748-2b87b36c6b90'),
       medicos: ['Centro Médico Colmédica Neiva'],
       odontologicos: [],
       diagnostico: []
     },
     pereira: {
       nombre: 'Pereira', cantidad: 1, desc: 'Atención en el eje cafetero',
-      img: DEMO_IMG('photo-1519494080410-f9aa76cb4283'),
       medicos: ['Centro Médico Colmédica Pereira'],
       odontologicos: [],
       diagnostico: []
     },
     villavicencio: {
       nombre: 'Villavicencio', cantidad: 2, desc: 'Servicios médicos en los Llanos',
-      img: DEMO_IMG('photo-1504439904031-93ded9f93e4e'),
       medicos: ['Centro Médico Colmédica Villavicencio'],
       odontologicos: ['Centro Odontológico Colmédica Villavicencio'],
       diagnostico: []
     },
     yopal: {
       nombre: 'Yopal', cantidad: 1, desc: 'Centro médico en Casanare',
-      img: DEMO_IMG('photo-1551836022-d5d88e9218df'),
       medicos: ['Centro Médico Colmédica Yopal'],
       odontologicos: [],
       diagnostico: []
@@ -4188,10 +4172,7 @@
   function renderCentros(city) {
     const d = CENTROS[city];
     if (!d) return;
-    document.getElementById('centrosImg').src =
-      (typeof CLINIC_PHOTO_CITIES !== 'undefined' && CLINIC_PHOTO_CITIES.has(city))
-        ? (CLINIC_PHOTO_BASE + city + '.png')   // foto oficial Colmédica por ciudad
-        : d.img;
+    document.getElementById('centrosImg').src = CLINIC_PHOTO_BASE + city + '.png';   // foto local por ciudad
     document.getElementById('centrosImg').alt = d.nombre;
     document.getElementById('centrosCity').textContent = d.nombre;
     document.getElementById('centrosCount').textContent = d.cantidad;

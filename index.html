@@ -1538,16 +1538,16 @@
     color: #fff; background: var(--blue-serenidad);
     flex-shrink: 0;
   }
-  /* Modal head con colores oficiales del manual (Azul Serenidad / Azul Vital / Rojo Bienestar) */
-  .modal-head[data-gama="diamante"]    { background: linear-gradient(135deg, #002a51, #0058A2); }
-  .modal-head[data-gama="zafiro"]      { background: linear-gradient(135deg, #0058A2, #003e73); }
-  .modal-head[data-gama="rubi"]        { background: linear-gradient(135deg, #E30613, #a8000a); }
-  .modal-head[data-gama="esmeralda"]   { background: linear-gradient(135deg, #009FE3, #0079b3); }
-  .modal-head[data-gama="domiciliario"]{ background: linear-gradient(135deg, #4fb8ea, #009FE3); }
-  .modal-head[data-gama="oncologico"]  { background: linear-gradient(135deg, #1f4a9e, #4570c5); }
-  .modal-head[data-gama="hospitalarios"]{ background: linear-gradient(135deg, #5a8bd0, #84a6e0); }
-  .modal-head[data-gama="caobo"]       { background: linear-gradient(135deg, #4a7bc8, #6a96d8); }
-  .modal-head[data-gama="ambar"]       { background: linear-gradient(135deg, #6c8be0, #8ca6e8); }
+  /* La cabecera del modal usa EXACTAMENTE el mismo color de la tarjeta (--plan-bg) de cada gama */
+  .modal-head[data-gama="diamante"]    { background: linear-gradient(135deg, #0b1222 0%, #1a2340 100%); }
+  .modal-head[data-gama="zafiro"]      { background: linear-gradient(135deg, #091d42 0%, #14316c 100%); }
+  .modal-head[data-gama="rubi"]        { background: linear-gradient(135deg, #8a5712 0%, #c18d34 100%); }
+  .modal-head[data-gama="esmeralda"]   { background: linear-gradient(135deg, #1a4fa8 0%, #3b72d6 100%); }
+  .modal-head[data-gama="domiciliario"]{ background: linear-gradient(135deg, #2856bb 0%, #5e85e8 100%); }
+  .modal-head[data-gama="oncologico"]  { background: linear-gradient(135deg, #1f4a9e 0%, #4570c5 100%); }
+  .modal-head[data-gama="hospitalarios"]{ background: linear-gradient(135deg, #5a8bd0 0%, #84a6e0 100%); }
+  .modal-head[data-gama="caobo"]       { background: linear-gradient(135deg, #4a7bc8 0%, #6a96d8 100%); }
+  .modal-head[data-gama="ambar"]       { background: linear-gradient(135deg, #6c8be0 0%, #8ca6e8 100%); }
 
   .modal-close {
     position: absolute; top: 14px; right: 14px; width: 36px; height: 36px;

@@ -932,9 +932,16 @@
     max-width: 620px; margin: 0 auto;
   }
   .clinicas-card h4 {
-    font-size: .8rem; font-weight: 700; color: var(--blue-serenidad);
-    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 1rem;
+    font-size: 1.05rem; font-weight: 900; color: var(--blue-vital);
+    text-transform: uppercase; letter-spacing: .8px; margin-bottom: 1.1rem;
+    text-align: center;
   }
+  /* Foto de la ciudad activa (reutiliza las imágenes de Centros Médicos) */
+  .clinicas-photo {
+    border-radius: 12px; overflow: hidden; margin-bottom: 1.2rem;
+    aspect-ratio: 16 / 7; background: #e8eef5;
+  }
+  .clinicas-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   /* Listado de clínicas en 2 columnas — los <li> fluyen verticalmente
      dentro de cada columna gracias a CSS columns */
   .clinicas-list-items {
@@ -3105,6 +3112,9 @@
 
     <!-- Card con listado de clínicas de la ciudad activa -->
     <div class="clinicas-card">
+      <div class="clinicas-photo">
+        <img id="clinicasImg" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=400&fit=crop&crop=entropy&q=80&auto=format" alt="Bogotá" loading="lazy">
+      </div>
       <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
       <ul class="clinicas-list-items" id="clinicasList"></ul>
     </div>
@@ -3840,12 +3850,27 @@
     pereira: 'Pereira', santamarta: 'Santa Marta', valledupar: 'Valledupar',
     villavicencio: 'Villavicencio', yopal: 'Yopal',
   };
+  // Fotos por ciudad — reutiliza las mismas imágenes de Centros Médicos.
+  // Las ciudades que solo existen en Clínicas usan una foto genérica de clínica.
+  const clinImg = s => `https://images.unsplash.com/${s}?w=800&h=400&fit=crop&crop=entropy&q=80&auto=format`;
+  const CLINICAS_IMG = {
+    bogota: 'photo-1519494026892-80bbd2d6fd0d', barranquilla: 'photo-1516549655169-df83a0774514',
+    bucaramanga: 'photo-1587351021355-a479a299d2f9', cali: 'photo-1504813184591-01572f98c85f',
+    cartagena: 'photo-1586773860418-d37222d8fce3', chia: 'photo-1579684385127-1ef15d508118',
+    ibague: 'photo-1551076805-e1869033e561', manizales: 'photo-1504439468489-c8920d796a29',
+    medellin: 'photo-1538108149393-fbbd81895907', neiva: 'photo-1542884748-2b87b36c6b90',
+    pereira: 'photo-1519494080410-f9aa76cb4283', villavicencio: 'photo-1504439904031-93ded9f93e4e',
+    yopal: 'photo-1551836022-d5d88e9218df'
+  };
+  const CLINICAS_IMG_DEFAULT = 'photo-1516549655169-df83a0774514';
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
     const title = document.getElementById('clinicasCityTitle');
     if (!list || !title) return;
     title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
+    const cimg = document.getElementById('clinicasImg');
+    if (cimg) { cimg.src = clinImg(CLINICAS_IMG[city] || CLINICAS_IMG_DEFAULT); cimg.alt = CITY_LABELS[city] || city; }
 
     // Mostramos TODAS las clínicas + un ítem final "y muchas más"
     // (igual que la landing original — siempre aparece al final de cada ciudad)
@@ -4492,6 +4517,8 @@
     document.getElementById('modalFeatures').innerHTML = p.features.map(f =>
       `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>${f}</li>`
     ).join('');
+    const mfBtn = document.querySelector('.modal-footer a.btn-primary');
+    if (mfBtn && window.colmedicaAfiliacionUrl) mfBtn.href = window.colmedicaAfiliacionUrl(key);
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('no-scroll');
@@ -4953,6 +4980,7 @@
       $('qzResultName').textContent = plan.gama || plan.name || 'Plan';
       $('qzResultTag').textContent  = plan.tagline || '';
       $('qzResultPrice').textContent = plan.price || '';
+      if (window.colmedicaAfiliacionUrl && $('qzResultAfiliar')) $('qzResultAfiliar').href = window.colmedicaAfiliacionUrl(planKey);
 
       const uniq = [...chosen].filter(c => planCovs.includes(c));
       const extras = planCovs.filter(c => !uniq.includes(c));
@@ -5053,6 +5081,53 @@
         if (target) target.open = true;
       });
     });
+  })();
+
+  // ===== Enlaces de afiliación (S3) — paso de UTM de la página + plan por gama
+  //  • Si la página llega CON UTM  →  https://colmedica.s3.us-east-2.amazonaws.com/index.html + esa UTM
+  //  • Si la página llega SIN UTM   →  URL por defecto según la gama:
+  //       premium (Diamante/Zafiro/Rubí) → plan=2 · medios (Ámbar/Caobo/Hospitalarios) → plan=7 · livianos (Esmeralda/Domiciliario/Oncológico) → plan=1
+  (function(){
+    const BASE = 'https://colmedica.s3.us-east-2.amazonaws.com/index.html';
+    const PLAN_PARAMS = {
+      premium:  'plan=2&subplan=03&crm=Organico&crm-sub=Landing-completos&utm_source=Directo&utm_medium=Directo',
+      medios:   'plan=7&subplan=03&crm=Organico&crm-sub=Landing-completos&utm_source=Directo&utm_medium=Directo',
+      livianos: 'plan=1&subplan=03&crm=Organico&crm-sub=Landing-completos&utm_source=Directo&utm_medium=Directo'
+    };
+    const GAMA_GROUP = {
+      diamante: 'premium', zafiro: 'premium', rubi: 'premium',
+      ambar: 'medios', caobo: 'medios', hospitalarios: 'medios',
+      esmeralda: 'livianos', domiciliario: 'livianos', oncologico: 'livianos'
+    };
+    function buildUrl(group){
+      const qs = location.search || '';
+      if (/[?&]utm_[a-z]+=/i.test(qs)) return BASE + qs;           // la página trae UTM → conservarla
+      return BASE + '?' + (PLAN_PARAMS[group] || PLAN_PARAMS.premium);
+    }
+    // Disponible para el modal de plan y el resultado del quiz (enlaces dinámicos)
+    window.colmedicaAfiliacionUrl = (gama) => buildUrl(GAMA_GROUP[gama] || 'premium');
+    // Reescribir todos los CTA estáticos que apuntan al sitio genérico
+    document.querySelectorAll('a[href="https://www.colmedica.com"]').forEach(a => {
+      const card = a.closest('.plan-card');
+      a.href = (card && a.classList.contains('btn-plan-cotizar'))
+        ? buildUrl(GAMA_GROUP[card.dataset.gama] || 'premium')
+        : buildUrl('premium');
+    });
+  })();
+
+  // ===== Centrar el tab de la ciudad activa (Bogotá) en Clínicas y Centros.
+  // Se ejecuta tras cargar las fuentes/layout (las fuentes web cambian el ancho de los tabs).
+  (function(){
+    function center(id, sel){
+      const cont = document.getElementById(id); if (!cont) return;
+      const act = cont.querySelector(sel); if (!act) return;
+      const cr = cont.getBoundingClientRect(), ar = act.getBoundingClientRect();
+      cont.scrollLeft += (ar.left - cr.left) - (cr.width - ar.width) / 2;
+    }
+    function run(){ center('clinicasTabs', '.clinicas-tab.active'); center('centrosTabs', '.centros-tab.active'); }
+    requestAnimationFrame(run);
+    window.addEventListener('load', run);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
   })();
 
 

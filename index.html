@@ -939,7 +939,7 @@
   /* Foto de la ciudad activa (reutiliza las imágenes de Centros Médicos) */
   .clinicas-photo {
     border-radius: 12px; overflow: hidden; margin-bottom: 1.2rem;
-    aspect-ratio: 16 / 7; background: #e8eef5;
+    aspect-ratio: 49 / 19; background: #e8eef5;
   }
   .clinicas-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   /* Listado de clínicas en 2 columnas — los <li> fluyen verticalmente
@@ -3113,7 +3113,7 @@
     <!-- Card con listado de clínicas de la ciudad activa -->
     <div class="clinicas-card">
       <div class="clinicas-photo">
-        <img id="clinicasImg" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=400&fit=crop&crop=entropy&q=80&auto=format" alt="Bogotá" loading="lazy">
+        <img id="clinicasImg" src="https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/bogota.png" alt="Clínicas Colmédica en Bogotá" decoding="async">
       </div>
       <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
       <ul class="clinicas-list-items" id="clinicasList"></ul>
@@ -3850,19 +3850,10 @@
     pereira: 'Pereira', santamarta: 'Santa Marta', valledupar: 'Valledupar',
     villavicencio: 'Villavicencio', yopal: 'Yopal',
   };
-  // Fotos por ciudad — reutiliza las mismas imágenes de Centros Médicos.
-  // Las ciudades que solo existen en Clínicas usan una foto genérica de clínica.
-  const clinImg = s => `https://images.unsplash.com/${s}?w=800&h=400&fit=crop&crop=entropy&q=80&auto=format`;
-  const CLINICAS_IMG = {
-    bogota: 'photo-1519494026892-80bbd2d6fd0d', barranquilla: 'photo-1516549655169-df83a0774514',
-    bucaramanga: 'photo-1587351021355-a479a299d2f9', cali: 'photo-1504813184591-01572f98c85f',
-    cartagena: 'photo-1586773860418-d37222d8fce3', chia: 'photo-1579684385127-1ef15d508118',
-    ibague: 'photo-1551076805-e1869033e561', manizales: 'photo-1504439468489-c8920d796a29',
-    medellin: 'photo-1538108149393-fbbd81895907', neiva: 'photo-1542884748-2b87b36c6b90',
-    pereira: 'photo-1519494080410-f9aa76cb4283', villavicencio: 'photo-1504439904031-93ded9f93e4e',
-    yopal: 'photo-1551836022-d5d88e9218df'
-  };
-  const CLINICAS_IMG_DEFAULT = 'photo-1516549655169-df83a0774514';
+  // Fotos oficiales de clínicas por ciudad (Colmédica). Solo existen para estas ciudades;
+  // para las demás se oculta la foto (no se muestra una imagen genérica/incorrecta).
+  const CLINIC_PHOTO_BASE = 'https://www.colmedica.com/paginas/landings/planes/images/img-clinicas/';
+  const CLINIC_PHOTO_CITIES = new Set(['barranquilla','bogota','bucaramanga','cali','cartagena','chia','ibague','manizales','medellin','neiva','pereira','villavicencio','yopal']);
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');
@@ -3870,7 +3861,15 @@
     if (!list || !title) return;
     title.textContent = 'Clínicas en ' + (CITY_LABELS[city] || city);
     const cimg = document.getElementById('clinicasImg');
-    if (cimg) { cimg.src = clinImg(CLINICAS_IMG[city] || CLINICAS_IMG_DEFAULT); cimg.alt = CITY_LABELS[city] || city; }
+    if (cimg && cimg.parentElement) {
+      if (CLINIC_PHOTO_CITIES.has(city)) {
+        cimg.src = CLINIC_PHOTO_BASE + city + '.png';
+        cimg.alt = 'Clínicas Colmédica en ' + (CITY_LABELS[city] || city);
+        cimg.parentElement.style.display = '';
+      } else {
+        cimg.parentElement.style.display = 'none';
+      }
+    }
 
     // Mostramos TODAS las clínicas + un ítem final "y muchas más"
     // (igual que la landing original — siempre aparece al final de cada ciudad)

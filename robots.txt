@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Tras definir el dominio final, añade aquí la línea del sitemap, p. ej.:
-# Sitemap: https://DOMINIO-FINAL/sitemap.xml

@@ -19,10 +19,10 @@
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <!-- Favicons / iconos / PWA -->
-<link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="icon" href="fotos/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="fotos/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="fotos/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="fotos/apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
 <meta name="application-name" content="Colmédica" />
 <meta name="apple-mobile-web-app-title" content="Colmédica" />
@@ -32,7 +32,7 @@
 <meta name="msapplication-TileColor" content="#0058A2" />
 
 <!-- Precarga del fondo del hero (mejora LCP) -->
-<link rel="preload" as="image" href="hero-bg.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="fotos/hero-bg.jpg" fetchpriority="high" />
 
 <!-- Canonical + og:url autorreferenciados: portables, se resuelven al dominio donde se aloje la página (sin query ni hash) -->
 <script>
@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Colmédica Medicina Prepagada" />
 <meta property="og:title" content="Planes Colmédica | Medicina Prepagada con Respaldo Nacional" />
 <meta property="og:description" content="Más de 15 planes en 8 gamas, acceso directo a +100 especialidades, +35 Centros Médicos propios, cobertura nacional y asistencia en viajes en el exterior. Encuentra tu plan ideal en 30 segundos." />
-<meta property="og:image" content="og-image.jpg" />
+<meta property="og:image" content="fotos/og-image.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -69,7 +69,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Planes Colmédica | Medicina Prepagada con Respaldo Nacional" />
 <meta name="twitter:description" content="Más de 15 planes en 8 gamas, +100 especialidades de acceso directo, +35 Centros Médicos propios, cobertura nacional y asistencia en viajes en el exterior." />
-<meta name="twitter:image" content="og-image.jpg" />
+<meta name="twitter:image" content="fotos/og-image.jpg" />
 <meta name="twitter:image:alt" content="Colmédica — Medicina prepagada con respaldo nacional" />
 
 <!-- Red Hat Display (manual de marca) -->
@@ -318,7 +318,7 @@
     /* Foto de fondo + overlay azul oscuro encima */
     background:
       linear-gradient(180deg, rgba(0,30,70,.78) 0%, rgba(0,42,81,.82) 100%),
-      url('hero-bg.jpg') center / cover no-repeat;
+      url('fotos/hero-bg.jpg') center / cover no-repeat;
   }
   .hero::before {
     content:''; position: absolute; inset:0;
@@ -2596,7 +2596,7 @@
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
     <a href="#" class="logo-link" aria-label="Colmédica inicio">
-      <img src="colmedica-logo-white.png" alt="Colmédica" class="brand-logo">
+      <img src="fotos/colmedica-logo-white.png" alt="Colmédica" class="brand-logo">
     </a>
 
     <nav class="main-nav">
@@ -2720,17 +2720,17 @@
     <div class="promo-slider-wrap">
       <div class="promo-slider" id="promoSlider">
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Si resides en Bogotá o Chía y tienes menos de 65 años, podrás afiliarte al plan Zafiro Exclusivo con una tarifa especial">
-          <img src="banner-promo-1.png"
+          <img src="fotos/banner-promo-1.png"
                alt="Si resides en Bogotá o Chía y tienes menos de 65 años, ¡podrás afiliarte al plan Zafiro Exclusivo con una tarifa especial!"
                loading="lazy">
         </a>
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Si eres mujer entre los 15 y 44 años, afíliate a medicina prepagada con tarifa especial">
-          <img src="banner-promo-2.jpg"
+          <img src="fotos/banner-promo-2.jpg"
                alt="Si eres mujer entre los 15 y 44 años, ¡afíliate a medicina prepagada con tarifa especial! Aplica para los planes Diamante Élite Superior, Diamante Élite, Zafiro Élite Superior y Zafiro Élite"
                loading="lazy">
         </a>
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Protege a tu familia sin salir de casa con el plan Domiciliario Superior">
-          <img src="banner-promo-3.jpg"
+          <img src="fotos/banner-promo-3.jpg"
                alt="Protege a tu familia sin salir de casa con el plan Domiciliario Superior. Adquiérelo con una tarifa especial de $51.255 mensuales"
                loading="lazy">
         </a>
@@ -3110,7 +3110,7 @@
     <!-- Card con listado de clínicas de la ciudad activa -->
     <div class="clinicas-card">
       <div class="clinicas-photo">
-        <img id="clinicasImg" src="img-clinicas/bogota.png" alt="Clínicas Colmédica en Bogotá" decoding="async">
+        <img id="clinicasImg" src="fotos/img-clinicas/bogota.png" alt="Clínicas Colmédica en Bogotá" decoding="async">
       </div>
       <h4 id="clinicasCityTitle">Clínicas en Bogotá</h4>
       <ul class="clinicas-list-items" id="clinicasList"></ul>
@@ -3141,7 +3141,7 @@
     <!-- 🟦 INICIO BLOQUE DE FOTO — col-aside, entre la descripción y el botón.
          Toggle: ver clase centros--hide-photos en <section>. -->
     <div class="centros-photo" id="centrosPhoto">
-      <img id="centrosImg" src="img-clinicas/bogota.png" alt="Bogotá">
+      <img id="centrosImg" src="fotos/img-clinicas/bogota.png" alt="Bogotá">
       <div class="centros-photo-overlay">
         <h3 class="centros-photo-line">
           <span id="centrosCity">Bogotá</span>: <span id="centrosCount">14</span> Centros Colmédica
@@ -3581,10 +3581,10 @@
     <div class="footer-grid">
       <div class="footer-logos">
         <span class="footer-logo-main" aria-label="Colmédica">
-          <img src="colmedica-logo-white.png" alt="Colmédica" class="brand-logo-footer">
+          <img src="fotos/colmedica-logo-white.png" alt="Colmédica" class="brand-logo-footer">
         </span>
         <a href="https://www.supersalud.gov.co/es-co" target="_blank" class="footer-supersalud" aria-label="Vigilado Supersalud">
-          <img src="supersalud.png" alt="Vigilado Supersalud">
+          <img src="fotos/supersalud.png" alt="Vigilado Supersalud">
         </a>
       </div>
 
@@ -3849,10 +3849,10 @@
   };
   // Fotos oficiales de clínicas por ciudad (Colmédica). Solo existen para estas ciudades;
   // para las demás se oculta la foto (no se muestra una imagen genérica/incorrecta).
-  const CLINIC_PHOTO_BASE = 'img-clinicas/';
+  const CLINIC_PHOTO_BASE = 'fotos/img-clinicas/';
   const CLINIC_PHOTO_CITIES = new Set(['barranquilla','bogota','bucaramanga','cali','cartagena','chia','ibague','manizales','medellin','neiva','pereira','villavicencio','yopal']);
   // Imagen genérica de clínica para las ciudades sin foto oficial (local)
-  const CLINIC_PHOTO_GENERIC = 'img-clinicas/generica.jpg';
+  const CLINIC_PHOTO_GENERIC = 'fotos/img-clinicas/generica.jpg';
   function renderClinicas(city) {
     const items = CLINICAS[city] || [];
     const list = document.getElementById('clinicasList');

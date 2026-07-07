@@ -1402,12 +1402,13 @@
     display: block;
     transition: opacity .25s var(--ease);
   }
+  .promo-slide picture { display: block; width: 100%; }
   .promo-slide img {
     display: block;
     width: 100%;
-    height: auto;
+    height: auto;            /* la imagen define el alto: horizontal en escritorio, cuadrada en móvil */
     object-fit: cover;
-    pointer-events: none; /* el click va al <a> padre, no a la img */
+    pointer-events: none;    /* el click va al <a> padre, no a la img */
   }
   /* Flechas */
   .promo-arrow {
@@ -2712,22 +2713,50 @@
 <section class="promo-banner" aria-label="Promociones Colmédica">
   <div class="wrap">
     <div class="promo-slider-wrap">
+      <!-- ═══════════════════════════════════════════════════════════════════════════════
+           BANNER PROMOCIONAL — carrusel de slides. Cada slide tiene DOS imágenes:
+             • 💻 ESCRITORIO (horizontal)      -> planes/fotos/banner-N-desktop.(png|jpg)
+             • 📱 MÓVIL (cuadrada / vertical)  -> planes/fotos/banner-N-movil.jpg
+           La imagen MÓVIL se muestra sola en pantallas de ancho <= 640px (celulares).
+           En pantallas más grandes se muestra la de ESCRITORIO.
+
+           CÓMO CAMBIAR UNA IMAGEN:  reemplaza el archivo con el MISMO nombre dentro de
+           la carpeta  planes/fotos/  (no necesitas tocar este código).
+           CÓMO AGREGAR/QUITAR UN SLIDE:  copia o borra un bloque  <a class="promo-slide"> ... </a>  completo.
+           Para cambiar en qué ancho salta a móvil, edita  (max-width: 640px)  en cada <source>.
+           ═══════════════════════════════════════════════════════════════════════════════ -->
       <div class="promo-slider" id="promoSlider">
+
+        <!-- ───────────── Slide 1 ───────────── -->
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Si resides en Bogotá o Chía y tienes menos de 65 años, podrás afiliarte al plan Zafiro Exclusivo con una tarifa especial">
-          <img src="planes/fotos/banner-promo-1.png"
-               alt="Si resides en Bogotá o Chía y tienes menos de 65 años, ¡podrás afiliarte al plan Zafiro Exclusivo con una tarifa especial!"
-               loading="lazy">
+          <picture>
+            <source media="(max-width: 640px)" srcset="planes/fotos/banner-1-movil.jpg">   <!-- 📱 imagen para MÓVIL -->
+            <img src="planes/fotos/banner-1-desktop.png"                                     <!-- 💻 imagen para ESCRITORIO -->
+                 alt="Si resides en Bogotá o Chía y tienes menos de 65 años, ¡podrás afiliarte al plan Zafiro Exclusivo con una tarifa especial!"
+                 loading="lazy">
+          </picture>
         </a>
+
+        <!-- ───────────── Slide 2 ───────────── -->
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Si eres mujer entre los 15 y 44 años, afíliate a medicina prepagada con tarifa especial">
-          <img src="planes/fotos/banner-promo-2.jpg"
-               alt="Si eres mujer entre los 15 y 44 años, ¡afíliate a medicina prepagada con tarifa especial! Aplica para los planes Diamante Élite Superior, Diamante Élite, Zafiro Élite Superior y Zafiro Élite"
-               loading="lazy">
+          <picture>
+            <source media="(max-width: 640px)" srcset="planes/fotos/banner-2-movil.jpg">   <!-- 📱 imagen para MÓVIL -->
+            <img src="planes/fotos/banner-2-desktop.jpg"                                     <!-- 💻 imagen para ESCRITORIO -->
+                 alt="Si eres mujer entre los 15 y 44 años, ¡afíliate a medicina prepagada con tarifa especial! Aplica para los planes Diamante Élite Superior, Diamante Élite, Zafiro Élite Superior y Zafiro Élite"
+                 loading="lazy">
+          </picture>
         </a>
+
+        <!-- ───────────── Slide 3 ───────────── -->
         <a href="https://www.colmedica.com" target="_blank" class="promo-slide" aria-label="Protege a tu familia sin salir de casa con el plan Domiciliario Superior">
-          <img src="planes/fotos/banner-promo-3.jpg"
-               alt="Protege a tu familia sin salir de casa con el plan Domiciliario Superior. Adquiérelo con una tarifa especial de $51.255 mensuales"
-               loading="lazy">
+          <picture>
+            <source media="(max-width: 640px)" srcset="planes/fotos/banner-3-movil.jpg">   <!-- 📱 imagen para MÓVIL -->
+            <img src="planes/fotos/banner-3-desktop.jpg"                                     <!-- 💻 imagen para ESCRITORIO -->
+                 alt="Protege a tu familia sin salir de casa con el plan Domiciliario Superior. Adquiérelo con una tarifa especial de $51.255 mensuales"
+                 loading="lazy">
+          </picture>
         </a>
+
       </div>
       <button class="promo-arrow prev" id="promoPrev" aria-label="Anterior">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>

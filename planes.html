@@ -5072,6 +5072,17 @@
         ? buildUrl(GAMA_GROUP[card.dataset.gama] || 'premium')
         : buildUrl('premium');
     });
+
+    // Abrir la afiliación en una ventana emergente vertical (igual que la landing oficial).
+    // Cubre todos los botones que apuntan al formulario S3 (CTA, tarjetas de plan, modal, quiz).
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest('a[href^="' + BASE + '"]');
+      if (!a) return;
+      e.preventDefault();
+      const w = window.open(a.href, '', 'width=550,height=800,left=50,top=50,toolbar=yes');
+      if (w) { try { w.focus(); } catch (_) {} }
+      else { window.open(a.href, '_blank'); }   // si el navegador bloquea el popup, abre en pestaña
+    });
   })();
 
   // ===== Centrar el tab de la ciudad activa (Bogotá) en Clínicas y Centros.

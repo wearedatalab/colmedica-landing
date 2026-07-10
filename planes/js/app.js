@@ -1412,7 +1412,9 @@
     };
     function buildUrl(group){
       const qs = location.search || '';
-      if (/[?&]utm_[a-z]+=/i.test(qs)) return BASE + qs;           // la página trae UTM → conservarla
+      // Si la página llega con CUALQUIER parámetro en la URL (UTM, gclid, fbclid, etc. de una pauta),
+      // se conserva tal cual en el botón. Solo si NO hay parámetros se usa la URL por defecto de la gama.
+      if (qs) return BASE + qs;
       return BASE + '?' + (PLAN_PARAMS[group] || PLAN_PARAMS.premium);
     }
     // Disponible para el modal de plan y el resultado del quiz (enlaces dinámicos)
